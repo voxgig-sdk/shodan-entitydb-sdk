@@ -1,0 +1,36 @@
+# Guide
+
+guide: {
+  metrics: count: entity: 4
+  metrics: count: path: 5
+  metrics: count: method: 5
+
+  entity: entity: {
+    path: "/api/entities": {
+      op: list: method: *GET
+    }
+    path: "/api/entities/{id}": {
+      op: load: method: *GET
+      op: load: transform: res: *("`body.entity`")|top
+    }
+  }
+
+  entity: entity_full_info: {
+    path: "/api/entities/symbol/{symbol}": {
+      op: load: method: *GET
+    }
+  }
+
+  entity: health_check: {
+    path: "/health_check": {
+      op: load: method: *GET
+    }
+  }
+
+  entity: last_update: {
+    path: "/api/last_updated": {
+      op: load: method: *GET
+    }
+  }
+
+}

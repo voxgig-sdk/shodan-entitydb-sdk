@@ -1,0 +1,947 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Shodan Business Entities",
+    "termsOfService": "https://static.shodan.io/legal/terms.html",
+    "contact": {
+      "name": "Shodan Team",
+      "url": "https://twitter.com/shodanhq",
+      "email": "support@shodan.io"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://entitydb.shodan.io"
+    }
+  ],
+  "paths": {
+    "/api/last_updated": {
+      "get": {
+        "tags": [
+          "API"
+        ],
+        "summary": "Get Latest Database Built",
+        "operationId": "get_latest_database_built_api_last_updated_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LastUpdateResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/entities": {
+      "get": {
+        "tags": [
+          "API"
+        ],
+        "summary": "Get All Entities",
+        "description": "Get all entities",
+        "operationId": "get_all_entities_api_entities_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntitiesResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/entities/{id}": {
+      "get": {
+        "tags": [
+          "API"
+        ],
+        "summary": "Get Entity Information In Json Format",
+        "operationId": "Get_entity_information_in_JSON_format_api_entities__id__get",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Id"
+            },
+            "example": 3
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntityFullInfoResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPError"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/entities/symbol/{symbol}": {
+      "get": {
+        "tags": [
+          "API"
+        ],
+        "summary": "Get Entity Information In Json Format",
+        "operationId": "Get_entity_information_in_JSON_format_api_entities_symbol__symbol__get",
+        "parameters": [
+          {
+            "name": "symbol",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Symbol"
+            },
+            "example": "GOOGL"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntityFullInfoResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPError"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health_check": {
+      "get": {
+        "summary": "Health Check",
+        "operationId": "health_check_health_check_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ASN": {
+        "properties": {
+          "asn": {
+            "type": "integer",
+            "title": "Asn"
+          },
+          "as_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "As Name"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Status"
+          },
+          "organization": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Organization"
+          },
+          "maintained_by": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Maintained By"
+          },
+          "notify": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notify",
+            "default": []
+          },
+          "country": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Country"
+          },
+          "source": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source"
+          },
+          "route_views": {
+            "items": {
+              "$ref": "#/components/schemas/RouteView"
+            },
+            "type": "array",
+            "title": "Route Views",
+            "default": []
+          }
+        },
+        "type": "object",
+        "required": [
+          "asn"
+        ],
+        "title": "ASN"
+      },
+      "EntitiesResponse": {
+        "properties": {
+          "entities": {
+            "items": {
+              "$ref": "#/components/schemas/LightEntity"
+            },
+            "type": "array",
+            "title": "Entities"
+          }
+        },
+        "type": "object",
+        "required": [
+          "entities"
+        ],
+        "title": "EntitiesResponse"
+      },
+      "Entity": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "cik": {
+            "type": "integer",
+            "title": "Cik"
+          },
+          "tickers": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Tickers"
+          },
+          "entity_name": {
+            "type": "string",
+            "title": "Entity Name"
+          },
+          "hostname": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hostname"
+          },
+          "entity_type": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Entity Type"
+          },
+          "sic": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sic"
+          },
+          "sic_description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Sic Description"
+          },
+          "exchanges": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Exchanges"
+          },
+          "ein": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ein"
+          },
+          "fiscal_year_end": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fiscal Year End"
+          },
+          "mail_address": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mail Address"
+          },
+          "business_address": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Business Address"
+          },
+          "phone": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Phone"
+          },
+          "updated_at": {
+            "type": "string",
+            "title": "Updated At"
+          },
+          "asn_list": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "Asn List",
+            "default": []
+          },
+          "asns": {
+            "items": {
+              "$ref": "#/components/schemas/ASN"
+            },
+            "type": "array",
+            "title": "Asns",
+            "default": []
+          },
+          "extra_info": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ExtraInfo"
+              }
+            ],
+            "default": {
+              "alias": [],
+              "domain": []
+            }
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "cik",
+          "tickers",
+          "entity_name",
+          "exchanges",
+          "updated_at"
+        ],
+        "title": "Entity"
+      },
+      "EntityFullInfoResponse": {
+        "properties": {
+          "finance_data": {
+            "items": {
+              "$ref": "#/components/schemas/Finance"
+            },
+            "type": "array",
+            "title": "Finance Data"
+          },
+          "entity": {
+            "$ref": "#/components/schemas/Entity"
+          },
+          "executives": {
+            "items": {
+              "$ref": "#/components/schemas/Executive"
+            },
+            "type": "array",
+            "title": "Executives"
+          }
+        },
+        "type": "object",
+        "required": [
+          "finance_data",
+          "entity",
+          "executives"
+        ],
+        "title": "EntityFullInfoResponse"
+      },
+      "Executive": {
+        "properties": {
+          "cik": {
+            "type": "integer",
+            "title": "Cik"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "role": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Role"
+          },
+          "year": {
+            "type": "integer",
+            "title": "Year"
+          },
+          "salary": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Salary"
+          },
+          "stock_awards": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Stock Awards"
+          },
+          "total": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Total"
+          },
+          "additional_data": {
+            "type": "object",
+            "title": "Additional Data",
+            "default": {}
+          }
+        },
+        "type": "object",
+        "required": [
+          "cik",
+          "name",
+          "year"
+        ],
+        "title": "Executive"
+      },
+      "ExtraInfo": {
+        "properties": {
+          "alias": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Alias",
+            "default": []
+          },
+          "domain": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Domain",
+            "default": []
+          }
+        },
+        "type": "object",
+        "title": "ExtraInfo"
+      },
+      "Finance": {
+        "properties": {
+          "report_year": {
+            "type": "integer",
+            "title": "Report Year"
+          },
+          "report_at": {
+            "type": "string",
+            "format": "date",
+            "title": "Report At"
+          },
+          "revenue": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Revenue"
+          },
+          "cost_of_sale": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cost Of Sale"
+          },
+          "gross_profit": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Gross Profit"
+          },
+          "net_income": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Net Income"
+          },
+          "long_term_debt_current": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Long Term Debt Current"
+          },
+          "long_term_debt_non_current": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Long Term Debt Non Current"
+          },
+          "depletion_and_amortization": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Depletion And Amortization"
+          },
+          "operation_income_loss": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Operation Income Loss"
+          },
+          "ebitda": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ebitda"
+          },
+          "earning_per_share": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Earning Per Share"
+          },
+          "earning_per_share_diluted": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Earning Per Share Diluted"
+          },
+          "share_outstanding": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Share Outstanding"
+          },
+          "basic_share_outstanding": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Basic Share Outstanding"
+          },
+          "filing_url": {
+            "type": "string",
+            "title": "Filing Url"
+          }
+        },
+        "type": "object",
+        "required": [
+          "report_year",
+          "report_at",
+          "filing_url"
+        ],
+        "title": "Finance"
+      },
+      "HTTPError": {
+        "properties": {
+          "detail": {
+            "type": "string",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "required": [
+          "detail"
+        ],
+        "title": "HTTPError"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "LastUpdateResponse": {
+        "properties": {
+          "last_updated": {
+            "type": "string",
+            "title": "Last Updated"
+          }
+        },
+        "type": "object",
+        "required": [
+          "last_updated"
+        ],
+        "title": "LastUpdateResponse"
+      },
+      "LightEntity": {
+        "properties": {
+          "id": {
+            "type": "integer",
+            "title": "Id"
+          },
+          "cik": {
+            "type": "integer",
+            "title": "Cik"
+          },
+          "tickers": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Tickers"
+          },
+          "entity_name": {
+            "type": "string",
+            "title": "Entity Name"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "cik",
+          "tickers",
+          "entity_name"
+        ],
+        "title": "LightEntity"
+      },
+      "RouteView": {
+        "properties": {
+          "asn": {
+            "type": "integer",
+            "title": "Asn"
+          },
+          "prefix": {
+            "type": "string",
+            "title": "Prefix"
+          },
+          "as_set": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "title": "As Set",
+            "default": []
+          }
+        },
+        "type": "object",
+        "required": [
+          "asn",
+          "prefix"
+        ],
+        "title": "RouteView"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
+}

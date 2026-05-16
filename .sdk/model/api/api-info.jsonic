@@ -1,0 +1,24 @@
+# API Information
+
+
+main: {
+  kit: {
+    info: {
+      contact: {
+        email: "support@shodan.io"
+        name: "Shodan Team"
+        url: "https://twitter.com/shodanhq"
+      }
+      servers: [
+        {
+          url: "https://entitydb.shodan.io"
+        }
+      ]
+      termsOfService: "https://static.shodan.io/legal/terms.html"
+      title: "Shodan Business Entities"
+      version: "1.0.0"
+    }
+  }
+}
+
+}

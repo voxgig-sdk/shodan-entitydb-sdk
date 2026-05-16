@@ -1,0 +1,20 @@
+{
+  "existing": {
+    "health_check": {
+      "HEALTH_CHECK00": {
+        "id": "HEALTH_CHECK00"
+      },
+      "HEALTH_CHECK01": {
+        "id": "HEALTH_CHECK01"
+      },
+      "HEALTH_CHECK02": {
+        "id": "HEALTH_CHECK02"
+      }
+    }
+  },
+  "new": {
+    "health_check": {
+      "health_check_ref01": {}
+    }
+  }
+}

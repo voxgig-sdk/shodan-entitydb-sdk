@@ -1,0 +1,28 @@
+# BasicHealthCheckFlow
+
+main: kit: flow: BasicHealthCheckFlow:
+{
+  entity: "health_check",
+  kind: "basic",
+  name: "BasicHealthCheckFlow",
+  step: [
+    {
+      input: {
+        ref: "health_check_ref01",
+        srcdatavar: "health_check_ref01_data",
+        suffix: "_dt0"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-health_check_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicHealthCheckFlow"
+}

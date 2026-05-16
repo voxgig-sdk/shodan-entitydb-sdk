@@ -1,0 +1,38 @@
+# Entity: last_update
+
+main: kit: entity: last_update: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "last_updated"
+      req: true
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "last_update"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          method: "GET"
+          orig: "/api/last_updated"
+          parts: [
+            "api"
+            "last_updated"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

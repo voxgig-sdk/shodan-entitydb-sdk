@@ -1,0 +1,45 @@
+{
+  "existing": {
+    "entity": {
+      "ENTITY00": {
+        "cik": "s46",
+        "entity": {},
+        "entity_name": "s48",
+        "executif": [],
+        "finance_data": [],
+        "id": "ENTITY00",
+        "ticker": []
+      },
+      "ENTITY01": {
+        "cik": "s8c",
+        "entity": {},
+        "entity_name": "s8e",
+        "executif": [],
+        "finance_data": [],
+        "id": "ENTITY01",
+        "ticker": []
+      },
+      "ENTITY02": {
+        "cik": "sd2",
+        "entity": {},
+        "entity_name": "sd4",
+        "executif": [],
+        "finance_data": [],
+        "id": "ENTITY02",
+        "ticker": []
+      }
+    }
+  },
+  "new": {
+    "entity": {
+      "entity_ref01": {
+        "cik": "s118",
+        "entity": {},
+        "entity_name": "s11a",
+        "executif": [],
+        "finance_data": [],
+        "ticker": []
+      }
+    }
+  }
+}

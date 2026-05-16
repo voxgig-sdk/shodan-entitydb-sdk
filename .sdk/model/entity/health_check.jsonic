@@ -1,0 +1,29 @@
+# Entity: health_check
+
+main: kit: entity: health_check: {
+
+  alias: field: {}
+
+  name: "health_check"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          method: "GET"
+          orig: "/health_check"
+          parts: [
+            "health_check"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

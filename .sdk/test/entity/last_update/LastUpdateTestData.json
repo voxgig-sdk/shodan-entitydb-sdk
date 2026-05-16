@@ -1,0 +1,25 @@
+{
+  "existing": {
+    "last_update": {
+      "LAST_UPDATE00": {
+        "last_updated": "sa",
+        "id": "LAST_UPDATE00"
+      },
+      "LAST_UPDATE01": {
+        "last_updated": "s14",
+        "id": "LAST_UPDATE01"
+      },
+      "LAST_UPDATE02": {
+        "last_updated": "s1e",
+        "id": "LAST_UPDATE02"
+      }
+    }
+  },
+  "new": {
+    "last_update": {
+      "last_update_ref01": {
+        "last_updated": "s28"
+      }
+    }
+  }
+}
