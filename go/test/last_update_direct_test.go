@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	sdk "github.com/voxgig-sdk/shodan-entitydb-sdk"
-	"github.com/voxgig-sdk/shodan-entitydb-sdk/core"
+	sdk "github.com/voxgig-sdk/shodan-entitydb-sdk/go"
+	"github.com/voxgig-sdk/shodan-entitydb-sdk/go/core"
 )
 
 func TestLastUpdateDirect(t *testing.T) {

@@ -4,7 +4,7 @@ import (
 	"log/slog"
 	"os"
 
-	"github.com/voxgig-sdk/shodan-entitydb-sdk/core"
+	"github.com/voxgig-sdk/shodan-entitydb-sdk/go/core"
 )
 
 type LogFeature struct {

@@ -9,10 +9,10 @@ import (
 	"testing"
 	"time"
 
-	sdk "github.com/voxgig-sdk/shodan-entitydb-sdk"
-	"github.com/voxgig-sdk/shodan-entitydb-sdk/core"
+	sdk "github.com/voxgig-sdk/shodan-entitydb-sdk/go"
+	"github.com/voxgig-sdk/shodan-entitydb-sdk/go/core"
 
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/shodan-entitydb-sdk/go/utility/struct"
 )
 
 func TestLastUpdateEntity(t *testing.T) {

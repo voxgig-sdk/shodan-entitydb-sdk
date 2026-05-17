@@ -1,10 +1,10 @@
 package voxgigshodanentitydbsdk
 
 import (
-	"github.com/voxgig-sdk/shodan-entitydb-sdk/core"
-	"github.com/voxgig-sdk/shodan-entitydb-sdk/entity"
-	"github.com/voxgig-sdk/shodan-entitydb-sdk/feature"
-	_ "github.com/voxgig-sdk/shodan-entitydb-sdk/utility"
+	"github.com/voxgig-sdk/shodan-entitydb-sdk/go/core"
+	"github.com/voxgig-sdk/shodan-entitydb-sdk/go/entity"
+	"github.com/voxgig-sdk/shodan-entitydb-sdk/go/feature"
+	_ "github.com/voxgig-sdk/shodan-entitydb-sdk/go/utility"
 )
 
 // Type aliases preserve external API.

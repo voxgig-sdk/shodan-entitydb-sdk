@@ -1,7 +1,7 @@
 package feature
 
 import (
-	"github.com/voxgig-sdk/shodan-entitydb-sdk/core"
+	"github.com/voxgig-sdk/shodan-entitydb-sdk/go/core"
 )
 
 type BaseFeature struct {

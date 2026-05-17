@@ -1,9 +1,9 @@
 package utility
 
 import (
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/shodan-entitydb-sdk/go/utility/struct"
 
-	"github.com/voxgig-sdk/shodan-entitydb-sdk/core"
+	"github.com/voxgig-sdk/shodan-entitydb-sdk/go/core"
 )
 
 func prepareHeadersUtil(ctx *core.Context) map[string]any {

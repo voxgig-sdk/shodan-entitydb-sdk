@@ -1,6 +1,6 @@
 # Flows
 
-@"shodan-entitydb-BasicEntityFlow.jsonic"
-@"shodan-entitydb-BasicEntityFullInfoFlow.jsonic"
-@"shodan-entitydb-BasicHealthCheckFlow.jsonic"
-@"shodan-entitydb-BasicLastUpdateFlow.jsonic"
+@"BasicEntityFlow.jsonic"
+@"BasicEntityFullInfoFlow.jsonic"
+@"BasicHealthCheckFlow.jsonic"
+@"BasicLastUpdateFlow.jsonic"

@@ -3,9 +3,9 @@ package utility
 import (
 	"strings"
 
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/shodan-entitydb-sdk/go/utility/struct"
 
-	"github.com/voxgig-sdk/shodan-entitydb-sdk/core"
+	"github.com/voxgig-sdk/shodan-entitydb-sdk/go/core"
 )
 
 func makeSpecUtil(ctx *core.Context) (*core.Spec, error) {

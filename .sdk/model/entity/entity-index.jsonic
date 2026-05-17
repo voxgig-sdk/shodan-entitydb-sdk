@@ -1,6 +1,6 @@
 # Entity Models
 
-@"shodan-entitydb-entity.jsonic"
-@"shodan-entitydb-entity_full_info.jsonic"
-@"shodan-entitydb-health_check.jsonic"
-@"shodan-entitydb-last_update.jsonic"
+@"entity.jsonic"
+@"entity_full_info.jsonic"
+@"health_check.jsonic"
+@"last_update.jsonic"

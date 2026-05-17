@@ -4,9 +4,9 @@ import (
 	"strings"
 	"testing"
 
-	sdk "github.com/voxgig-sdk/shodan-entitydb-sdk"
+	sdk "github.com/voxgig-sdk/shodan-entitydb-sdk/go"
 
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/shodan-entitydb-sdk/go/utility/struct"
 )
 
 func TestPrimaryUtility(t *testing.T) {
