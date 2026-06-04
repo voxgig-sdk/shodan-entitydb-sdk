@@ -82,7 +82,6 @@ def health_check_basic_setup(extra)
     "SHODANENTITYDB_TEST_HEALTH_CHECK_ENTID" => idmap,
     "SHODANENTITYDB_TEST_LIVE" => "FALSE",
     "SHODANENTITYDB_TEST_EXPLAIN" => "FALSE",
-    "SHODANENTITYDB_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -94,7 +93,6 @@ def health_check_basic_setup(extra)
   if env["SHODANENTITYDB_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["SHODANENTITYDB_APIKEY"],
       },
       extra || {},
     ])

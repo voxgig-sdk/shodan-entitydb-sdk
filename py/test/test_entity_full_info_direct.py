@@ -66,14 +66,12 @@ def _entity_full_info_direct_setup(mockres):
     env = runner.env_override({
         "SHODANENTITYDB_TEST_ENTITY_FULL_INFO_ENTID": {},
         "SHODANENTITYDB_TEST_LIVE": "FALSE",
-        "SHODANENTITYDB_APIKEY": "NONE",
     })
 
     live = env.get("SHODANENTITYDB_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {
-            "apikey": env.get("SHODANENTITYDB_APIKEY"),
         }
         client = ShodanEntitydbSDK(merged_opts)
         return {

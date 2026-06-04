@@ -20,9 +20,6 @@ class ShodanEntitydbConfig
             ],
             "options" => [
                 "base" => "https://entitydb.shodan.io",
-                "auth" => [
-                    "prefix" => "Bearer",
-                ],
                 "headers" => [
           'content-type' => 'application/json',
         ],

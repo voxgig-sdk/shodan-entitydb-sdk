@@ -121,14 +121,12 @@ function entity_direct_setup($mockres)
     $env = Runner::env_override([
         "SHODANENTITYDB_TEST_ENTITY_ENTID" => [],
         "SHODANENTITYDB_TEST_LIVE" => "FALSE",
-        "SHODANENTITYDB_APIKEY" => "NONE",
     ]);
 
     $live = $env["SHODANENTITYDB_TEST_LIVE"] === "TRUE";
 
     if ($live) {
         $merged_opts = [
-            "apikey" => $env["SHODANENTITYDB_APIKEY"],
         ];
         $client = new ShodanEntitydbSDK($merged_opts);
         return [

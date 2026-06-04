@@ -74,14 +74,12 @@ function directSetup(mockres?: any) {
   const env = envOverride({
     'SHODANENTITYDB_TEST_LAST_UPDATE_ENTID': {},
     'SHODANENTITYDB_TEST_LIVE': 'FALSE',
-    'SHODANENTITYDB_APIKEY': 'NONE',
   })
 
   const live = 'TRUE' === env.SHODANENTITYDB_TEST_LIVE
 
   if (live) {
     const client = new ShodanEntitydbSDK({
-      apikey: env.SHODANENTITYDB_APIKEY,
     })
 
     let idmap: any = env['SHODANENTITYDB_TEST_LAST_UPDATE_ENTID']
