@@ -30,12 +30,12 @@ Create a new SDK client instance.
 
 ### Static Methods
 
-#### `sdk.test(testopts, sdkopts)`
+#### `sdk.test(testopts?, sdkopts?)`
 
-Create a test client with mock features active. Both arguments may be `nil`.
+Create a test client with mock features active. Both arguments are optional.
 
 ```lua
-local client = sdk.test(nil, nil)
+local client = sdk.test()
 ```
 
 
@@ -118,7 +118,7 @@ local entity = client:Entity(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:Entity(nil):list(nil, nil)
+local results, err = client:Entity():list()
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
@@ -126,7 +126,7 @@ local results, err = client:Entity(nil):list(nil, nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Entity(nil):load({ id = "entity_id" }, nil)
+local result, err = client:Entity():load({ id = "entity_id" })
 ```
 
 ### Common Methods
@@ -180,7 +180,7 @@ local entity_full_info = client:EntityFullInfo(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:EntityFullInfo(nil):load({ id = "entity_full_info_id" }, nil)
+local result, err = client:EntityFullInfo():load({ id = "entity_full_info_id" })
 ```
 
 ### Common Methods
@@ -226,7 +226,7 @@ local health_check = client:HealthCheck(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:HealthCheck(nil):load({ id = "health_check_id" }, nil)
+local result, err = client:HealthCheck():load({ id = "health_check_id" })
 ```
 
 ### Common Methods
@@ -278,7 +278,7 @@ local last_update = client:LastUpdate(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:LastUpdate(nil):load({ id = "last_update_id" }, nil)
+local result, err = client:LastUpdate():load({ id = "last_update_id" })
 ```
 
 ### Common Methods

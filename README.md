@@ -1,20 +1,8 @@
 # ShodanEntitydb SDK
 
-Look up US business entities, financial overviews, and executive compensation by ticker or entity ID
+Shodan Business Entities client, generated from the OpenAPI spec.
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI, an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
-
-## About Shodan Business Entities
-
-Shodan EntityDB is a lookup service for US-listed business entities, run by [Shodan](https://entitydb.shodan.io). It is a sibling of Shodan's better-known network intelligence products and focuses on company-level financial and leadership data rather than internet scanning.
-
-What you get from the API:
-
-- Entity metadata such as company name, CIK, SIC code, stock tickers, exchanges, business address, and phone number.
-- Financial figures including revenue, net income, EBITDA, earnings per share, and filing dates.
-- Executive details such as names, roles, salaries, stock awards, and total compensation.
-
-The API is open: no Shodan account or API key is required, and lookups can be made directly by entity ID or by stock ticker symbol. The underlying dataset is refreshed monthly on the 1st.
 
 ## Try it
 
@@ -48,29 +36,31 @@ gem install shodan-entitydb-sdk
 luarocks install shodan-entitydb-sdk
 ```
 
-## 30-second quickstart
+## Quickstart
 
 ### TypeScript
 
 ```ts
 import { ShodanEntitydbSDK } from 'shodan-entitydb'
 
-const client = new ShodanEntitydbSDK({})
+const client = new ShodanEntitydbSDK({
+  apikey: process.env.SHODAN-ENTITYDB_APIKEY,
+})
 
 // List all entitys
 const entitys = await client.Entity().list()
+console.log(entitys.data)
 ```
 
-See the [TypeScript README](ts/README.md) for the
-full guide, or scroll down for the same example in other languages.
+See the [TypeScript README](ts/README.md) for the full guide.
 
-## What's in the box
+## Surfaces
 
-| Surface | Use it for | Path |
-| --- | --- | --- |
-| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | App integration | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
-| **CLI** | Scripts, CI, ops, one-off API calls | `go-cli/` |
-| **MCP server** | AI agents (Claude, Cursor, Cline) | `go-mcp/` |
+| Surface | Path |
+| --- | --- |
+| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
+| **CLI** | `go-cli/` |
+| **MCP server** | `go-mcp/` |
 
 ## Use it from an AI agent (MCP)
 
@@ -100,10 +90,10 @@ The API exposes 4 entities:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **Entity** | A US-listed business entity record; fetched via `/api/entities/{id}` or by ticker at `/api/entities/symbol/{ticker}`, and listed at `/entities`. | `/api/entities` |
-| **EntityFullInfo** | Full detail view of an entity including metadata, financial overview, and executive compensation. | `/api/entities/symbol/{symbol}` |
-| **HealthCheck** | Service health/status endpoint used to verify that the EntityDB API is reachable. | `/health_check` |
-| **LastUpdate** | Reports when the dataset was last refreshed; EntityDB publishes monthly updates on the 1st of each month. | `/api/last_updated` |
+| **Entity** |  | `/api/entities` |
+| **EntityFullInfo** |  | `/api/entities/symbol/{symbol}` |
+| **HealthCheck** |  | `/health_check` |
+| **LastUpdate** |  | `/api/last_updated` |
 
 Each entity supports the following operations where available: **load**,
 **list**, **create**, **update**, and **remove**.
@@ -113,17 +103,20 @@ Each entity supports the following operations where available: **load**,
 ### Python
 
 ```python
+import os
 from shodanentitydb_sdk import ShodanEntitydbSDK
 
-client = ShodanEntitydbSDK({})
+client = ShodanEntitydbSDK({
+    "apikey": os.environ.get("SHODAN-ENTITYDB_APIKEY"),
+})
 
 # List all entitys
-entitys, err = client.Entity(None).list(None, None)
+entitys, err = client.Entity().list()
+print(entitys)
 
 # Load a specific entity
-entity, err = client.Entity(None).load(
-    {"id": "example_id"}, None
-)
+entity, err = client.Entity().load({"id": "example_id"})
+print(entity)
 ```
 
 ### PHP
@@ -132,15 +125,17 @@ entity, err = client.Entity(None).load(
 <?php
 require_once 'shodanentitydb_sdk.php';
 
-$client = new ShodanEntitydbSDK([]);
+$client = new ShodanEntitydbSDK([
+    "apikey" => getenv("SHODAN-ENTITYDB_APIKEY"),
+]);
 
 // List all entitys
-[$entitys, $err] = $client->Entity(null)->list(null, null);
+[$entitys, $err] = $client->Entity()->list();
+print_r($entitys);
 
 // Load a specific entity
-[$entity, $err] = $client->Entity(null)->load(
-    ["id" => "example_id"], null
-);
+[$entity, $err] = $client->Entity()->load(["id" => "example_id"]);
+print_r($entity);
 ```
 
 ### Golang
@@ -148,10 +143,13 @@ $client = new ShodanEntitydbSDK([]);
 ```go
 import sdk "github.com/voxgig-sdk/shodan-entitydb-sdk/go"
 
-client := sdk.NewShodanEntitydbSDK(map[string]any{})
+client := sdk.NewShodanEntitydbSDK(map[string]any{
+    "apikey": os.Getenv("SHODAN-ENTITYDB_APIKEY"),
+})
 
 // List all entitys
 entitys, err := client.Entity(nil).List(nil, nil)
+fmt.Println(entitys)
 ```
 
 ### Ruby
@@ -159,15 +157,17 @@ entitys, err := client.Entity(nil).List(nil, nil)
 ```ruby
 require_relative "ShodanEntitydb_sdk"
 
-client = ShodanEntitydbSDK.new({})
+client = ShodanEntitydbSDK.new({
+  "apikey" => ENV["SHODAN-ENTITYDB_APIKEY"],
+})
 
 # List all entitys
-entitys, err = client.Entity(nil).list(nil, nil)
+entitys, err = client.Entity().list
+puts entitys
 
 # Load a specific entity
-entity, err = client.Entity(nil).load(
-  { "id" => "example_id" }, nil
-)
+entity, err = client.Entity().load({ "id" => "example_id" })
+puts entity
 ```
 
 ### Lua
@@ -175,15 +175,17 @@ entity, err = client.Entity(nil).load(
 ```lua
 local sdk = require("shodan-entitydb_sdk")
 
-local client = sdk.new({})
+local client = sdk.new({
+  apikey = os.getenv("SHODAN-ENTITYDB_APIKEY"),
+})
 
 -- List all entitys
-local entitys, err = client:Entity(nil):list(nil, nil)
+local entitys, err = client:Entity():list()
+print(entitys)
 
 -- Load a specific entity
-local entity, err = client:Entity(nil):load(
-  { id = "example_id" }, nil
-)
+local entity, err = client:Entity():load({ id = "example_id" })
+print(entity)
 ```
 
 ## Unit testing in offline mode
@@ -202,25 +204,21 @@ const result = await client.Entity().load({ id: 'test01' })
 ### Python
 
 ```python
-client = ShodanEntitydbSDK.test(None, None)
-result, err = client.Entity(None).load(
-    {"id": "test01"}, None
-)
+client = ShodanEntitydbSDK.test()
+result, err = client.Entity().load({"id": "test01"})
 ```
 
 ### PHP
 
 ```php
-$client = ShodanEntitydbSDK::test(null, null);
-[$result, $err] = $client->Entity(null)->load(
-    ["id" => "test01"], null
-);
+$client = ShodanEntitydbSDK::test();
+[$result, $err] = $client->Entity()->load(["id" => "test01"]);
 ```
 
 ### Golang
 
 ```go
-client := sdk.TestSDK(nil, nil)
+client := sdk.Test()
 result, err := client.Entity(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
@@ -229,19 +227,15 @@ result, err := client.Entity(nil).Load(
 ### Ruby
 
 ```ruby
-client = ShodanEntitydbSDK.test(nil, nil)
-result, err = client.Entity(nil).load(
-  { "id" => "test01" }, nil
-)
+client = ShodanEntitydbSDK.test
+result, err = client.Entity().load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
-local client = sdk.test(nil, nil)
-local result, err = client:Entity(nil):load(
-  { id = "test01" }, nil
-)
+local client = sdk.test()
+local result, err = client:Entity():load({ id = "test01" })
 ```
 
 ## How it works
@@ -345,15 +339,6 @@ local result, err = client:direct({
 - [Golang](go/README.md)
 - [Ruby](rb/README.md)
 - [Lua](lua/README.md)
-
-## Using the Shodan Business Entities
-
-- Upstream: [https://entitydb.shodan.io](https://entitydb.shodan.io)
-
-- Free for non-commercial use without a Shodan account or API key.
-- Commercial use requires an enterprise licence from Shodan.
-- Data is marked "Shodan (R) - All rights reserved"; treat as proprietary and attribute the source.
-- Updates are published monthly, starting on the 1st of each month.
 
 ---
 

@@ -99,12 +99,14 @@ func health_checkDirectSetup(mockres any) *health_checkDirectSetupResult {
 	env := envOverride(map[string]any{
 		"SHODANENTITYDB_TEST_HEALTH_CHECK_ENTID": map[string]any{},
 		"SHODANENTITYDB_TEST_LIVE":    "FALSE",
+		"SHODANENTITYDB_APIKEY":       "NONE",
 	})
 
 	live := env["SHODANENTITYDB_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
+			"apikey": env["SHODANENTITYDB_APIKEY"],
 		}
 		client := sdk.NewShodanEntitydbSDK(mergedOpts)
 

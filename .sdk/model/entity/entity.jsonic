@@ -96,7 +96,7 @@ main: kit: entity: entity: {
           }
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.entity`"
           }
         }
       ]

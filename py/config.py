@@ -15,6 +15,9 @@ def make_config():
         },
         "options": {
             "base": "https://entitydb.shodan.io",
+            "auth": {
+                "prefix": "Bearer",
+            },
             "headers": {
         "content-type": "application/json",
       },
@@ -29,94 +32,96 @@ def make_config():
       "entity": {
         "fields": [
           {
+            "active": True,
             "name": "cik",
             "req": True,
             "type": "`$INTEGER`",
-            "active": True,
             "index$": 0,
           },
           {
+            "active": True,
             "name": "entity",
             "req": True,
             "type": "`$OBJECT`",
-            "active": True,
             "index$": 1,
           },
           {
+            "active": True,
             "name": "entity_name",
             "req": True,
             "type": "`$STRING`",
-            "active": True,
             "index$": 2,
           },
           {
+            "active": True,
             "name": "executif",
             "req": True,
             "type": "`$ARRAY`",
-            "active": True,
             "index$": 3,
           },
           {
+            "active": True,
             "name": "finance_data",
             "req": True,
             "type": "`$ARRAY`",
-            "active": True,
             "index$": 4,
           },
           {
+            "active": True,
             "name": "id",
             "req": True,
             "type": "`$INTEGER`",
-            "active": True,
             "index$": 5,
           },
           {
+            "active": True,
             "name": "ticker",
             "req": True,
             "type": "`$ARRAY`",
-            "active": True,
             "index$": 6,
           },
         ],
         "name": "entity",
         "op": {
           "list": {
+            "input": "data",
             "name": "list",
             "points": [
               {
+                "active": True,
+                "args": {},
                 "method": "GET",
                 "orig": "/api/entities",
                 "parts": [
                   "api",
                   "entities",
                 ],
+                "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
-                "active": True,
-                "args": {},
-                "select": {},
                 "index$": 0,
               },
             ],
-            "input": "data",
             "key$": "list",
           },
           "load": {
+            "input": "data",
             "name": "load",
             "points": [
               {
+                "active": True,
                 "args": {
                   "params": [
                     {
+                      "active": True,
                       "example": 3,
                       "kind": "param",
                       "name": "id",
                       "orig": "id",
                       "reqd": True,
                       "type": "`$INTEGER`",
-                      "active": True,
                     },
                   ],
                 },
@@ -134,13 +139,11 @@ def make_config():
                 },
                 "transform": {
                   "req": "`reqdata`",
-                  "res": "`body`",
+                  "res": "`body.entity`",
                 },
-                "active": True,
                 "index$": 0,
               },
             ],
-            "input": "data",
             "key$": "load",
           },
         },
@@ -151,43 +154,45 @@ def make_config():
       "entity_full_info": {
         "fields": [
           {
+            "active": True,
             "name": "entity",
             "req": True,
             "type": "`$OBJECT`",
-            "active": True,
             "index$": 0,
           },
           {
+            "active": True,
             "name": "executif",
             "req": True,
             "type": "`$ARRAY`",
-            "active": True,
             "index$": 1,
           },
           {
+            "active": True,
             "name": "finance_data",
             "req": True,
             "type": "`$ARRAY`",
-            "active": True,
             "index$": 2,
           },
         ],
         "name": "entity_full_info",
         "op": {
           "load": {
+            "input": "data",
             "name": "load",
             "points": [
               {
+                "active": True,
                 "args": {
                   "params": [
                     {
+                      "active": True,
                       "example": "GOOGL",
                       "kind": "param",
                       "name": "symbol",
                       "orig": "symbol",
                       "reqd": True,
                       "type": "`$STRING`",
-                      "active": True,
                     },
                   ],
                 },
@@ -208,11 +213,9 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
-                "active": True,
                 "index$": 0,
               },
             ],
-            "input": "data",
             "key$": "load",
           },
         },
@@ -229,25 +232,25 @@ def make_config():
         "name": "health_check",
         "op": {
           "load": {
+            "input": "data",
             "name": "load",
             "points": [
               {
+                "active": True,
+                "args": {},
                 "method": "GET",
                 "orig": "/health_check",
                 "parts": [
                   "health_check",
                 ],
+                "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
-                "active": True,
-                "args": {},
-                "select": {},
                 "index$": 0,
               },
             ],
-            "input": "data",
             "key$": "load",
           },
         },
@@ -258,36 +261,36 @@ def make_config():
       "last_update": {
         "fields": [
           {
+            "active": True,
             "name": "last_updated",
             "req": True,
             "type": "`$STRING`",
-            "active": True,
             "index$": 0,
           },
         ],
         "name": "last_update",
         "op": {
           "load": {
+            "input": "data",
             "name": "load",
             "points": [
               {
+                "active": True,
+                "args": {},
                 "method": "GET",
                 "orig": "/api/last_updated",
                 "parts": [
                   "api",
                   "last_updated",
                 ],
+                "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
-                "active": True,
-                "args": {},
-                "select": {},
                 "index$": 0,
               },
             ],
-            "input": "data",
             "key$": "load",
           },
         },

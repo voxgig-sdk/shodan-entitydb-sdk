@@ -117,6 +117,7 @@ func health_checkBasicSetup(extra map[string]any) *entityTestSetup {
 		"SHODANENTITYDB_TEST_HEALTH_CHECK_ENTID": idmap,
 		"SHODANENTITYDB_TEST_LIVE":      "FALSE",
 		"SHODANENTITYDB_TEST_EXPLAIN":   "FALSE",
+		"SHODANENTITYDB_APIKEY":         "NONE",
 	})
 
 	idmapResolved := core.ToMapAny(env["SHODANENTITYDB_TEST_HEALTH_CHECK_ENTID"])
@@ -127,6 +128,7 @@ func health_checkBasicSetup(extra map[string]any) *entityTestSetup {
 	if env["SHODANENTITYDB_TEST_LIVE"] == "TRUE" {
 		mergedOpts := vs.Merge([]any{
 			map[string]any{
+				"apikey": env["SHODANENTITYDB_APIKEY"],
 			},
 			extra,
 		})

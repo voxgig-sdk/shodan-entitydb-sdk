@@ -17,30 +17,7 @@ main: {
       termsOfService: "https://static.shodan.io/legal/terms.html"
       title: "Shodan Business Entities"
       version: "1.0.0"
-      tagline: "Look up US business entities, financial overviews, and executive compensation by ticker or entity ID"
-      homepage: "https://entitydb.shodan.io"
-      docs_url: "https://entitydb.shodan.io"
-      license_short: "Free for non-commercial use; commercial use requires an enterprise licence from Shodan."
-      license_md: `- Free for non-commercial use without a Shodan account or API key.
-- Commercial use requires an enterprise licence from Shodan.
-- Data is marked "Shodan (R) - All rights reserved"; treat as proprietary and attribute the source.
-- Updates are published monthly, starting on the 1st of each month.`
-      about_md: `Shodan EntityDB is a lookup service for US-listed business entities, run by [Shodan](https://entitydb.shodan.io). It is a sibling of Shodan's better-known network intelligence products and focuses on company-level financial and leadership data rather than internet scanning.
-
-What you get from the API:
-
-- Entity metadata such as company name, CIK, SIC code, stock tickers, exchanges, business address, and phone number.
-- Financial figures including revenue, net income, EBITDA, earnings per share, and filing dates.
-- Executive details such as names, roles, salaries, stock awards, and total compensation.
-
-The API is open: no Shodan account or API key is required, and lookups can be made directly by entity ID or by stock ticker symbol. The underlying dataset is refreshed monthly on the 1st.`
-      entity_desc: {
-        entity: "A US-listed business entity record; fetched via `/api/entities/{id}` or by ticker at `/api/entities/symbol/{ticker}`, and listed at `/entities`."
-        entity_full_info: "Full detail view of an entity including metadata, financial overview, and executive compensation."
-        health_check: "Service health/status endpoint used to verify that the EntityDB API is reachable."
-        last_update: "Reports when the dataset was last refreshed; EntityDB publishes monthly updates on the 1st of each month."
-      }
-      auth: false
     }
   }
 }
+

@@ -91,6 +91,7 @@ def _entity_full_info_basic_setup(extra):
         "SHODANENTITYDB_TEST_ENTITY_FULL_INFO_ENTID": idmap,
         "SHODANENTITYDB_TEST_LIVE": "FALSE",
         "SHODANENTITYDB_TEST_EXPLAIN": "FALSE",
+        "SHODANENTITYDB_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -101,6 +102,7 @@ def _entity_full_info_basic_setup(extra):
     if env.get("SHODANENTITYDB_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
+                "apikey": env.get("SHODANENTITYDB_APIKEY"),
             },
             extra or {},
         ])

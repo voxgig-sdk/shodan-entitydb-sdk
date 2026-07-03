@@ -99,12 +99,14 @@ func last_updateDirectSetup(mockres any) *last_updateDirectSetupResult {
 	env := envOverride(map[string]any{
 		"SHODANENTITYDB_TEST_LAST_UPDATE_ENTID": map[string]any{},
 		"SHODANENTITYDB_TEST_LIVE":    "FALSE",
+		"SHODANENTITYDB_APIKEY":       "NONE",
 	})
 
 	live := env["SHODANENTITYDB_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
+			"apikey": env["SHODANENTITYDB_APIKEY"],
 		}
 		client := sdk.NewShodanEntitydbSDK(mergedOpts)
 

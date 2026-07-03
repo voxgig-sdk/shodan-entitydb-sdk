@@ -111,6 +111,7 @@ function basicSetup(extra?: any) {
     'SHODAN_ENTITYDB_TEST_ENTITY_FULL_INFO_ENTID': idmap,
     'SHODAN_ENTITYDB_TEST_LIVE': 'FALSE',
     'SHODAN_ENTITYDB_TEST_EXPLAIN': 'FALSE',
+    'SHODAN_ENTITYDB_APIKEY': 'NONE',
   })
 
   idmap = env['SHODAN_ENTITYDB_TEST_ENTITY_FULL_INFO_ENTID']
@@ -120,6 +121,7 @@ function basicSetup(extra?: any) {
   if (live) {
     client = new ShodanEntitydbSDK(merge([
       {
+        apikey: env.SHODAN_ENTITYDB_APIKEY,
       },
       extra
     ]))

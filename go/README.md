@@ -1,6 +1,11 @@
 # ShodanEntitydb Golang SDK
 
-The Golang SDK for the ShodanEntitydb API. Provides an entity-oriented interface using standard Go conventions — no generics required, data flows as `map[string]any`.
+
+
+The Golang SDK for the ShodanEntitydb API — an entity-oriented client using standard Go conventions. No generics required; data flows as `map[string]any`.
+
+> Other languages, the CLI, and MCP server live alongside this one — see
+> the [top-level README](../README.md).
 
 
 ## Install
@@ -28,13 +33,16 @@ package main
 
 import (
     "fmt"
+    "os"
 
     sdk "github.com/voxgig-sdk/shodan-entitydb-sdk/go"
     "github.com/voxgig-sdk/shodan-entitydb-sdk/go/core"
 )
 
 func main() {
-    client := sdk.NewShodanEntitydbSDK(map[string]any{})
+    client := sdk.NewShodanEntitydbSDK(map[string]any{
+        "apikey": os.Getenv("SHODAN-ENTITYDB_APIKEY"),
+    })
 ```
 
 ### 2. List entitys
@@ -116,7 +124,7 @@ fmt.Println(fetchdef["headers"])
 Create a mock client for unit testing — no server required:
 
 ```go
-client := sdk.TestSDK(nil, nil)
+client := sdk.Test()
 
 result, err := client.Planet(nil).Load(
     map[string]any{"id": "test01"}, nil,
@@ -154,6 +162,7 @@ Create a `.env.local` file at the project root:
 
 ```
 SHODAN-ENTITYDB_TEST_LIVE=TRUE
+SHODAN-ENTITYDB_APIKEY=<your-key>
 ```
 
 Then run:
@@ -175,6 +184,7 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
+| `"apikey"` | `string` | API key for authentication. |
 | `"base"` | `string` | Base URL of the API server. |
 | `"prefix"` | `string` | URL path prefix prepended to all requests. |
 | `"suffix"` | `string` | URL path suffix appended to all requests. |
