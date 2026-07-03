@@ -10,13 +10,13 @@ The Ruby SDK for the ShodanEntitydb API — an entity-oriented client using idio
 
 ## Install
 ```bash
-gem install shodan-entitydb-sdk
+gem install voxgig-sdk-shodan-entitydb
 ```
 
 Or add to your `Gemfile`:
 
 ```ruby
-gem "shodan-entitydb-sdk"
+gem "voxgig-sdk-shodan-entitydb"
 ```
 
 Then run:

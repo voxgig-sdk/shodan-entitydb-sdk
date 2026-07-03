@@ -10,7 +10,7 @@ The PHP SDK for the ShodanEntitydb API — an entity-oriented client using PHP c
 
 ## Install
 ```bash
-composer require voxgig/shodan-entitydb-sdk
+composer require voxgig-sdk/shodan-entitydb
 ```
 
 

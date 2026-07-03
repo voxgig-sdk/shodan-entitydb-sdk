@@ -10,7 +10,7 @@ The TypeScript SDK for the ShodanEntitydb API — a type-safe, entity-oriented c
 
 ## Install
 ```bash
-npm install shodan-entitydb
+npm install @voxgig-sdk/shodan-entitydb
 ```
 ## Tutorial: your first API call
 

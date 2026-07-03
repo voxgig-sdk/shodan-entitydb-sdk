@@ -10,7 +10,7 @@ The Python SDK for the ShodanEntitydb API — an entity-oriented client followin
 
 ## Install
 ```bash
-pip install shodan-entitydb-sdk
+pip install voxgig-sdk-shodan-entitydb
 ```
 
 Or install from source:

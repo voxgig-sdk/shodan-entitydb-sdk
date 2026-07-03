@@ -10,7 +10,7 @@ The Lua SDK for the ShodanEntitydb API — an entity-oriented client using Lua c
 
 ## Install
 ```bash
-luarocks install shodan-entitydb-sdk
+luarocks install voxgig-sdk-shodan-entitydb
 ```
 
 If the module is not yet published, add the source directory to
