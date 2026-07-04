@@ -30,53 +30,39 @@ go mod edit -replace github.com/voxgig-sdk/shodan-entitydb-sdk/go=../shodan-enti
 This tutorial walks through creating a client, listing entities, and
 loading a specific record.
 
-### 1. Create a client
+### Quickstart
+
+A complete program: create a client, then call the entity operations.
+Each operation returns `(value, error)` — the value is the data itself
+(there is no `{ok, data}` wrapper), so check `err` and use the value
+directly.
 
 ```go
 package main
 
 import (
     "fmt"
-
     sdk "github.com/voxgig-sdk/shodan-entitydb-sdk/go"
-    "github.com/voxgig-sdk/shodan-entitydb-sdk/go/core"
 )
 
 func main() {
     client := sdk.New()
-```
 
-### 2. List entitys
-
-```go
-    result, err := client.Entity(nil).List(nil, nil)
+    // List entity records — the value is the array of records itself.
+    entitys, err := client.Entity(nil).List(nil, nil)
     if err != nil {
         panic(err)
     }
-
-    rm := core.ToMapAny(result)
-    if rm["ok"] == true {
-        for _, item := range rm["data"].([]any) {
-            p := core.ToMapAny(item)
-            fmt.Println(p["id"], p["name"])
-        }
+    for _, item := range entitys.([]any) {
+        fmt.Println(item)
     }
-```
 
-### 3. Load an entity
-
-```go
-    result, err = client.Entity(nil).Load(
-        map[string]any{"id": "example_id"}, nil,
-    )
+    // Load a single entity — the value is the loaded record.
+    entity, err := client.Entity(nil).Load(map[string]any{"id": "example_id"}, nil)
     if err != nil {
         panic(err)
     }
-
-    rm = core.ToMapAny(result)
-    if rm["ok"] == true {
-        fmt.Println(rm["data"])
-    }
+    fmt.Println(entity)
 }
 ```
 
@@ -127,10 +113,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-result, err := client.Entity(nil).Load(
+entity, err := client.Entity(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
-// result contains mock response data
+if err != nil {
+    panic(err)
+}
+fmt.Println(entity) // the loaded mock data
 ```
 
 ### Use a custom fetch function
@@ -207,8 +196,8 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `GetUtility` | `() *Utility` | Copy of the SDK utility object. |
 | `Prepare` | `(fetchargs map[string]any) (map[string]any, error)` | Build an HTTP request definition without sending. |
 | `Direct` | `(fetchargs map[string]any) (map[string]any, error)` | Build and send an HTTP request. |
-| `Entity` | `(data map[string]any) ShodanEntitydbEntity` | Create a Entity entity instance. |
-| `EntityFullInfo` | `(data map[string]any) ShodanEntitydbEntity` | Create a EntityFullInfo entity instance. |
+| `Entity` | `(data map[string]any) ShodanEntitydbEntity` | Create an Entity entity instance. |
+| `EntityFullInfo` | `(data map[string]any) ShodanEntitydbEntity` | Create an EntityFullInfo entity instance. |
 | `HealthCheck` | `(data map[string]any) ShodanEntitydbEntity` | Create a HealthCheck entity instance. |
 | `LastUpdate` | `(data map[string]any) ShodanEntitydbEntity` | Create a LastUpdate entity instance. |
 
@@ -230,17 +219,24 @@ All entities implement the `ShodanEntitydbEntity` interface.
 
 ### Result shape
 
-Entity operations return `(any, error)`. The `any` value is a
-`map[string]any` with these keys:
+Entity operations return `(value, error)`. The `value` is the
+operation's data **directly** — there is no wrapper:
 
-| Key | Type | Description |
-| --- | --- | --- |
-| `"ok"` | `bool` | `true` if the HTTP status is 2xx. |
-| `"status"` | `int` | HTTP status code. |
-| `"headers"` | `map[string]any` | Response headers. |
-| `"data"` | `any` | Parsed JSON response body. |
+| Operation | `value` |
+| --- | --- |
+| `Load` / `Create` / `Update` / `Remove` | the entity record (`map[string]any`) |
+| `List` | a `[]any` of entity records |
 
-On error, `"ok"` is `false` and `"err"` contains the error value.
+Check `err` first, then use the value directly (or the typed
+`...Typed` variants, which return the entity's model struct and a typed
+slice):
+
+    entity, err := client.Entity(nil).Load(map[string]any{"id": "example_id"}, nil)
+    if err != nil { /* handle */ }
+    // entity is the loaded record
+
+Only `Direct()` returns a response envelope — a `map[string]any` with
+`"ok"`, `"status"`, `"headers"`, and `"data"` keys.
 
 ### Entities
 
@@ -322,13 +318,21 @@ Create an instance: `entity := client.Entity(nil)`
 #### Example: Load
 
 ```go
-result, err := client.Entity(nil).Load(map[string]any{"id": "entity_id"}, nil)
+entity, err := client.Entity(nil).Load(map[string]any{"id": "entity_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(entity) // the loaded record
 ```
 
 #### Example: List
 
 ```go
-results, err := client.Entity(nil).List(nil, nil)
+entitys, err := client.Entity(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(entitys) // the array of records
 ```
 
 
@@ -353,7 +357,11 @@ Create an instance: `entity_full_info := client.EntityFullInfo(nil)`
 #### Example: Load
 
 ```go
-result, err := client.EntityFullInfo(nil).Load(map[string]any{"id": "entity_full_info_id"}, nil)
+entity_full_info, err := client.EntityFullInfo(nil).Load(map[string]any{"id": "entity_full_info_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(entity_full_info) // the loaded record
 ```
 
 
@@ -370,7 +378,11 @@ Create an instance: `health_check := client.HealthCheck(nil)`
 #### Example: Load
 
 ```go
-result, err := client.HealthCheck(nil).Load(map[string]any{"id": "health_check_id"}, nil)
+health_check, err := client.HealthCheck(nil).Load(map[string]any{"id": "health_check_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(health_check) // the loaded record
 ```
 
 
@@ -393,7 +405,11 @@ Create an instance: `last_update := client.LastUpdate(nil)`
 #### Example: Load
 
 ```go
-result, err := client.LastUpdate(nil).Load(map[string]any{"id": "last_update_id"}, nil)
+last_update, err := client.LastUpdate(nil).Load(map[string]any{"id": "last_update_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(last_update) // the loaded record
 ```
 
 

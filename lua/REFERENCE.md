@@ -95,7 +95,7 @@ same parameters as `direct()`.
 ## EntityEntity
 
 ```lua
-local entity = client:entity(nil)
+local entity = client:Entity(nil)
 ```
 
 ### Fields
@@ -117,7 +117,7 @@ local entity = client:entity(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:entity():list()
+local results, err = client:Entity():list()
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
@@ -125,7 +125,7 @@ local results, err = client:entity():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:entity():load({ id = "entity_id" })
+local result, err = client:Entity():load({ id = "entity_id" })
 ```
 
 ### Common Methods
@@ -161,7 +161,7 @@ Return the entity name.
 ## EntityFullInfoEntity
 
 ```lua
-local entity_full_info = client:entity_full_info(nil)
+local entity_full_info = client:EntityFullInfo(nil)
 ```
 
 ### Fields
@@ -179,7 +179,7 @@ local entity_full_info = client:entity_full_info(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:entity_full_info():load({ id = "entity_full_info_id" })
+local result, err = client:EntityFullInfo():load({ id = "entity_full_info_id" })
 ```
 
 ### Common Methods
@@ -215,7 +215,7 @@ Return the entity name.
 ## HealthCheckEntity
 
 ```lua
-local health_check = client:health_check(nil)
+local health_check = client:HealthCheck(nil)
 ```
 
 ### Operations
@@ -225,7 +225,7 @@ local health_check = client:health_check(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:health_check():load({ id = "health_check_id" })
+local result, err = client:HealthCheck():load({ id = "health_check_id" })
 ```
 
 ### Common Methods
@@ -261,7 +261,7 @@ Return the entity name.
 ## LastUpdateEntity
 
 ```lua
-local last_update = client:last_update(nil)
+local last_update = client:LastUpdate(nil)
 ```
 
 ### Fields
@@ -277,7 +277,7 @@ local last_update = client:last_update(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:last_update():load({ id = "last_update_id" })
+local result, err = client:LastUpdate():load({ id = "last_update_id" })
 ```
 
 ### Common Methods

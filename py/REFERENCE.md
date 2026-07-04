@@ -92,7 +92,7 @@ Prepare a fetch definition without sending. Returns the `fetchdef` and raises on
 ## EntityEntity
 
 ```python
-entity = client.entity
+entity = client.Entity()
 ```
 
 ### Fields
@@ -114,7 +114,9 @@ entity = client.entity
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.entity.list({})
+results = client.Entity().list({})
+for entity in results:
+    print(entity)
 ```
 
 #### `load(reqmatch, ctrl=None) -> dict`
@@ -122,7 +124,7 @@ results = client.entity.list({})
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.entity.load({"id": "entity_id"})
+result = client.Entity().load({"id": "entity_id"})
 ```
 
 ### Common Methods
@@ -157,7 +159,7 @@ Return the entity name.
 ## EntityFullInfoEntity
 
 ```python
-entity_full_info = client.entity_full_info
+entity_full_info = client.EntityFullInfo()
 ```
 
 ### Fields
@@ -175,7 +177,7 @@ entity_full_info = client.entity_full_info
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.entity_full_info.load({"id": "entity_full_info_id"})
+result = client.EntityFullInfo().load({"id": "entity_full_info_id"})
 ```
 
 ### Common Methods
@@ -210,7 +212,7 @@ Return the entity name.
 ## HealthCheckEntity
 
 ```python
-health_check = client.health_check
+health_check = client.HealthCheck()
 ```
 
 ### Operations
@@ -220,7 +222,7 @@ health_check = client.health_check
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.health_check.load({"id": "health_check_id"})
+result = client.HealthCheck().load({"id": "health_check_id"})
 ```
 
 ### Common Methods
@@ -255,7 +257,7 @@ Return the entity name.
 ## LastUpdateEntity
 
 ```python
-last_update = client.last_update
+last_update = client.LastUpdate()
 ```
 
 ### Fields
@@ -271,7 +273,7 @@ last_update = client.last_update
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.last_update.load({"id": "last_update_id"})
+result = client.LastUpdate().load({"id": "last_update_id"})
 ```
 
 ### Common Methods

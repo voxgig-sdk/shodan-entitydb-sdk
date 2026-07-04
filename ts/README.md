@@ -28,25 +28,28 @@ import { ShodanEntitydbSDK } from '@voxgig-sdk/shodan-entitydb'
 const client = new ShodanEntitydbSDK()
 ```
 
-### 2. List entitys
+### 2. List entity records
+
+`list()` resolves to an array of Entity objects — iterate it directly:
 
 ```ts
-const result = await client.entity.list()
+const entitys = await client.Entity().list()
 
-if (result.ok) {
-  for (const item of result.data) {
-    console.log(item.id, item.name)
-  }
+for (const entity of entitys) {
+  console.log(entity)
 }
 ```
 
 ### 3. Load an entity
 
-```ts
-const result = await client.entity.load({ id: 'example_id' })
+`load()` returns the entity directly and throws on failure:
 
-if (result.ok) {
-  console.log(result.data)
+```ts
+try {
+  const entity = await client.Entity().load({ id: 'example_id' })
+  console.log(entity)
+} catch (err) {
+  console.error('load failed:', err)
 }
 ```
 
@@ -64,6 +67,9 @@ const result = await client.direct({
   params: { id: 'example' },
 })
 
+if (result instanceof Error) {
+  throw result
+}
 if (result.ok) {
   console.log(result.status)  // 200
   console.log(result.data)    // response body
@@ -92,9 +98,9 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = ShodanEntitydbSDK.test()
 
-const result = await client.entity.load({ id: 'test01' })
-// result.ok === true
-// result.data contains mock response data
+const entity = await client.Entity().load({ id: 'test01' })
+// entity is a bare entity populated with mock response data
+console.log(entity)
 ```
 
 You can also use the instance method:
@@ -109,7 +115,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.entity
+const entity = client.Entity()
 
 // First call sets internal match
 await entity.load({ id: 'example' })
@@ -187,8 +193,8 @@ new ShodanEntitydbSDK(options?: {
 | `utility()` | `Utility` | Deep copy of the SDK utility object. |
 | `prepare(fetchargs?)` | `Promise<FetchDef>` | Build an HTTP request definition without sending it. |
 | `direct(fetchargs?)` | `Promise<DirectResult>` | Build and send an HTTP request. |
-| `Entity(data?)` | `EntityEntity` | Create a Entity entity instance. |
-| `EntityFullInfo(data?)` | `EntityFullInfoEntity` | Create a EntityFullInfo entity instance. |
+| `Entity(data?)` | `EntityEntity` | Create an Entity entity instance. |
+| `EntityFullInfo(data?)` | `EntityFullInfoEntity` | Create an EntityFullInfo entity instance. |
 | `HealthCheck(data?)` | `HealthCheckEntity` | Create a HealthCheck entity instance. |
 | `LastUpdate(data?)` | `LastUpdateEntity` | Create a LastUpdate entity instance. |
 | `tester(testopts?, sdkopts?)` | `ShodanEntitydbSDK` | Create a test-mode client instance. |
@@ -207,29 +213,30 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `load(reqmatch?, ctrl?): Promise<Result>` | Load a single entity by match criteria. |
-| `list` | `list(reqmatch?, ctrl?): Promise<Result>` | List entities matching the criteria. |
-| `create` | `create(reqdata?, ctrl?): Promise<Result>` | Create a new entity. |
-| `update` | `update(reqdata?, ctrl?): Promise<Result>` | Update an existing entity. |
-| `remove` | `remove(reqmatch?, ctrl?): Promise<Result>` | Remove an entity. |
+| `load` | `load(reqmatch?, ctrl?): Promise<Entity>` | Load a single entity by match criteria. |
+| `list` | `list(reqmatch?, ctrl?): Promise<Entity[]>` | List entities matching the criteria. |
+| `create` | `create(reqdata?, ctrl?): Promise<Entity>` | Create a new entity. |
+| `update` | `update(reqdata?, ctrl?): Promise<Entity>` | Update an existing entity. |
+| `remove` | `remove(reqmatch?, ctrl?): Promise<void>` | Remove an entity. |
 | `data` | `data(data?): any` | Get or set entity data. |
 | `match` | `match(match?): any` | Get or set entity match criteria. |
 | `make` | `make(): Entity` | Create a new instance with the same options. |
 | `client` | `client(): ShodanEntitydbSDK` | Return the parent SDK client. |
 | `entopts` | `entopts(): object` | Return a copy of the entity options. |
 
-#### Result shape
+#### Return values
 
-All entity operations return a Result object:
+Entity operations resolve to the entity data directly — there is no
+result envelope:
 
-```ts
-{
-  ok: boolean      // true if the HTTP status is 2xx
-  status: number   // HTTP status code
-  headers: object  // response headers
-  data: any        // parsed JSON response body
-}
-```
+- `load`, `create` and `update` resolve to a single entity object.
+- `list` resolves to an **array** of entity objects (iterate it directly;
+  there is no `.data` and no `.ok`).
+- `remove` resolves to `void`.
+
+On a failed request these methods **throw**, so wrap calls in
+`try`/`catch` to handle errors. Only `direct()` returns the result
+envelope described below.
 
 ### DirectResult shape
 
@@ -315,7 +322,7 @@ API path: `/api/last_updated`
 
 ### Entity
 
-Create an instance: `const entity = client.entity`
+Create an instance: `const entity = client.Entity()`
 
 #### Operations
 
@@ -339,19 +346,19 @@ Create an instance: `const entity = client.entity`
 #### Example: Load
 
 ```ts
-const entity = await client.entity.load({ id: 'entity_id' })
+const entity = await client.Entity().load({ id: 'entity_id' })
 ```
 
 #### Example: List
 
 ```ts
-const entitys = await client.entity.list()
+const entitys = await client.Entity().list()
 ```
 
 
 ### EntityFullInfo
 
-Create an instance: `const entity_full_info = client.entity_full_info`
+Create an instance: `const entity_full_info = client.EntityFullInfo()`
 
 #### Operations
 
@@ -370,13 +377,13 @@ Create an instance: `const entity_full_info = client.entity_full_info`
 #### Example: Load
 
 ```ts
-const entity_full_info = await client.entity_full_info.load({ id: 'entity_full_info_id' })
+const entity_full_info = await client.EntityFullInfo().load({ id: 'entity_full_info_id' })
 ```
 
 
 ### HealthCheck
 
-Create an instance: `const health_check = client.health_check`
+Create an instance: `const health_check = client.HealthCheck()`
 
 #### Operations
 
@@ -387,13 +394,13 @@ Create an instance: `const health_check = client.health_check`
 #### Example: Load
 
 ```ts
-const health_check = await client.health_check.load({ id: 'health_check_id' })
+const health_check = await client.HealthCheck().load({ id: 'health_check_id' })
 ```
 
 
 ### LastUpdate
 
-Create an instance: `const last_update = client.last_update`
+Create an instance: `const last_update = client.LastUpdate()`
 
 #### Operations
 
@@ -410,7 +417,7 @@ Create an instance: `const last_update = client.last_update`
 #### Example: Load
 
 ```ts
-const last_update = await client.last_update.load({ id: 'last_update_id' })
+const last_update = await client.LastUpdate().load({ id: 'last_update_id' })
 ```
 
 
@@ -481,7 +488,7 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const entity = client.entity
+const entity = client.Entity()
 await entity.load({ id: "example_id" })
 
 // entity.data() now returns the loaded entity data

@@ -4,15 +4,19 @@
 # params (op.<name>.points[].args.params[]). Field/param types come from the
 # canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 # @voxgig/apidef VALID_CANON). Do not edit by hand.
+#
+# These are TypedDicts, not dataclasses: the SDK ops return/accept plain dicts
+# at runtime, and a TypedDict IS a dict shape, so the types match the runtime.
+# Optional (req:false) keys are modelled as TypedDict key-optionality
+# (total=False), split into a required base + total=False subclass when a type
+# has both required and optional keys.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-from typing import Optional, Any
+from typing import TypedDict, Any
 
 
-@dataclass
-class Entity:
+class Entity(TypedDict):
     cik: int
     entity: dict
     entity_name: str
@@ -22,50 +26,41 @@ class Entity:
     ticker: list
 
 
-@dataclass
-class EntityLoadMatch:
+class EntityLoadMatch(TypedDict):
     id: int
 
 
-@dataclass
-class EntityListMatch:
-    cik: Optional[int] = None
-    entity: Optional[dict] = None
-    entity_name: Optional[str] = None
-    executif: Optional[list] = None
-    finance_data: Optional[list] = None
-    id: Optional[int] = None
-    ticker: Optional[list] = None
+class EntityListMatch(TypedDict, total=False):
+    cik: int
+    entity: dict
+    entity_name: str
+    executif: list
+    finance_data: list
+    id: int
+    ticker: list
 
 
-@dataclass
-class EntityFullInfo:
+class EntityFullInfo(TypedDict):
     entity: dict
     executif: list
     finance_data: list
 
 
-@dataclass
-class EntityFullInfoLoadMatch:
+class EntityFullInfoLoadMatch(TypedDict):
     symbol: str
 
 
-@dataclass
-class HealthCheck:
+class HealthCheck(TypedDict):
     pass
 
 
-@dataclass
-class HealthCheckLoadMatch:
+class HealthCheckLoadMatch(TypedDict):
     pass
 
 
-@dataclass
-class LastUpdate:
+class LastUpdate(TypedDict):
     last_updated: str
 
 
-@dataclass
-class LastUpdateLoadMatch:
-    last_updated: Optional[str] = None
-
+class LastUpdateLoadMatch(TypedDict, total=False):
+    last_updated: str

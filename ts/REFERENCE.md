@@ -145,7 +145,7 @@ Alias for `ShodanEntitydbSDK.test()`.
 ## EntityEntity
 
 ```ts
-const entity = client.entity
+const entity = client.Entity()
 ```
 
 ### Fields
@@ -167,7 +167,7 @@ const entity = client.entity
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.entity.list()
+const results = await client.Entity().list()
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -175,7 +175,7 @@ const results = await client.entity.list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.entity.load({ id: 'entity_id' })
+const result = await client.Entity().load({ id: 'entity_id' })
 ```
 
 ### Common Methods
@@ -209,7 +209,7 @@ Return a copy of the entity options.
 ## EntityFullInfoEntity
 
 ```ts
-const entity_full_info = client.entity_full_info
+const entity_full_info = client.EntityFullInfo()
 ```
 
 ### Fields
@@ -227,7 +227,7 @@ const entity_full_info = client.entity_full_info
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.entity_full_info.load({ id: 'entity_full_info_id' })
+const result = await client.EntityFullInfo().load({ id: 'entity_full_info_id' })
 ```
 
 ### Common Methods
@@ -261,7 +261,7 @@ Return a copy of the entity options.
 ## HealthCheckEntity
 
 ```ts
-const health_check = client.health_check
+const health_check = client.HealthCheck()
 ```
 
 ### Operations
@@ -271,7 +271,7 @@ const health_check = client.health_check
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.health_check.load({ id: 'health_check_id' })
+const result = await client.HealthCheck().load({ id: 'health_check_id' })
 ```
 
 ### Common Methods
@@ -305,7 +305,7 @@ Return a copy of the entity options.
 ## LastUpdateEntity
 
 ```ts
-const last_update = client.last_update
+const last_update = client.LastUpdate()
 ```
 
 ### Fields
@@ -321,7 +321,7 @@ const last_update = client.last_update
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.last_update.load({ id: 'last_update_id' })
+const result = await client.LastUpdate().load({ id: 'last_update_id' })
 ```
 
 ### Common Methods

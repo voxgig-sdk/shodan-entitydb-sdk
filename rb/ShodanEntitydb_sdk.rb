@@ -208,52 +208,28 @@ class ShodanEntitydbSDK
   end
 
 
-  # Idiomatic facade: client.entity.list / client.entity.load({ "id" => ... })
-  def entity
-    require_relative 'entity/entity_entity'
-    @entity ||= EntityEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.entity instead.
+  # Canonical facade: client.Entity.list / client.Entity.load({ "id" => ... })
   def Entity(data = nil)
     require_relative 'entity/entity_entity'
     EntityEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.entity_full_info.list / client.entity_full_info.load({ "id" => ... })
-  def entity_full_info
-    require_relative 'entity/entity_full_info_entity'
-    @entity_full_info ||= EntityFullInfoEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.entity_full_info instead.
+  # Canonical facade: client.EntityFullInfo.list / client.EntityFullInfo.load({ "id" => ... })
   def EntityFullInfo(data = nil)
     require_relative 'entity/entity_full_info_entity'
     EntityFullInfoEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.health_check.list / client.health_check.load({ "id" => ... })
-  def health_check
-    require_relative 'entity/health_check_entity'
-    @health_check ||= HealthCheckEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.health_check instead.
+  # Canonical facade: client.HealthCheck.list / client.HealthCheck.load({ "id" => ... })
   def HealthCheck(data = nil)
     require_relative 'entity/health_check_entity'
     HealthCheckEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.last_update.list / client.last_update.load({ "id" => ... })
-  def last_update
-    require_relative 'entity/last_update_entity'
-    @last_update ||= LastUpdateEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.last_update instead.
+  # Canonical facade: client.LastUpdate.list / client.LastUpdate.load({ "id" => ... })
   def LastUpdate(data = nil)
     require_relative 'entity/last_update_entity'
     LastUpdateEntity.new(self, data)

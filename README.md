@@ -26,9 +26,11 @@ import { ShodanEntitydbSDK } from '@voxgig-sdk/shodan-entitydb'
 
 const client = new ShodanEntitydbSDK()
 
-// List all entitys
-const entitys = await client.entity.list()
-console.log(entitys.data)
+// List all entitys (returns Entity[])
+const entitys = await client.Entity().list()
+for (const entity of entitys) {
+  console.log(entity)
+}
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -86,12 +88,13 @@ from shodanentitydb_sdk import ShodanEntitydbSDK
 
 client = ShodanEntitydbSDK()
 
-# List all entitys
-entitys = client.entity.list()
-print(entitys)
+# List all entitys (returns a list, raises on error)
+entitys = client.Entity().list({})
+for entity in entitys:
+    print(entity)
 
-# Load a specific entity
-entity = client.entity.load({"id": "example_id"})
+# Load a specific entity (returns the record, raises on error)
+entity = client.Entity().load({"id": "example_id"})
 print(entity)
 ```
 
@@ -103,12 +106,12 @@ require_once 'shodanentitydb_sdk.php';
 
 $client = new ShodanEntitydbSDK();
 
-// List all entitys (throws on error)
-$entitys = $client->entity()->list();
+// List all entitys (returns an array; throws on error)
+$entitys = $client->Entity()->list();
 print_r($entitys);
 
-// Load a specific entity
-$entity = $client->entity()->load(["id" => "example_id"]);
+// Load a specific entity (returns the bare record; throws on error)
+$entity = $client->Entity()->load(["id" => "example_id"]);
 print_r($entity);
 ```
 
@@ -131,12 +134,12 @@ require_relative "ShodanEntitydb_sdk"
 
 client = ShodanEntitydbSDK.new
 
-# List all entitys
-entitys = client.entity.list
+# List all entitys (returns an Array; raises on error)
+entitys = client.Entity.list
 puts entitys
 
-# Load a specific entity
-entity = client.entity.load({ "id" => "example_id" })
+# Load a specific entity (returns the bare record; raises on error)
+entity = client.Entity.load({ "id" => "example_id" })
 puts entity
 ```
 
@@ -148,11 +151,11 @@ local sdk = require("shodan-entitydb_sdk")
 local client = sdk.new()
 
 -- List all entitys
-local entitys, err = client:entity():list()
+local entitys, err = client:Entity():list()
 print(entitys)
 
 -- Load a specific entity
-local entity, err = client:entity():load({ id = "example_id" })
+local entity, err = client:Entity():load({ id = "example_id" })
 print(entity)
 ```
 
@@ -165,22 +168,27 @@ in-memory mock, so unit tests run offline.
 
 ```ts
 const client = ShodanEntitydbSDK.test()
-const result = await client.entity.load({ id: 'test01' })
-// result.ok === true, result.data contains mock data
+const entity = await client.Entity().load({ id: 1 })
+// entity is a bare Entity populated with mock data
+console.log(entity)
 ```
 
 ### Python
 
 ```python
 client = ShodanEntitydbSDK.test()
-result = client.entity.load({"id": "test01"})
+entity = client.Entity().load({"id": "test01"})
+print(entity)
 ```
 
 ### PHP
 
 ```php
-$client = ShodanEntitydbSDK::test();
-$result = $client->entity()->load(["id" => "test01"]);
+// Seed fixture data so offline calls resolve without a live server.
+$client = ShodanEntitydbSDK::test([
+    "entity" => ["entity" => ["test01" => ["id" => "test01"]]],
+]);
+$entity = $client->Entity()->load(["id" => "test01"]);
 ```
 
 ### Golang
@@ -195,15 +203,18 @@ result, err := client.Entity(nil).Load(
 ### Ruby
 
 ```ruby
-client = ShodanEntitydbSDK.test
-result = client.entity.load({ "id" => "test01" })
+# Seed fixture data so offline calls resolve without a live server.
+client = ShodanEntitydbSDK.test({
+  "entity" => { "entity" => { "test01" => { "id" => "test01" } } },
+})
+entity = client.Entity.load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:entity():load({ id = "test01" })
+local result, err = client:Entity():load({ id = "test01" })
 ```
 
 ## How it works
@@ -251,6 +262,9 @@ const result = await client.direct({
   method: 'GET',
   params: { id: 'example' },
 })
+if (result instanceof Error) {
+  throw result
+}
 console.log(result.data)
 ```
 

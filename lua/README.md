@@ -31,26 +31,26 @@ local sdk = require("shodan-entitydb_sdk")
 local client = sdk.new()
 ```
 
-### 2. List entitys
+### 2. List entity records
+
+Entity operations return `(value, err)`. For `list`, `value` is the
+array of records itself — iterate it directly (there is no wrapper).
 
 ```lua
-local result, err = client:entity():list()
+local entitys, err = client:Entity():list()
 if err then error(err) end
 
-if type(result) == "table" then
-  for _, item in ipairs(result) do
-    local d = item:data_get()
-    print(d["id"], d["name"])
-  end
+for _, item in ipairs(entitys) do
+  print(item["id"], item["name"])
 end
 ```
 
 ### 3. Load an entity
 
 ```lua
-local result, err = client:entity():load({ id = "example_id" })
+local entity, err = client:Entity():load({ id = "example_id" })
 if err then error(err) end
-print(result)
+print(entity)
 ```
 
 
@@ -96,8 +96,8 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:entity():load({ id = "test01" })
--- result contains mock response data
+local result, err = client:Entity():load({ id = "test01" })
+-- result is the loaded data; err is set on failure
 ```
 
 ### Use a custom fetch function
@@ -175,8 +175,8 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `get_utility` | `() -> Utility` | Copy of the SDK utility object. |
 | `prepare` | `(fetchargs) -> table, err` | Build an HTTP request definition without sending. |
 | `direct` | `(fetchargs) -> table, err` | Build and send an HTTP request. |
-| `Entity` | `(data) -> EntityEntity` | Create a Entity entity instance. |
-| `EntityFullInfo` | `(data) -> EntityFullInfoEntity` | Create a EntityFullInfo entity instance. |
+| `Entity` | `(data) -> EntityEntity` | Create an Entity entity instance. |
+| `EntityFullInfo` | `(data) -> EntityFullInfoEntity` | Create an EntityFullInfo entity instance. |
 | `HealthCheck` | `(data) -> HealthCheckEntity` | Create a HealthCheck entity instance. |
 | `LastUpdate` | `(data) -> LastUpdateEntity` | Create a LastUpdate entity instance. |
 
@@ -200,17 +200,22 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `(any, err)`. The first value is a
-`table` with these keys:
+Entity operations return `(value, err)`. The `value` is the operation's
+data **directly** — there is no wrapper:
 
-| Key | Type | Description |
-| --- | --- | --- |
-| `ok` | `boolean` | `true` if the HTTP status is 2xx. |
-| `status` | `number` | HTTP status code. |
-| `headers` | `table` | Response headers. |
-| `data` | `any` | Parsed JSON response body. |
+| Operation | `value` |
+| --- | --- |
+| `load` / `create` / `update` / `remove` | the entity record (a `table`) |
+| `list` | an array (`table`) of entity records |
 
-On error, `ok` is `false` and `err` contains the error value.
+Check `err` first (it is non-`nil` on failure), then use `value`:
+
+    local entity, err = client:Entity():load({ id = "example_id" })
+    if err then error(err) end
+    -- entity is the loaded record
+
+Only `direct()` returns a response envelope — a `table` with `ok`,
+`status`, `headers`, and `data` keys.
 
 ### Entities
 
@@ -268,7 +273,7 @@ API path: `/api/last_updated`
 
 ### Entity
 
-Create an instance: `const entity = client.entity`
+Create an instance: `local entity = client:Entity(nil)`
 
 #### Operations
 
@@ -291,20 +296,20 @@ Create an instance: `const entity = client.entity`
 
 #### Example: Load
 
-```ts
-const entity = await client.entity.load({ id: 'entity_id' })
+```lua
+local entity, err = client:Entity():load({ id = "entity_id" })
 ```
 
 #### Example: List
 
-```ts
-const entitys = await client.entity.list()
+```lua
+local entitys, err = client:Entity():list()
 ```
 
 
 ### EntityFullInfo
 
-Create an instance: `const entity_full_info = client.entity_full_info`
+Create an instance: `local entity_full_info = client:EntityFullInfo(nil)`
 
 #### Operations
 
@@ -322,14 +327,14 @@ Create an instance: `const entity_full_info = client.entity_full_info`
 
 #### Example: Load
 
-```ts
-const entity_full_info = await client.entity_full_info.load({ id: 'entity_full_info_id' })
+```lua
+local entity_full_info, err = client:EntityFullInfo():load({ id = "entity_full_info_id" })
 ```
 
 
 ### HealthCheck
 
-Create an instance: `const health_check = client.health_check`
+Create an instance: `local health_check = client:HealthCheck(nil)`
 
 #### Operations
 
@@ -339,14 +344,14 @@ Create an instance: `const health_check = client.health_check`
 
 #### Example: Load
 
-```ts
-const health_check = await client.health_check.load({ id: 'health_check_id' })
+```lua
+local health_check, err = client:HealthCheck():load({ id = "health_check_id" })
 ```
 
 
 ### LastUpdate
 
-Create an instance: `const last_update = client.last_update`
+Create an instance: `local last_update = client:LastUpdate(nil)`
 
 #### Operations
 
@@ -362,8 +367,8 @@ Create an instance: `const last_update = client.last_update`
 
 #### Example: Load
 
-```ts
-const last_update = await client.last_update.load({ id: 'last_update_id' })
+```lua
+local last_update, err = client:LastUpdate():load({ id = "last_update_id" })
 ```
 
 
@@ -438,7 +443,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local entity = client:entity()
+local entity = client:Entity()
 entity:load({ id = "example_id" })
 
 -- entity:data_get() now returns the loaded entity data

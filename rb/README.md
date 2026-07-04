@@ -28,16 +28,14 @@ require_relative "ShodanEntitydb_sdk"
 client = ShodanEntitydbSDK.new
 ```
 
-### 2. List entitys
+### 2. List entity records
 
 ```ruby
 begin
-  result = client.entity.list
-  if result.is_a?(Array)
-    result.each do |item|
-      d = item.data_get
-      puts "#{d["id"]} #{d["name"]}"
-    end
+  # list returns an Array of Entity records — iterate directly.
+  entitys = client.Entity.list
+  entitys.each do |item|
+    puts "#{item["id"]} #{item["name"]}"
   end
 rescue => err
   warn "list failed: #{err}"
@@ -48,8 +46,9 @@ end
 
 ```ruby
 begin
-  result = client.entity.load({ "id" => "example_id" })
-  puts result
+  # load returns the bare Entity record (raises on error).
+  entity = client.Entity.load({ "id" => "example_id" })
+  puts entity
 rescue => err
   warn "load failed: #{err}"
 end
@@ -96,13 +95,17 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```ruby
-client = ShodanEntitydbSDK.test
+client = ShodanEntitydbSDK.test({
+  "entity" => { "entity" => { "test01" => { "id" => "test01" } } },
+})
 
-result = client.entity.load({ "id" => "test01" })
-# result contains mock response data
+# load returns the bare mock record (raises on error).
+entity = client.Entity.load({ "id" => "test01" })
+puts entity
 ```
 
 ### Use a custom fetch function
@@ -178,8 +181,8 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `get_utility` | `() -> Utility` | Copy of the SDK utility object. |
 | `prepare` | `(fetchargs) -> Hash` | Build an HTTP request definition without sending. Raises on error. |
 | `direct` | `(fetchargs) -> Hash` | Build and send an HTTP request. Returns a result hash (`result["ok"]`); does not raise. |
-| `Entity` | `(data) -> EntityEntity` | Create a Entity entity instance. |
-| `EntityFullInfo` | `(data) -> EntityFullInfoEntity` | Create a EntityFullInfo entity instance. |
+| `Entity` | `(data) -> EntityEntity` | Create an Entity entity instance. |
+| `EntityFullInfo` | `(data) -> EntityFullInfoEntity` | Create an EntityFullInfo entity instance. |
 | `HealthCheck` | `(data) -> HealthCheckEntity` | Create a HealthCheck entity instance. |
 | `LastUpdate` | `(data) -> LastUpdateEntity` | Create a LastUpdate entity instance. |
 
@@ -274,7 +277,7 @@ API path: `/api/last_updated`
 
 ### Entity
 
-Create an instance: `const entity = client.entity`
+Create an instance: `entity = client.Entity`
 
 #### Operations
 
@@ -297,20 +300,22 @@ Create an instance: `const entity = client.entity`
 
 #### Example: Load
 
-```ts
-const entity = await client.entity.load({ id: 'entity_id' })
+```ruby
+# load returns the bare Entity record (raises on error).
+entity = client.Entity.load({ "id" => "entity_id" })
 ```
 
 #### Example: List
 
-```ts
-const entitys = await client.entity.list()
+```ruby
+# list returns an Array of Entity records (raises on error).
+entitys = client.Entity.list
 ```
 
 
 ### EntityFullInfo
 
-Create an instance: `const entity_full_info = client.entity_full_info`
+Create an instance: `entity_full_info = client.EntityFullInfo`
 
 #### Operations
 
@@ -328,14 +333,15 @@ Create an instance: `const entity_full_info = client.entity_full_info`
 
 #### Example: Load
 
-```ts
-const entity_full_info = await client.entity_full_info.load({ id: 'entity_full_info_id' })
+```ruby
+# load returns the bare EntityFullInfo record (raises on error).
+entity_full_info = client.EntityFullInfo.load({ "id" => "entity_full_info_id" })
 ```
 
 
 ### HealthCheck
 
-Create an instance: `const health_check = client.health_check`
+Create an instance: `health_check = client.HealthCheck`
 
 #### Operations
 
@@ -345,14 +351,15 @@ Create an instance: `const health_check = client.health_check`
 
 #### Example: Load
 
-```ts
-const health_check = await client.health_check.load({ id: 'health_check_id' })
+```ruby
+# load returns the bare HealthCheck record (raises on error).
+health_check = client.HealthCheck.load({ "id" => "health_check_id" })
 ```
 
 
 ### LastUpdate
 
-Create an instance: `const last_update = client.last_update`
+Create an instance: `last_update = client.LastUpdate`
 
 #### Operations
 
@@ -368,8 +375,9 @@ Create an instance: `const last_update = client.last_update`
 
 #### Example: Load
 
-```ts
-const last_update = await client.last_update.load({ id: 'last_update_id' })
+```ruby
+# load returns the bare LastUpdate record (raises on error).
+last_update = client.LastUpdate.load({ "id" => "last_update_id" })
 ```
 
 
@@ -444,7 +452,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-entity = client.entity
+entity = client.Entity
 entity.load({ "id" => "example_id" })
 
 # entity.data_get now returns the loaded entity data

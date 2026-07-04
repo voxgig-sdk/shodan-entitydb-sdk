@@ -97,7 +97,7 @@ Prepare a fetch definition without sending the request. Returns the
 ## EntityEntity
 
 ```php
-$entity = $client->entity();
+$entity = $client->Entity();
 ```
 
 ### Fields
@@ -119,7 +119,7 @@ $entity = $client->entity();
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->entity()->list([]);
+$results = $client->Entity()->list([]);
 ```
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
@@ -127,7 +127,7 @@ $results = $client->entity()->list([]);
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->entity()->load(["id" => "entity_id"]);
+$result = $client->Entity()->load(["id" => "entity_id"]);
 ```
 
 ### Common Methods
@@ -163,7 +163,7 @@ Return the entity name.
 ## EntityFullInfoEntity
 
 ```php
-$entity_full_info = $client->entity_full_info();
+$entity_full_info = $client->EntityFullInfo();
 ```
 
 ### Fields
@@ -181,7 +181,7 @@ $entity_full_info = $client->entity_full_info();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->entity_full_info()->load(["id" => "entity_full_info_id"]);
+$result = $client->EntityFullInfo()->load(["id" => "entity_full_info_id"]);
 ```
 
 ### Common Methods
@@ -217,7 +217,7 @@ Return the entity name.
 ## HealthCheckEntity
 
 ```php
-$health_check = $client->health_check();
+$health_check = $client->HealthCheck();
 ```
 
 ### Operations
@@ -227,7 +227,7 @@ $health_check = $client->health_check();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->health_check()->load(["id" => "health_check_id"]);
+$result = $client->HealthCheck()->load(["id" => "health_check_id"]);
 ```
 
 ### Common Methods
@@ -263,7 +263,7 @@ Return the entity name.
 ## LastUpdateEntity
 
 ```php
-$last_update = $client->last_update();
+$last_update = $client->LastUpdate();
 ```
 
 ### Fields
@@ -279,7 +279,7 @@ $last_update = $client->last_update();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->last_update()->load(["id" => "last_update_id"]);
+$result = $client->LastUpdate()->load(["id" => "last_update_id"]);
 ```
 
 ### Common Methods

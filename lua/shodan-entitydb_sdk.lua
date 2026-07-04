@@ -244,8 +244,9 @@ end
 
 
 
--- Idiomatic facade: client:entity():list() / client:entity():load({ id = ... })
-function ShodanEntitydbSDK:entity(data)
+-- Idiomatic facade: client:Entity():list() / client:Entity():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function ShodanEntitydbSDK:Entity(data)
   local EntityMod = require("entity.entity_entity")
   if data == nil then
     if self._entity == nil then
@@ -256,15 +257,10 @@ function ShodanEntitydbSDK:entity(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:entity() instead.
-function ShodanEntitydbSDK:Entity(data)
-  local EntityMod = require("entity.entity_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:entity_full_info():list() / client:entity_full_info():load({ id = ... })
-function ShodanEntitydbSDK:entity_full_info(data)
+-- Idiomatic facade: client:EntityFullInfo():list() / client:EntityFullInfo():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function ShodanEntitydbSDK:EntityFullInfo(data)
   local EntityMod = require("entity.entity_full_info_entity")
   if data == nil then
     if self._entity_full_info == nil then
@@ -275,15 +271,10 @@ function ShodanEntitydbSDK:entity_full_info(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:entity_full_info() instead.
-function ShodanEntitydbSDK:EntityFullInfo(data)
-  local EntityMod = require("entity.entity_full_info_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:health_check():list() / client:health_check():load({ id = ... })
-function ShodanEntitydbSDK:health_check(data)
+-- Idiomatic facade: client:HealthCheck():list() / client:HealthCheck():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function ShodanEntitydbSDK:HealthCheck(data)
   local EntityMod = require("entity.health_check_entity")
   if data == nil then
     if self._health_check == nil then
@@ -294,15 +285,10 @@ function ShodanEntitydbSDK:health_check(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:health_check() instead.
-function ShodanEntitydbSDK:HealthCheck(data)
-  local EntityMod = require("entity.health_check_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:last_update():list() / client:last_update():load({ id = ... })
-function ShodanEntitydbSDK:last_update(data)
+-- Idiomatic facade: client:LastUpdate():list() / client:LastUpdate():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function ShodanEntitydbSDK:LastUpdate(data)
   local EntityMod = require("entity.last_update_entity")
   if data == nil then
     if self._last_update == nil then
@@ -310,12 +296,6 @@ function ShodanEntitydbSDK:last_update(data)
     end
     return self._last_update
   end
-  return EntityMod.new(self, data)
-end
-
--- Deprecated: use client:last_update() instead.
-function ShodanEntitydbSDK:LastUpdate(data)
-  local EntityMod = require("entity.last_update_entity")
   return EntityMod.new(self, data)
 end
 

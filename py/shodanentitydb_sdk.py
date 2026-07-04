@@ -220,73 +220,33 @@ class ShodanEntitydbSDK:
         }
 
 
-    @property
-    def entity(self):
-        """Idiomatic facade: client.entity.list() / client.entity.load({"id": ...})."""
-        from entity.entity_entity import EntityEntity
-        cached = getattr(self, "_entity", None)
-        if cached is None:
-            cached = EntityEntity(self, None)
-            self._entity = cached
-        return cached
-
-    def Entity(self, data=None):
-        # Deprecated: use client.entity instead.
+    def Entity(self, data=None) -> "EntityEntity":
+        """Entity factory: client.Entity().list({}) / client.Entity().load({"id": ...})."""
         from entity.entity_entity import EntityEntity
         return EntityEntity(self, data)
 
 
-    @property
-    def entity_full_info(self):
-        """Idiomatic facade: client.entity_full_info.list() / client.entity_full_info.load({"id": ...})."""
-        from entity.entity_full_info_entity import EntityFullInfoEntity
-        cached = getattr(self, "_entity_full_info", None)
-        if cached is None:
-            cached = EntityFullInfoEntity(self, None)
-            self._entity_full_info = cached
-        return cached
-
-    def EntityFullInfo(self, data=None):
-        # Deprecated: use client.entity_full_info instead.
+    def EntityFullInfo(self, data=None) -> "EntityFullInfoEntity":
+        """Entity factory: client.EntityFullInfo().list({}) / client.EntityFullInfo().load({"id": ...})."""
         from entity.entity_full_info_entity import EntityFullInfoEntity
         return EntityFullInfoEntity(self, data)
 
 
-    @property
-    def health_check(self):
-        """Idiomatic facade: client.health_check.list() / client.health_check.load({"id": ...})."""
-        from entity.health_check_entity import HealthCheckEntity
-        cached = getattr(self, "_health_check", None)
-        if cached is None:
-            cached = HealthCheckEntity(self, None)
-            self._health_check = cached
-        return cached
-
-    def HealthCheck(self, data=None):
-        # Deprecated: use client.health_check instead.
+    def HealthCheck(self, data=None) -> "HealthCheckEntity":
+        """Entity factory: client.HealthCheck().list({}) / client.HealthCheck().load({"id": ...})."""
         from entity.health_check_entity import HealthCheckEntity
         return HealthCheckEntity(self, data)
 
 
-    @property
-    def last_update(self):
-        """Idiomatic facade: client.last_update.list() / client.last_update.load({"id": ...})."""
-        from entity.last_update_entity import LastUpdateEntity
-        cached = getattr(self, "_last_update", None)
-        if cached is None:
-            cached = LastUpdateEntity(self, None)
-            self._last_update = cached
-        return cached
-
-    def LastUpdate(self, data=None):
-        # Deprecated: use client.last_update instead.
+    def LastUpdate(self, data=None) -> "LastUpdateEntity":
+        """Entity factory: client.LastUpdate().list({}) / client.LastUpdate().load({"id": ...})."""
         from entity.last_update_entity import LastUpdateEntity
         return LastUpdateEntity(self, data)
 
 
 
     @classmethod
-    def test(cls, testopts=None, sdkopts=None):
+    def test(cls, testopts=None, sdkopts=None) -> "ShodanEntitydbSDK":
         if sdkopts is None:
             sdkopts = {}
         sdkopts = vs.clone(sdkopts)
@@ -306,3 +266,12 @@ class ShodanEntitydbSDK:
         sdk.mode = "test"
 
         return sdk
+
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from entity.entity_entity import EntityEntity
+    from entity.entity_full_info_entity import EntityFullInfoEntity
+    from entity.health_check_entity import HealthCheckEntity
+    from entity.last_update_entity import LastUpdateEntity

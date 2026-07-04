@@ -233,10 +233,10 @@ class ShodanEntitydbSDK
 
     private $_entity = null;
 
-    // Idiomatic facade: $client->entity()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Entity() (PHP method
-    // names are case-insensitive).
-    public function entity($data = null)
+    // Canonical facade: $client->Entity()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->entity()
+    // resolves here too.
+    public function Entity($data = null)
     {
         require_once __DIR__ . '/entity/entity_entity.php';
         if ($data === null) {
@@ -251,10 +251,10 @@ class ShodanEntitydbSDK
 
     private $_entity_full_info = null;
 
-    // Idiomatic facade: $client->entity_full_info()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias EntityFullInfo() (PHP method
-    // names are case-insensitive).
-    public function entity_full_info($data = null)
+    // Canonical facade: $client->EntityFullInfo()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->entity_full_info()
+    // resolves here too.
+    public function EntityFullInfo($data = null)
     {
         require_once __DIR__ . '/entity/entity_full_info_entity.php';
         if ($data === null) {
@@ -269,10 +269,10 @@ class ShodanEntitydbSDK
 
     private $_health_check = null;
 
-    // Idiomatic facade: $client->health_check()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias HealthCheck() (PHP method
-    // names are case-insensitive).
-    public function health_check($data = null)
+    // Canonical facade: $client->HealthCheck()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->health_check()
+    // resolves here too.
+    public function HealthCheck($data = null)
     {
         require_once __DIR__ . '/entity/health_check_entity.php';
         if ($data === null) {
@@ -287,10 +287,10 @@ class ShodanEntitydbSDK
 
     private $_last_update = null;
 
-    // Idiomatic facade: $client->last_update()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias LastUpdate() (PHP method
-    // names are case-insensitive).
-    public function last_update($data = null)
+    // Canonical facade: $client->LastUpdate()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->last_update()
+    // resolves here too.
+    public function LastUpdate($data = null)
     {
         require_once __DIR__ . '/entity/last_update_entity.php';
         if ($data === null) {
