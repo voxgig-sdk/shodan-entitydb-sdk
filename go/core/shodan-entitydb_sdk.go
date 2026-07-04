@@ -245,21 +245,33 @@ func (sdk *ShodanEntitydbSDK) Direct(fetchargs map[string]any) (map[string]any, 
 }
 
 
+// Entity returns a Entity entity bound to this client.
+// Idiomatic usage: client.Entity(nil).List(nil, nil) or
+// client.Entity(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *ShodanEntitydbSDK) Entity(data map[string]any) ShodanEntitydbEntity {
 	return NewEntityEntityFunc(sdk, data)
 }
 
 
+// EntityFullInfo returns a EntityFullInfo entity bound to this client.
+// Idiomatic usage: client.EntityFullInfo(nil).List(nil, nil) or
+// client.EntityFullInfo(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *ShodanEntitydbSDK) EntityFullInfo(data map[string]any) ShodanEntitydbEntity {
 	return NewEntityFullInfoEntityFunc(sdk, data)
 }
 
 
+// HealthCheck returns a HealthCheck entity bound to this client.
+// Idiomatic usage: client.HealthCheck(nil).List(nil, nil) or
+// client.HealthCheck(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *ShodanEntitydbSDK) HealthCheck(data map[string]any) ShodanEntitydbEntity {
 	return NewHealthCheckEntityFunc(sdk, data)
 }
 
 
+// LastUpdate returns a LastUpdate entity bound to this client.
+// Idiomatic usage: client.LastUpdate(nil).List(nil, nil) or
+// client.LastUpdate(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *ShodanEntitydbSDK) LastUpdate(data map[string]any) ShodanEntitydbEntity {
 	return NewLastUpdateEntityFunc(sdk, data)
 }

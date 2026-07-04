@@ -144,16 +144,23 @@ class ShodanEntitydbSDK:
 
         _, err = utility.prepare_auth(ctx)
         if err is not None:
-            return None, err
+            raise err
 
-        return utility.make_fetch_def(ctx)
+        fetchdef, err = utility.make_fetch_def(ctx)
+        if err is not None:
+            raise err
+
+        return fetchdef
 
     def direct(self, fetchargs=None):
         utility = self._utility
 
-        fetchdef, err = self.prepare(fetchargs)
-        if err is not None:
-            return {"ok": False, "err": err}, None
+        try:
+            fetchdef = self.prepare(fetchargs)
+        except Exception as err:
+            # direct() is the raw-HTTP escape hatch: it never raises, it
+            # returns a result object callers branch on via result["ok"].
+            return {"ok": False, "err": err}
 
         if fetchargs is None:
             fetchargs = {}
@@ -170,13 +177,13 @@ class ShodanEntitydbSDK:
         fetched, fetch_err = utility.fetcher(ctx, url, fetchdef)
 
         if fetch_err is not None:
-            return {"ok": False, "err": fetch_err}, None
+            return {"ok": False, "err": fetch_err}
 
         if fetched is None:
             return {
                 "ok": False,
                 "err": ctx.make_error("direct_no_response", "response: undefined"),
-            }, None
+            }
 
         if isinstance(fetched, dict):
             status = helpers.to_int(vs.getprop(fetched, "status"))
@@ -205,30 +212,74 @@ class ShodanEntitydbSDK:
                 "status": status,
                 "headers": headers,
                 "data": json_data,
-            }, None
+            }
 
         return {
             "ok": False,
             "err": ctx.make_error("direct_invalid", "invalid response type"),
-        }, None
+        }
 
+
+    @property
+    def entity(self):
+        """Idiomatic facade: client.entity.list() / client.entity.load({"id": ...})."""
+        from entity.entity_entity import EntityEntity
+        cached = getattr(self, "_entity", None)
+        if cached is None:
+            cached = EntityEntity(self, None)
+            self._entity = cached
+        return cached
 
     def Entity(self, data=None):
+        # Deprecated: use client.entity instead.
         from entity.entity_entity import EntityEntity
         return EntityEntity(self, data)
 
 
+    @property
+    def entity_full_info(self):
+        """Idiomatic facade: client.entity_full_info.list() / client.entity_full_info.load({"id": ...})."""
+        from entity.entity_full_info_entity import EntityFullInfoEntity
+        cached = getattr(self, "_entity_full_info", None)
+        if cached is None:
+            cached = EntityFullInfoEntity(self, None)
+            self._entity_full_info = cached
+        return cached
+
     def EntityFullInfo(self, data=None):
+        # Deprecated: use client.entity_full_info instead.
         from entity.entity_full_info_entity import EntityFullInfoEntity
         return EntityFullInfoEntity(self, data)
 
 
+    @property
+    def health_check(self):
+        """Idiomatic facade: client.health_check.list() / client.health_check.load({"id": ...})."""
+        from entity.health_check_entity import HealthCheckEntity
+        cached = getattr(self, "_health_check", None)
+        if cached is None:
+            cached = HealthCheckEntity(self, None)
+            self._health_check = cached
+        return cached
+
     def HealthCheck(self, data=None):
+        # Deprecated: use client.health_check instead.
         from entity.health_check_entity import HealthCheckEntity
         return HealthCheckEntity(self, data)
 
 
+    @property
+    def last_update(self):
+        """Idiomatic facade: client.last_update.list() / client.last_update.load({"id": ...})."""
+        from entity.last_update_entity import LastUpdateEntity
+        cached = getattr(self, "_last_update", None)
+        if cached is None:
+            cached = LastUpdateEntity(self, None)
+            self._last_update = cached
+        return cached
+
     def LastUpdate(self, data=None):
+        # Deprecated: use client.last_update instead.
         from entity.last_update_entity import LastUpdateEntity
         return LastUpdateEntity(self, data)
 

@@ -9,12 +9,9 @@ The Lua SDK for the ShodanEntitydb API — an entity-oriented client using Lua c
 
 
 ## Install
-```bash
-luarocks install voxgig-sdk-shodan-entitydb
-```
-
-If the module is not yet published, add the source directory to
-your `LUA_PATH`:
+This package is not yet published to LuaRocks. Install it from the
+GitHub release tag (`lua/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/shodan-entitydb-sdk/releases)),
+or add the source directory to your `LUA_PATH`:
 
 ```bash
 export LUA_PATH="path/to/lua/?.lua;path/to/lua/?/init.lua;;"
@@ -31,15 +28,13 @@ loading a specific record.
 ```lua
 local sdk = require("shodan-entitydb_sdk")
 
-local client = sdk.new({
-  apikey = os.getenv("SHODAN-ENTITYDB_APIKEY"),
-})
+local client = sdk.new()
 ```
 
 ### 2. List entitys
 
 ```lua
-local result, err = client:Entity():list()
+local result, err = client:entity():list()
 if err then error(err) end
 
 if type(result) == "table" then
@@ -50,10 +45,10 @@ if type(result) == "table" then
 end
 ```
 
-### 3. Load a entity
+### 3. Load an entity
 
 ```lua
-local result, err = client:Entity():load({ id = "example_id" })
+local result, err = client:entity():load({ id = "example_id" })
 if err then error(err) end
 print(result)
 ```
@@ -101,7 +96,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:ShodanEntitydb():load({ id = "test01" })
+local result, err = client:entity():load({ id = "test01" })
 -- result contains mock response data
 ```
 
@@ -134,8 +129,7 @@ local client = sdk.new({
 Create a `.env.local` file at the project root:
 
 ```
-SHODAN-ENTITYDB_TEST_LIVE=TRUE
-SHODAN-ENTITYDB_APIKEY=<your-key>
+SHODAN_ENTITYDB_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -158,7 +152,6 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
@@ -275,7 +268,7 @@ API path: `/api/last_updated`
 
 ### Entity
 
-Create an instance: `const entity = client.Entity()`
+Create an instance: `const entity = client.entity`
 
 #### Operations
 
@@ -299,19 +292,19 @@ Create an instance: `const entity = client.Entity()`
 #### Example: Load
 
 ```ts
-const entity = await client.Entity().load({ id: 'entity_id' })
+const entity = await client.entity.load({ id: 'entity_id' })
 ```
 
 #### Example: List
 
 ```ts
-const entitys = await client.Entity().list()
+const entitys = await client.entity.list()
 ```
 
 
 ### EntityFullInfo
 
-Create an instance: `const entity_full_info = client.EntityFullInfo()`
+Create an instance: `const entity_full_info = client.entity_full_info`
 
 #### Operations
 
@@ -330,13 +323,13 @@ Create an instance: `const entity_full_info = client.EntityFullInfo()`
 #### Example: Load
 
 ```ts
-const entity_full_info = await client.EntityFullInfo().load({ id: 'entity_full_info_id' })
+const entity_full_info = await client.entity_full_info.load({ id: 'entity_full_info_id' })
 ```
 
 
 ### HealthCheck
 
-Create an instance: `const health_check = client.HealthCheck()`
+Create an instance: `const health_check = client.health_check`
 
 #### Operations
 
@@ -347,13 +340,13 @@ Create an instance: `const health_check = client.HealthCheck()`
 #### Example: Load
 
 ```ts
-const health_check = await client.HealthCheck().load({ id: 'health_check_id' })
+const health_check = await client.health_check.load({ id: 'health_check_id' })
 ```
 
 
 ### LastUpdate
 
-Create an instance: `const last_update = client.LastUpdate()`
+Create an instance: `const last_update = client.last_update`
 
 #### Operations
 
@@ -370,7 +363,7 @@ Create an instance: `const last_update = client.LastUpdate()`
 #### Example: Load
 
 ```ts
-const last_update = await client.LastUpdate().load({ id: 'last_update_id' })
+const last_update = await client.last_update.load({ id: 'last_update_id' })
 ```
 
 
@@ -445,11 +438,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local moon = client:Moon(nil)
-moon:load({ planet_id = "earth", id = "luna" }, nil)
+local entity = client:entity()
+entity:load({ id = "example_id" })
 
--- moon:data_get() now returns the loaded moon data
--- moon:match_get() returns the last match criteria
+-- entity:data_get() now returns the loaded entity data
+-- entity:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

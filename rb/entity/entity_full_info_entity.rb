@@ -45,6 +45,7 @@ class EntityFullInfoEntity
     end
   end
 
+  # @return [EntityFullInfo, Hash] the current EntityFullInfo data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,12 +58,18 @@ class EntityFullInfoEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of EntityFullInfo fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
   end
 
   
+  # Load a single EntityFullInfo.
+  #
+  # @param reqmatch [EntityFullInfoLoadMatch, Hash, nil] match criteria (id/query fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [EntityFullInfo, Hash] the loaded EntityFullInfo; raises ShodanEntitydbError on failure
   def load(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

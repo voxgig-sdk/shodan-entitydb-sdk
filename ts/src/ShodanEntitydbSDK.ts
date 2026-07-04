@@ -5,6 +5,8 @@ import { EntityFullInfoEntity } from './entity/EntityFullInfoEntity'
 import { HealthCheckEntity } from './entity/HealthCheckEntity'
 import { LastUpdateEntity } from './entity/LastUpdateEntity'
 
+export type * from './ShodanEntitydbTypes'
+
 
 import { inspect } from 'node:util'
 
@@ -205,24 +207,56 @@ class ShodanEntitydbSDK {
 
 
 
+  _entity?: EntityEntity
+
+  // Idiomatic facade: `client.entity.list()` / `client.entity.load({ id })`.
+  get entity(): EntityEntity {
+    return (this._entity ??= new EntityEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.entity` instead. */
   Entity(data?: any) {
     const self = this
     return new EntityEntity(self,data)
   }
 
 
+  _entity_full_info?: EntityFullInfoEntity
+
+  // Idiomatic facade: `client.entity_full_info.list()` / `client.entity_full_info.load({ id })`.
+  get entity_full_info(): EntityFullInfoEntity {
+    return (this._entity_full_info ??= new EntityFullInfoEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.entity_full_info` instead. */
   EntityFullInfo(data?: any) {
     const self = this
     return new EntityFullInfoEntity(self,data)
   }
 
 
+  _health_check?: HealthCheckEntity
+
+  // Idiomatic facade: `client.health_check.list()` / `client.health_check.load({ id })`.
+  get health_check(): HealthCheckEntity {
+    return (this._health_check ??= new HealthCheckEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.health_check` instead. */
   HealthCheck(data?: any) {
     const self = this
     return new HealthCheckEntity(self,data)
   }
 
 
+  _last_update?: LastUpdateEntity
+
+  // Idiomatic facade: `client.last_update.list()` / `client.last_update.load({ id })`.
+  get last_update(): LastUpdateEntity {
+    return (this._last_update ??= new LastUpdateEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.last_update` instead. */
   LastUpdate(data?: any) {
     const self = this
     return new LastUpdateEntity(self,data)

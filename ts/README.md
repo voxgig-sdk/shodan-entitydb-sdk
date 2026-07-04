@@ -9,9 +9,12 @@ The TypeScript SDK for the ShodanEntitydb API — a type-safe, entity-oriented c
 
 
 ## Install
-```bash
-npm install @voxgig-sdk/shodan-entitydb
-```
+This package is not yet published to npm. Install it from the GitHub
+release tag (`ts/vX.Y.Z`):
+
+- Releases: [https://github.com/voxgig-sdk/shodan-entitydb-sdk/releases](https://github.com/voxgig-sdk/shodan-entitydb-sdk/releases)
+
+
 ## Tutorial: your first API call
 
 This tutorial walks through creating a client, listing entities, and
@@ -20,17 +23,15 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { ShodanEntitydbSDK } from 'shodan-entitydb'
+import { ShodanEntitydbSDK } from '@voxgig-sdk/shodan-entitydb'
 
-const client = new ShodanEntitydbSDK({
-  apikey: process.env.SHODAN-ENTITYDB_APIKEY,
-})
+const client = new ShodanEntitydbSDK()
 ```
 
 ### 2. List entitys
 
 ```ts
-const result = await client.Entity().list()
+const result = await client.entity.list()
 
 if (result.ok) {
   for (const item of result.data) {
@@ -39,10 +40,10 @@ if (result.ok) {
 }
 ```
 
-### 3. Load a entity
+### 3. Load an entity
 
 ```ts
-const result = await client.Entity().load({ id: 'example_id' })
+const result = await client.entity.load({ id: 'example_id' })
 
 if (result.ok) {
   console.log(result.data)
@@ -91,7 +92,7 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = ShodanEntitydbSDK.test()
 
-const result = await client.Planet().load({ id: 'test01' })
+const result = await client.entity.load({ id: 'test01' })
 // result.ok === true
 // result.data contains mock response data
 ```
@@ -99,7 +100,7 @@ const result = await client.Planet().load({ id: 'test01' })
 You can also use the instance method:
 
 ```ts
-const client = new ShodanEntitydbSDK({ apikey: '...' })
+const client = new ShodanEntitydbSDK()
 const testClient = client.tester()
 ```
 
@@ -108,7 +109,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.Planet()
+const entity = client.entity
 
 // First call sets internal match
 await entity.load({ id: 'example' })
@@ -135,7 +136,6 @@ const logger = {
 }
 
 const client = new ShodanEntitydbSDK({
-  apikey: '...',
   extend: [logger],
 })
 ```
@@ -145,8 +145,7 @@ const client = new ShodanEntitydbSDK({
 Create a `.env.local` file at the project root:
 
 ```
-SHODAN-ENTITYDB_TEST_LIVE=TRUE
-SHODAN-ENTITYDB_APIKEY=<your-key>
+SHODAN_ENTITYDB_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -164,7 +163,6 @@ cd ts && npm test
 
 ```ts
 new ShodanEntitydbSDK(options?: {
-  apikey?: string
   base?: string
   prefix?: string
   suffix?: string
@@ -175,7 +173,6 @@ new ShodanEntitydbSDK(options?: {
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
@@ -318,7 +315,7 @@ API path: `/api/last_updated`
 
 ### Entity
 
-Create an instance: `const entity = client.Entity()`
+Create an instance: `const entity = client.entity`
 
 #### Operations
 
@@ -342,19 +339,19 @@ Create an instance: `const entity = client.Entity()`
 #### Example: Load
 
 ```ts
-const entity = await client.Entity().load({ id: 'entity_id' })
+const entity = await client.entity.load({ id: 'entity_id' })
 ```
 
 #### Example: List
 
 ```ts
-const entitys = await client.Entity().list()
+const entitys = await client.entity.list()
 ```
 
 
 ### EntityFullInfo
 
-Create an instance: `const entity_full_info = client.EntityFullInfo()`
+Create an instance: `const entity_full_info = client.entity_full_info`
 
 #### Operations
 
@@ -373,13 +370,13 @@ Create an instance: `const entity_full_info = client.EntityFullInfo()`
 #### Example: Load
 
 ```ts
-const entity_full_info = await client.EntityFullInfo().load({ id: 'entity_full_info_id' })
+const entity_full_info = await client.entity_full_info.load({ id: 'entity_full_info_id' })
 ```
 
 
 ### HealthCheck
 
-Create an instance: `const health_check = client.HealthCheck()`
+Create an instance: `const health_check = client.health_check`
 
 #### Operations
 
@@ -390,13 +387,13 @@ Create an instance: `const health_check = client.HealthCheck()`
 #### Example: Load
 
 ```ts
-const health_check = await client.HealthCheck().load({ id: 'health_check_id' })
+const health_check = await client.health_check.load({ id: 'health_check_id' })
 ```
 
 
 ### LastUpdate
 
-Create an instance: `const last_update = client.LastUpdate()`
+Create an instance: `const last_update = client.last_update`
 
 #### Operations
 
@@ -413,7 +410,7 @@ Create an instance: `const last_update = client.LastUpdate()`
 #### Example: Load
 
 ```ts
-const last_update = await client.LastUpdate().load({ id: 'last_update_id' })
+const last_update = await client.last_update.load({ id: 'last_update_id' })
 ```
 
 
@@ -474,7 +471,7 @@ shodan-entitydb/
 Import the SDK from the package root:
 
 ```ts
-import { ShodanEntitydbSDK } from 'shodan-entitydb'
+import { ShodanEntitydbSDK } from '@voxgig-sdk/shodan-entitydb'
 ```
 
 ### Entity state
@@ -484,11 +481,11 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const moon = client.Moon()
-await moon.load({ planet_id: 'earth', id: 'luna' })
+const entity = client.entity
+await entity.load({ id: "example_id" })
 
-// moon.data() now returns the loaded moon data
-// moon.match() returns { planet_id: 'earth', id: 'luna' }
+// entity.data() now returns the loaded entity data
+// entity.match() returns { id: "example_id" }
 ```
 
 Call `make()` to create a fresh instance with the same configuration

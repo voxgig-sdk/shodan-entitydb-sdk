@@ -50,16 +50,14 @@ class EntityEntityTest extends TestCase
         $entity_ref01_ent = $client->Entity(null);
         $entity_ref01_match = [];
 
-        [$entity_ref01_list_result, $err] = $entity_ref01_ent->list($entity_ref01_match, null);
-        $this->assertNull($err);
+        $entity_ref01_list_result = $entity_ref01_ent->list($entity_ref01_match, null);
         $this->assertIsArray($entity_ref01_list_result);
 
         // LOAD
         $entity_ref01_match_dt0 = [
             "id" => $entity_ref01_data["id"],
         ];
-        [$entity_ref01_data_dt0_loaded, $err] = $entity_ref01_ent->load($entity_ref01_match_dt0, null);
-        $this->assertNull($err);
+        $entity_ref01_data_dt0_loaded = $entity_ref01_ent->load($entity_ref01_match_dt0, null);
         $entity_ref01_data_dt0_load_result = Helpers::to_map($entity_ref01_data_dt0_loaded);
         $this->assertNotNull($entity_ref01_data_dt0_load_result);
         $this->assertEquals($entity_ref01_data_dt0_load_result["id"], $entity_ref01_data["id"]);
@@ -96,7 +94,6 @@ function entity_basic_setup($extra)
         "SHODANENTITYDB_TEST_ENTITY_ENTID" => $idmap,
         "SHODANENTITYDB_TEST_LIVE" => "FALSE",
         "SHODANENTITYDB_TEST_EXPLAIN" => "FALSE",
-        "SHODANENTITYDB_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -108,7 +105,6 @@ function entity_basic_setup($extra)
     if ($env["SHODANENTITYDB_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["SHODANENTITYDB_APIKEY"],
             ],
             $extra ?? [],
         ]);

@@ -50,16 +50,14 @@ class TestEntityEntity:
         entity_ref01_ent = client.Entity(None)
         entity_ref01_match = {}
 
-        entity_ref01_list_result, err = entity_ref01_ent.list(entity_ref01_match, None)
-        assert err is None
+        entity_ref01_list_result = entity_ref01_ent.list(entity_ref01_match, None)
         assert isinstance(entity_ref01_list_result, list)
 
         # LOAD
         entity_ref01_match_dt0 = {
             "id": entity_ref01_data["id"],
         }
-        entity_ref01_data_dt0_loaded, err = entity_ref01_ent.load(entity_ref01_match_dt0, None)
-        assert err is None
+        entity_ref01_data_dt0_loaded = entity_ref01_ent.load(entity_ref01_match_dt0, None)
         entity_ref01_data_dt0_load_result = helpers.to_map(entity_ref01_data_dt0_loaded)
         assert entity_ref01_data_dt0_load_result is not None
         assert entity_ref01_data_dt0_load_result["id"] == entity_ref01_data["id"]
@@ -102,7 +100,6 @@ def _entity_basic_setup(extra):
         "SHODANENTITYDB_TEST_ENTITY_ENTID": idmap,
         "SHODANENTITYDB_TEST_LIVE": "FALSE",
         "SHODANENTITYDB_TEST_EXPLAIN": "FALSE",
-        "SHODANENTITYDB_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -113,7 +110,6 @@ def _entity_basic_setup(extra):
     if env.get("SHODANENTITYDB_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("SHODANENTITYDB_APIKEY"),
             },
             extra or {},
         ])

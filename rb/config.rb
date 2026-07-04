@@ -15,9 +15,6 @@ module ShodanEntitydbConfig
       },
       "options" => {
         "base" => "https://entitydb.shodan.io",
-        "auth" => {
-          "prefix" => "Bearer",
-        },
         "headers" => {
           "content-type" => "application/json",
         },
@@ -122,6 +119,7 @@ module ShodanEntitydbConfig
                         "orig" => "id",
                         "reqd" => true,
                         "type" => "`$INTEGER`",
+                        "index$" => 0,
                       },
                     ],
                   },
@@ -193,6 +191,7 @@ module ShodanEntitydbConfig
                         "orig" => "symbol",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 0,
                       },
                     ],
                   },

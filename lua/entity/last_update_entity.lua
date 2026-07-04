@@ -79,6 +79,10 @@ end
 
 
 
+---@param reqmatch LastUpdateLoadMatch
+---@param ctrl? table
+---@return LastUpdate
+---@return string? err
 function LastUpdateEntity:load(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

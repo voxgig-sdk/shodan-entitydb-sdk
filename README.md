@@ -10,26 +10,24 @@ This is an unofficial SDK for the Shodan Business Entities public API, generated
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/shodan-entitydb` | `npm install @voxgig-sdk/shodan-entitydb` |
-| Python | `voxgig-sdk-shodan-entitydb` | `pip install voxgig-sdk-shodan-entitydb` |
-| PHP | `voxgig-sdk/shodan-entitydb` | `composer require voxgig-sdk/shodan-entitydb` |
-| Golang | `github.com/voxgig-sdk/shodan-entitydb-sdk/go` | `go get github.com/voxgig-sdk/shodan-entitydb-sdk/go` |
-| Ruby | `voxgig-sdk-shodan-entitydb` | `gem install voxgig-sdk-shodan-entitydb` |
-| Lua | `voxgig-sdk-shodan-entitydb` | `luarocks install voxgig-sdk-shodan-entitydb` |
+| TypeScript | `@voxgig-sdk/shodan-entitydb` | publish pending — [install from git tag](https://github.com/voxgig-sdk/shodan-entitydb-sdk/releases) |
+| Python | `voxgig-sdk-shodan-entitydb` | publish pending — [install from git tag](https://github.com/voxgig-sdk/shodan-entitydb-sdk/releases) |
+| PHP | `voxgig-sdk/shodan-entitydb` | publish pending — [install from git tag](https://github.com/voxgig-sdk/shodan-entitydb-sdk/releases) |
+| Golang | `github.com/voxgig-sdk/shodan-entitydb-sdk/go` | `go get github.com/voxgig-sdk/shodan-entitydb-sdk/go@latest` |
+| Ruby | `voxgig-sdk-shodan-entitydb` | publish pending — [install from git tag](https://github.com/voxgig-sdk/shodan-entitydb-sdk/releases) |
+| Lua | `voxgig-sdk-shodan-entitydb` | publish pending — [install from git tag](https://github.com/voxgig-sdk/shodan-entitydb-sdk/releases) |
 
 ## Quickstart
 
 ### TypeScript
 
 ```ts
-import { ShodanEntitydbSDK } from 'shodan-entitydb'
+import { ShodanEntitydbSDK } from '@voxgig-sdk/shodan-entitydb'
 
-const client = new ShodanEntitydbSDK({
-  apikey: process.env.SHODAN-ENTITYDB_APIKEY,
-})
+const client = new ShodanEntitydbSDK()
 
 // List all entitys
-const entitys = await client.Entity().list()
+const entitys = await client.entity.list()
 console.log(entitys.data)
 ```
 
@@ -71,10 +69,10 @@ The API exposes 4 entities:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **Entity** |  | `/api/entities` |
-| **EntityFullInfo** |  | `/api/entities/symbol/{symbol}` |
-| **HealthCheck** |  | `/health_check` |
-| **LastUpdate** |  | `/api/last_updated` |
+| **Entity** | The Entity entity (list, load). | `/api/entities` |
+| **EntityFullInfo** | The EntityFullInfo entity (load). | `/api/entities/symbol/{symbol}` |
+| **HealthCheck** | The HealthCheck entity (load). | `/health_check` |
+| **LastUpdate** | The LastUpdate entity (load). | `/api/last_updated` |
 
 Each entity supports the following operations where available: **load**,
 **list**, **create**, **update**, and **remove**.
@@ -84,19 +82,16 @@ Each entity supports the following operations where available: **load**,
 ### Python
 
 ```python
-import os
 from shodanentitydb_sdk import ShodanEntitydbSDK
 
-client = ShodanEntitydbSDK({
-    "apikey": os.environ.get("SHODAN-ENTITYDB_APIKEY"),
-})
+client = ShodanEntitydbSDK()
 
 # List all entitys
-entitys, err = client.Entity().list()
+entitys = client.entity.list()
 print(entitys)
 
 # Load a specific entity
-entity, err = client.Entity().load({"id": "example_id"})
+entity = client.entity.load({"id": "example_id"})
 print(entity)
 ```
 
@@ -106,16 +101,14 @@ print(entity)
 <?php
 require_once 'shodanentitydb_sdk.php';
 
-$client = new ShodanEntitydbSDK([
-    "apikey" => getenv("SHODAN-ENTITYDB_APIKEY"),
-]);
+$client = new ShodanEntitydbSDK();
 
-// List all entitys
-[$entitys, $err] = $client->Entity()->list();
+// List all entitys (throws on error)
+$entitys = $client->entity()->list();
 print_r($entitys);
 
 // Load a specific entity
-[$entity, $err] = $client->Entity()->load(["id" => "example_id"]);
+$entity = $client->entity()->load(["id" => "example_id"]);
 print_r($entity);
 ```
 
@@ -124,9 +117,7 @@ print_r($entity);
 ```go
 import sdk "github.com/voxgig-sdk/shodan-entitydb-sdk/go"
 
-client := sdk.NewShodanEntitydbSDK(map[string]any{
-    "apikey": os.Getenv("SHODAN-ENTITYDB_APIKEY"),
-})
+client := sdk.New()
 
 // List all entitys
 entitys, err := client.Entity(nil).List(nil, nil)
@@ -138,16 +129,14 @@ fmt.Println(entitys)
 ```ruby
 require_relative "ShodanEntitydb_sdk"
 
-client = ShodanEntitydbSDK.new({
-  "apikey" => ENV["SHODAN-ENTITYDB_APIKEY"],
-})
+client = ShodanEntitydbSDK.new
 
 # List all entitys
-entitys, err = client.Entity().list
+entitys = client.entity.list
 puts entitys
 
 # Load a specific entity
-entity, err = client.Entity().load({ "id" => "example_id" })
+entity = client.entity.load({ "id" => "example_id" })
 puts entity
 ```
 
@@ -156,16 +145,14 @@ puts entity
 ```lua
 local sdk = require("shodan-entitydb_sdk")
 
-local client = sdk.new({
-  apikey = os.getenv("SHODAN-ENTITYDB_APIKEY"),
-})
+local client = sdk.new()
 
 -- List all entitys
-local entitys, err = client:Entity():list()
+local entitys, err = client:entity():list()
 print(entitys)
 
 -- Load a specific entity
-local entity, err = client:Entity():load({ id = "example_id" })
+local entity, err = client:entity():load({ id = "example_id" })
 print(entity)
 ```
 
@@ -178,7 +165,7 @@ in-memory mock, so unit tests run offline.
 
 ```ts
 const client = ShodanEntitydbSDK.test()
-const result = await client.Entity().load({ id: 'test01' })
+const result = await client.entity.load({ id: 'test01' })
 // result.ok === true, result.data contains mock data
 ```
 
@@ -186,14 +173,14 @@ const result = await client.Entity().load({ id: 'test01' })
 
 ```python
 client = ShodanEntitydbSDK.test()
-result, err = client.Entity().load({"id": "test01"})
+result = client.entity.load({"id": "test01"})
 ```
 
 ### PHP
 
 ```php
 $client = ShodanEntitydbSDK::test();
-[$result, $err] = $client->Entity()->load(["id" => "test01"]);
+$result = $client->entity()->load(["id" => "test01"]);
 ```
 
 ### Golang
@@ -209,14 +196,14 @@ result, err := client.Entity(nil).Load(
 
 ```ruby
 client = ShodanEntitydbSDK.test
-result, err = client.Entity().load({ "id" => "test01" })
+result = client.entity.load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:Entity():load({ id = "test01" })
+local result, err = client:entity():load({ id = "test01" })
 ```
 
 ## How it works
@@ -269,7 +256,7 @@ console.log(result.data)
 
 **Python:**
 ```python
-result, err = client.direct({
+result = client.direct({
     "path": "/api/resource/{id}",
     "method": "GET",
     "params": {"id": "example"},
@@ -278,7 +265,7 @@ result, err = client.direct({
 
 **PHP:**
 ```php
-[$result, $err] = $client->direct([
+$result = $client->direct([
     "path" => "/api/resource/{id}",
     "method" => "GET",
     "params" => ["id" => "example"],
@@ -296,7 +283,7 @@ result, err := client.Direct(map[string]any{
 
 **Ruby:**
 ```ruby
-result, err = client.direct({
+result = client.direct({
   "path" => "/api/resource/{id}",
   "method" => "GET",
   "params" => { "id" => "example" },

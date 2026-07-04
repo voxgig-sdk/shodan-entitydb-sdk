@@ -14,9 +14,13 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  HealthCheck,
+  HealthCheckLoadMatch,
+} from '../ShodanEntitydbTypes'
 
 // TODO: needs Entity superclass
-class HealthCheckEntity extends ShodanEntitydbEntityBase {
+class HealthCheckEntity extends ShodanEntitydbEntityBase<HealthCheck> {
 
   constructor(client: ShodanEntitydbSDK, entopts: any) {
     super(client, entopts)
@@ -32,7 +36,7 @@ class HealthCheckEntity extends ShodanEntitydbEntityBase {
 
 
 
-  async load(this: any, reqmatch?: any, ctrl?: Control) {
+  async load(this: any, reqmatch?: HealthCheckLoadMatch, ctrl?: Control): Promise<HealthCheck> {
 
     const utility = this._utility
 
@@ -136,7 +140,9 @@ class HealthCheckEntity extends ShodanEntitydbEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<HealthCheck> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

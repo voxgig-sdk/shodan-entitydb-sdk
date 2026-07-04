@@ -14,9 +14,13 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  LastUpdate,
+  LastUpdateLoadMatch,
+} from '../ShodanEntitydbTypes'
 
 // TODO: needs Entity superclass
-class LastUpdateEntity extends ShodanEntitydbEntityBase {
+class LastUpdateEntity extends ShodanEntitydbEntityBase<LastUpdate> {
 
   constructor(client: ShodanEntitydbSDK, entopts: any) {
     super(client, entopts)
@@ -32,7 +36,7 @@ class LastUpdateEntity extends ShodanEntitydbEntityBase {
 
 
 
-  async load(this: any, reqmatch?: any, ctrl?: Control) {
+  async load(this: any, reqmatch?: LastUpdateLoadMatch, ctrl?: Control): Promise<LastUpdate> {
 
     const utility = this._utility
 
@@ -136,7 +140,9 @@ class LastUpdateEntity extends ShodanEntitydbEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<LastUpdate> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

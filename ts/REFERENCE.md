@@ -18,7 +18,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `options` | `object` | SDK configuration options. |
-| `options.apikey` | `string` | API key for authentication. |
 | `options.base` | `string` | Base URL for API requests. |
 | `options.prefix` | `string` | URL prefix appended after base. |
 | `options.suffix` | `string` | URL suffix appended after path. |
@@ -146,7 +145,7 @@ Alias for `ShodanEntitydbSDK.test()`.
 ## EntityEntity
 
 ```ts
-const entity = client.Entity()
+const entity = client.entity
 ```
 
 ### Fields
@@ -168,7 +167,7 @@ const entity = client.Entity()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Entity().list()
+const results = await client.entity.list()
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -176,7 +175,7 @@ const results = await client.Entity().list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Entity().load({ id: 'entity_id' })
+const result = await client.entity.load({ id: 'entity_id' })
 ```
 
 ### Common Methods
@@ -210,7 +209,7 @@ Return a copy of the entity options.
 ## EntityFullInfoEntity
 
 ```ts
-const entity_full_info = client.EntityFullInfo()
+const entity_full_info = client.entity_full_info
 ```
 
 ### Fields
@@ -228,7 +227,7 @@ const entity_full_info = client.EntityFullInfo()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.EntityFullInfo().load({ id: 'entity_full_info_id' })
+const result = await client.entity_full_info.load({ id: 'entity_full_info_id' })
 ```
 
 ### Common Methods
@@ -262,7 +261,7 @@ Return a copy of the entity options.
 ## HealthCheckEntity
 
 ```ts
-const health_check = client.HealthCheck()
+const health_check = client.health_check
 ```
 
 ### Operations
@@ -272,7 +271,7 @@ const health_check = client.HealthCheck()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.HealthCheck().load({ id: 'health_check_id' })
+const result = await client.health_check.load({ id: 'health_check_id' })
 ```
 
 ### Common Methods
@@ -306,7 +305,7 @@ Return a copy of the entity options.
 ## LastUpdateEntity
 
 ```ts
-const last_update = client.LastUpdate()
+const last_update = client.last_update
 ```
 
 ### Fields
@@ -322,7 +321,7 @@ const last_update = client.LastUpdate()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.LastUpdate().load({ id: 'last_update_id' })
+const result = await client.last_update.load({ id: 'last_update_id' })
 ```
 
 ### Common Methods

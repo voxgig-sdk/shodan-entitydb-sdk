@@ -20,9 +20,6 @@ class ShodanEntitydbConfig
             ],
             "options" => [
                 "base" => "https://entitydb.shodan.io",
-                "auth" => [
-                    "prefix" => "Bearer",
-                ],
                 "headers" => [
           'content-type' => 'application/json',
         ],
@@ -127,6 +124,7 @@ class ShodanEntitydbConfig
                         'orig' => 'id',
                         'reqd' => true,
                         'type' => '`$INTEGER`',
+                        'index$' => 0,
                       ],
                     ],
                   ],
@@ -198,6 +196,7 @@ class ShodanEntitydbConfig
                         'orig' => 'symbol',
                         'reqd' => true,
                         'type' => '`$STRING`',
+                        'index$' => 0,
                       ],
                     ],
                   ],

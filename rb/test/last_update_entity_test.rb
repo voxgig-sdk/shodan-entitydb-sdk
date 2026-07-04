@@ -42,8 +42,7 @@ class LastUpdateEntityTest < Minitest::Test
     # LOAD
     last_update_ref01_ent = client.LastUpdate(nil)
     last_update_ref01_match_dt0 = {}
-    last_update_ref01_data_dt0_loaded, err = last_update_ref01_ent.load(last_update_ref01_match_dt0, nil)
-    assert_nil err
+    last_update_ref01_data_dt0_loaded = last_update_ref01_ent.load(last_update_ref01_match_dt0, nil)
     assert !last_update_ref01_data_dt0_loaded.nil?
 
   end
@@ -82,7 +81,6 @@ def last_update_basic_setup(extra)
     "SHODANENTITYDB_TEST_LAST_UPDATE_ENTID" => idmap,
     "SHODANENTITYDB_TEST_LIVE" => "FALSE",
     "SHODANENTITYDB_TEST_EXPLAIN" => "FALSE",
-    "SHODANENTITYDB_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -94,7 +92,6 @@ def last_update_basic_setup(extra)
   if env["SHODANENTITYDB_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["SHODANENTITYDB_APIKEY"],
       },
       extra || {},
     ])

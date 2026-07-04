@@ -14,9 +14,14 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  Entity,
+  EntityLoadMatch,
+  EntityListMatch,
+} from '../ShodanEntitydbTypes'
 
 // TODO: needs Entity superclass
-class EntityEntity extends ShodanEntitydbEntityBase {
+class EntityEntity extends ShodanEntitydbEntityBase<Entity> {
 
   constructor(client: ShodanEntitydbSDK, entopts: any) {
     super(client, entopts)
@@ -32,7 +37,7 @@ class EntityEntity extends ShodanEntitydbEntityBase {
 
 
 
-  async load(this: any, reqmatch?: any, ctrl?: Control) {
+  async load(this: any, reqmatch?: EntityLoadMatch, ctrl?: Control): Promise<Entity> {
 
     const utility = this._utility
 
@@ -136,14 +141,16 @@ class EntityEntity extends ShodanEntitydbEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Entity> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }
 
 
 
-  async list(this: any, reqmatch?: any, ctrl?: Control) {
+  async list(this: any, reqmatch?: EntityListMatch, ctrl?: Control): Promise<Entity[]> {
 
     const utility = this._utility
 
@@ -243,7 +250,9 @@ class EntityEntity extends ShodanEntitydbEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Entity[]> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

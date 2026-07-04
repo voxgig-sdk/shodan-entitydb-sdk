@@ -49,8 +49,7 @@ class TestHealthCheckEntity:
         # LOAD
         health_check_ref01_ent = client.HealthCheck(None)
         health_check_ref01_match_dt0 = {}
-        health_check_ref01_data_dt0_loaded, err = health_check_ref01_ent.load(health_check_ref01_match_dt0, None)
-        assert err is None
+        health_check_ref01_data_dt0_loaded = health_check_ref01_ent.load(health_check_ref01_match_dt0, None)
         assert health_check_ref01_data_dt0_loaded is not None
 
 
@@ -91,7 +90,6 @@ def _health_check_basic_setup(extra):
         "SHODANENTITYDB_TEST_HEALTH_CHECK_ENTID": idmap,
         "SHODANENTITYDB_TEST_LIVE": "FALSE",
         "SHODANENTITYDB_TEST_EXPLAIN": "FALSE",
-        "SHODANENTITYDB_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -102,7 +100,6 @@ def _health_check_basic_setup(extra):
     if env.get("SHODANENTITYDB_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("SHODANENTITYDB_APIKEY"),
             },
             extra or {},
         ])

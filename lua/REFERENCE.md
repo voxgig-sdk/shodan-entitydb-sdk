@@ -19,7 +19,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `options` | `table` | SDK configuration options. |
-| `options.apikey` | `string` | API key for authentication. |
 | `options.base` | `string` | Base URL for API requests. |
 | `options.prefix` | `string` | URL prefix appended after base. |
 | `options.suffix` | `string` | URL suffix appended after path. |
@@ -96,7 +95,7 @@ same parameters as `direct()`.
 ## EntityEntity
 
 ```lua
-local entity = client:Entity(nil)
+local entity = client:entity(nil)
 ```
 
 ### Fields
@@ -118,7 +117,7 @@ local entity = client:Entity(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:Entity():list()
+local results, err = client:entity():list()
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
@@ -126,7 +125,7 @@ local results, err = client:Entity():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Entity():load({ id = "entity_id" })
+local result, err = client:entity():load({ id = "entity_id" })
 ```
 
 ### Common Methods
@@ -162,7 +161,7 @@ Return the entity name.
 ## EntityFullInfoEntity
 
 ```lua
-local entity_full_info = client:EntityFullInfo(nil)
+local entity_full_info = client:entity_full_info(nil)
 ```
 
 ### Fields
@@ -180,7 +179,7 @@ local entity_full_info = client:EntityFullInfo(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:EntityFullInfo():load({ id = "entity_full_info_id" })
+local result, err = client:entity_full_info():load({ id = "entity_full_info_id" })
 ```
 
 ### Common Methods
@@ -216,7 +215,7 @@ Return the entity name.
 ## HealthCheckEntity
 
 ```lua
-local health_check = client:HealthCheck(nil)
+local health_check = client:health_check(nil)
 ```
 
 ### Operations
@@ -226,7 +225,7 @@ local health_check = client:HealthCheck(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:HealthCheck():load({ id = "health_check_id" })
+local result, err = client:health_check():load({ id = "health_check_id" })
 ```
 
 ### Common Methods
@@ -262,7 +261,7 @@ Return the entity name.
 ## LastUpdateEntity
 
 ```lua
-local last_update = client:LastUpdate(nil)
+local last_update = client:last_update(nil)
 ```
 
 ### Fields
@@ -278,7 +277,7 @@ local last_update = client:LastUpdate(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:LastUpdate():load({ id = "last_update_id" })
+local result, err = client:last_update():load({ id = "last_update_id" })
 ```
 
 ### Common Methods

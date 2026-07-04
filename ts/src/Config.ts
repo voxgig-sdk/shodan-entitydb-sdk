@@ -38,10 +38,6 @@ class Config {
   options = {
     base: 'https://entitydb.shodan.io',
 
-    auth: {
-      prefix: 'Bearer',
-    },
-
     headers: {
       "content-type": "application/json"
     },
@@ -157,7 +153,8 @@ class Config {
                     "name": "id",
                     "orig": "id",
                     "reqd": true,
-                    "type": "`$INTEGER`"
+                    "type": "`$INTEGER`",
+                    "index$": 0
                   }
                 ]
               },
@@ -228,7 +225,8 @@ class Config {
                     "name": "symbol",
                     "orig": "symbol",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ]
               },

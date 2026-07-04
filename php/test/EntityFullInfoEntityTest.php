@@ -49,8 +49,7 @@ class EntityFullInfoEntityTest extends TestCase
         // LOAD
         $entity_full_info_ref01_ent = $client->EntityFullInfo(null);
         $entity_full_info_ref01_match_dt0 = [];
-        [$entity_full_info_ref01_data_dt0_loaded, $err] = $entity_full_info_ref01_ent->load($entity_full_info_ref01_match_dt0, null);
-        $this->assertNull($err);
+        $entity_full_info_ref01_data_dt0_loaded = $entity_full_info_ref01_ent->load($entity_full_info_ref01_match_dt0, null);
         $this->assertNotNull($entity_full_info_ref01_data_dt0_loaded);
 
     }
@@ -85,7 +84,6 @@ function entity_full_info_basic_setup($extra)
         "SHODANENTITYDB_TEST_ENTITY_FULL_INFO_ENTID" => $idmap,
         "SHODANENTITYDB_TEST_LIVE" => "FALSE",
         "SHODANENTITYDB_TEST_EXPLAIN" => "FALSE",
-        "SHODANENTITYDB_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -97,7 +95,6 @@ function entity_full_info_basic_setup($extra)
     if ($env["SHODANENTITYDB_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["SHODANENTITYDB_APIKEY"],
             ],
             $extra ?? [],
         ]);

@@ -45,6 +45,7 @@ class HealthCheckEntity
     end
   end
 
+  # @return [HealthCheck, Hash] the current HealthCheck data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,12 +58,18 @@ class HealthCheckEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of HealthCheck fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
   end
 
   
+  # Load a single HealthCheck.
+  #
+  # @param reqmatch [HealthCheckLoadMatch, Hash, nil] match criteria (id/query fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [HealthCheck, Hash] the loaded HealthCheck; raises ShodanEntitydbError on failure
   def load(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

@@ -79,6 +79,10 @@ end
 
 
 
+---@param reqmatch EntityFullInfoLoadMatch
+---@param ctrl? table
+---@return EntityFullInfo
+---@return string? err
 function EntityFullInfoEntity:load(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

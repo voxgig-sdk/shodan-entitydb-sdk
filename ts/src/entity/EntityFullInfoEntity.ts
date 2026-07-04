@@ -14,9 +14,13 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  EntityFullInfo,
+  EntityFullInfoLoadMatch,
+} from '../ShodanEntitydbTypes'
 
 // TODO: needs Entity superclass
-class EntityFullInfoEntity extends ShodanEntitydbEntityBase {
+class EntityFullInfoEntity extends ShodanEntitydbEntityBase<EntityFullInfo> {
 
   constructor(client: ShodanEntitydbSDK, entopts: any) {
     super(client, entopts)
@@ -32,7 +36,7 @@ class EntityFullInfoEntity extends ShodanEntitydbEntityBase {
 
 
 
-  async load(this: any, reqmatch?: any, ctrl?: Control) {
+  async load(this: any, reqmatch?: EntityFullInfoLoadMatch, ctrl?: Control): Promise<EntityFullInfo> {
 
     const utility = this._utility
 
@@ -136,7 +140,9 @@ class EntityFullInfoEntity extends ShodanEntitydbEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<EntityFullInfo> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

@@ -43,16 +43,14 @@ class EntityEntityTest < Minitest::Test
     entity_ref01_ent = client.Entity(nil)
     entity_ref01_match = {}
 
-    entity_ref01_list_result, err = entity_ref01_ent.list(entity_ref01_match, nil)
-    assert_nil err
+    entity_ref01_list_result = entity_ref01_ent.list(entity_ref01_match, nil)
     assert entity_ref01_list_result.is_a?(Array)
 
     # LOAD
     entity_ref01_match_dt0 = {
       "id" => entity_ref01_data["id"],
     }
-    entity_ref01_data_dt0_loaded, err = entity_ref01_ent.load(entity_ref01_match_dt0, nil)
-    assert_nil err
+    entity_ref01_data_dt0_loaded = entity_ref01_ent.load(entity_ref01_match_dt0, nil)
     entity_ref01_data_dt0_load_result = Helpers.to_map(entity_ref01_data_dt0_loaded)
     assert !entity_ref01_data_dt0_load_result.nil?
     assert_equal entity_ref01_data_dt0_load_result["id"], entity_ref01_data["id"]
@@ -93,7 +91,6 @@ def entity_basic_setup(extra)
     "SHODANENTITYDB_TEST_ENTITY_ENTID" => idmap,
     "SHODANENTITYDB_TEST_LIVE" => "FALSE",
     "SHODANENTITYDB_TEST_EXPLAIN" => "FALSE",
-    "SHODANENTITYDB_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -105,7 +102,6 @@ def entity_basic_setup(extra)
   if env["SHODANENTITYDB_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["SHODANENTITYDB_APIKEY"],
       },
       extra || {},
     ])

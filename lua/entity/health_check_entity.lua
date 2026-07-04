@@ -79,6 +79,10 @@ end
 
 
 
+---@param reqmatch HealthCheckLoadMatch
+---@param ctrl? table
+---@return HealthCheck
+---@return string? err
 function HealthCheckEntity:load(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

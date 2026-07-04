@@ -49,8 +49,7 @@ class TestEntityFullInfoEntity:
         # LOAD
         entity_full_info_ref01_ent = client.EntityFullInfo(None)
         entity_full_info_ref01_match_dt0 = {}
-        entity_full_info_ref01_data_dt0_loaded, err = entity_full_info_ref01_ent.load(entity_full_info_ref01_match_dt0, None)
-        assert err is None
+        entity_full_info_ref01_data_dt0_loaded = entity_full_info_ref01_ent.load(entity_full_info_ref01_match_dt0, None)
         assert entity_full_info_ref01_data_dt0_loaded is not None
 
 
@@ -91,7 +90,6 @@ def _entity_full_info_basic_setup(extra):
         "SHODANENTITYDB_TEST_ENTITY_FULL_INFO_ENTID": idmap,
         "SHODANENTITYDB_TEST_LIVE": "FALSE",
         "SHODANENTITYDB_TEST_EXPLAIN": "FALSE",
-        "SHODANENTITYDB_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -102,7 +100,6 @@ def _entity_full_info_basic_setup(extra):
     if env.get("SHODANENTITYDB_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("SHODANENTITYDB_APIKEY"),
             },
             extra or {},
         ])

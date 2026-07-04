@@ -85,6 +85,27 @@ func (e *EntityEntity) Match(args ...any) any {
 	return out
 }
 
+// DataTyped is the statically-typed accessor for this entity's data. With no
+// argument it returns the current data as an Entity; with an argument it
+// sets the data and returns the stored value. It delegates to the untyped Data
+// (identical runtime) and converts at the typed boundary.
+func (e *EntityEntity) DataTyped(data ...Entity) Entity {
+	if len(data) > 0 {
+		return typedFrom[Entity](e.Data(asMap(data[0])))
+	}
+	return typedFrom[Entity](e.Data())
+}
+
+// MatchTyped mirrors DataTyped for the entity's match filter. The match is a
+// partial of the entity, so it round-trips through Entity (all fields
+// optional at the wire level).
+func (e *EntityEntity) MatchTyped(match ...Entity) Entity {
+	if len(match) > 0 {
+		return typedFrom[Entity](e.Match(asMap(match[0])))
+	}
+	return typedFrom[Entity](e.Match())
+}
+
 
 func (e *EntityEntity) Load(reqmatch map[string]any, ctrl map[string]any) (any, error) {
 	utility := e.utility
@@ -111,6 +132,17 @@ func (e *EntityEntity) Load(reqmatch map[string]any, ctrl map[string]any) (any, 
 	})
 }
 
+// LoadTyped is the statically-typed variant of Load: it takes an
+// EntityLoadMatch and returns an Entity. It delegates to the untyped
+// Load (identical runtime) and converts at the typed boundary.
+func (e *EntityEntity) LoadTyped(reqmatch EntityLoadMatch, ctrl map[string]any) (Entity, error) {
+	res, err := e.Load(asMap(reqmatch), ctrl)
+	if err != nil {
+		return Entity{}, err
+	}
+	return typedFrom[Entity](res), nil
+}
+
 
 
 
@@ -131,6 +163,17 @@ func (e *EntityEntity) List(reqmatch map[string]any, ctrl map[string]any) (any, 
 			}
 		}
 	})
+}
+
+// ListTyped is the statically-typed variant of List: it takes an
+// EntityListMatch and returns []Entity. It delegates to the untyped
+// List (identical runtime) and converts at the typed boundary.
+func (e *EntityEntity) ListTyped(reqmatch EntityListMatch, ctrl map[string]any) ([]Entity, error) {
+	res, err := e.List(asMap(reqmatch), ctrl)
+	if err != nil {
+		return nil, err
+	}
+	return typedSliceFrom[Entity](res), nil
 }
 
 

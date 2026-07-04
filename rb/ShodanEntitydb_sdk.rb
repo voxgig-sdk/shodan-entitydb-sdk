@@ -13,6 +13,9 @@ require_relative 'config'
 require_relative 'feature/base_feature'
 require_relative 'features'
 
+# Load typed models (Struct value objects).
+require_relative 'ShodanEntitydb_types'
+
 
 class ShodanEntitydbSDK
   attr_accessor :mode, :features, :options
@@ -131,7 +134,7 @@ class ShodanEntitydbSDK
     end
 
     _, err = utility.prepare_auth.call(ctx)
-    return nil, err if err
+    raise err if err
 
     utility.make_fetch_def.call(ctx)
   end
@@ -139,8 +142,14 @@ class ShodanEntitydbSDK
   def direct(fetchargs = {})
     utility = @_utility
 
-    fetchdef, err = prepare(fetchargs)
-    return { "ok" => false, "err" => err }, nil if err
+    # direct() is the raw-HTTP escape hatch: it always returns a result hash
+    # ({ "ok" => ..., ... }) and never raises. prepare() raises on error, so
+    # trap that and surface it in the hash.
+    begin
+      fetchdef = prepare(fetchargs)
+    rescue ShodanEntitydbError => err
+      return { "ok" => false, "err" => err }
+    end
 
     fetchargs ||= {}
     ctrl = ShodanEntitydbHelpers.to_map(VoxgigStruct.getprop(fetchargs, "ctrl")) || {}
@@ -153,13 +162,13 @@ class ShodanEntitydbSDK
     url = fetchdef["url"] || ""
     fetched, fetch_err = utility.fetcher.call(ctx, url, fetchdef)
 
-    return { "ok" => false, "err" => fetch_err }, nil if fetch_err
+    return { "ok" => false, "err" => fetch_err } if fetch_err
 
     if fetched.nil?
       return {
         "ok" => false,
         "err" => ctx.make_error("direct_no_response", "response: undefined"),
-      }, nil
+      }
     end
 
     if fetched.is_a?(Hash)
@@ -189,34 +198,62 @@ class ShodanEntitydbSDK
         "status" => status,
         "headers" => headers,
         "data" => json_data,
-      }, nil
+      }
     end
 
     return {
       "ok" => false,
       "err" => ctx.make_error("direct_invalid", "invalid response type"),
-    }, nil
+    }
   end
 
 
+  # Idiomatic facade: client.entity.list / client.entity.load({ "id" => ... })
+  def entity
+    require_relative 'entity/entity_entity'
+    @entity ||= EntityEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.entity instead.
   def Entity(data = nil)
     require_relative 'entity/entity_entity'
     EntityEntity.new(self, data)
   end
 
 
+  # Idiomatic facade: client.entity_full_info.list / client.entity_full_info.load({ "id" => ... })
+  def entity_full_info
+    require_relative 'entity/entity_full_info_entity'
+    @entity_full_info ||= EntityFullInfoEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.entity_full_info instead.
   def EntityFullInfo(data = nil)
     require_relative 'entity/entity_full_info_entity'
     EntityFullInfoEntity.new(self, data)
   end
 
 
+  # Idiomatic facade: client.health_check.list / client.health_check.load({ "id" => ... })
+  def health_check
+    require_relative 'entity/health_check_entity'
+    @health_check ||= HealthCheckEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.health_check instead.
   def HealthCheck(data = nil)
     require_relative 'entity/health_check_entity'
     HealthCheckEntity.new(self, data)
   end
 
 
+  # Idiomatic facade: client.last_update.list / client.last_update.load({ "id" => ... })
+  def last_update
+    require_relative 'entity/last_update_entity'
+    @last_update ||= LastUpdateEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.last_update instead.
   def LastUpdate(data = nil)
     require_relative 'entity/last_update_entity'
     LastUpdateEntity.new(self, data)
