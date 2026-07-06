@@ -109,13 +109,13 @@ entity := client.Entity(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cik` | ``$INTEGER`` | Yes |  |
-| `entity` | ``$OBJECT`` | Yes |  |
-| `entity_name` | ``$STRING`` | Yes |  |
-| `executif` | ``$ARRAY`` | Yes |  |
-| `finance_data` | ``$ARRAY`` | Yes |  |
-| `id` | ``$INTEGER`` | Yes |  |
-| `ticker` | ``$ARRAY`` | Yes |  |
+| `cik` | `int` | Yes |  |
+| `entity` | `map[string]any` | Yes |  |
+| `entity_name` | `string` | Yes |  |
+| `executif` | `[]any` | Yes |  |
+| `finance_data` | `[]any` | Yes |  |
+| `id` | `int` | Yes |  |
+| `ticker` | `[]any` | Yes |  |
 
 ### Operations
 
@@ -169,9 +169,9 @@ entity_full_info := client.EntityFullInfo(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `entity` | ``$OBJECT`` | Yes |  |
-| `executif` | ``$ARRAY`` | Yes |  |
-| `finance_data` | ``$ARRAY`` | Yes |  |
+| `entity` | `map[string]any` | Yes |  |
+| `executif` | `[]any` | Yes |  |
+| `finance_data` | `[]any` | Yes |  |
 
 ### Operations
 
@@ -180,7 +180,7 @@ entity_full_info := client.EntityFullInfo(nil)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.EntityFullInfo(nil).Load(map[string]any{"id": "entity_full_info_id"}, nil)
+result, err := client.EntityFullInfo(nil).Load(nil, nil)
 ```
 
 ### Common Methods
@@ -220,7 +220,7 @@ health_check := client.HealthCheck(nil)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.HealthCheck(nil).Load(map[string]any{"id": "health_check_id"}, nil)
+result, err := client.HealthCheck(nil).Load(nil, nil)
 ```
 
 ### Common Methods
@@ -257,7 +257,7 @@ last_update := client.LastUpdate(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `last_updated` | ``$STRING`` | Yes |  |
+| `last_updated` | `string` | Yes |  |
 
 ### Operations
 
@@ -266,7 +266,7 @@ last_update := client.LastUpdate(nil)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.LastUpdate(nil).Load(map[string]any{"id": "last_update_id"}, nil)
+result, err := client.LastUpdate(nil).Load(nil, nil)
 ```
 
 ### Common Methods

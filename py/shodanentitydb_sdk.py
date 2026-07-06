@@ -221,25 +221,25 @@ class ShodanEntitydbSDK:
 
 
     def Entity(self, data=None) -> "EntityEntity":
-        """Entity factory: client.Entity().list({}) / client.Entity().load({"id": ...})."""
+        """Entity factory: client.Entity().list() / client.Entity().load({"id": ...})."""
         from entity.entity_entity import EntityEntity
         return EntityEntity(self, data)
 
 
     def EntityFullInfo(self, data=None) -> "EntityFullInfoEntity":
-        """Entity factory: client.EntityFullInfo().list({}) / client.EntityFullInfo().load({"id": ...})."""
+        """Entity factory: client.EntityFullInfo().list() / client.EntityFullInfo().load({"id": ...})."""
         from entity.entity_full_info_entity import EntityFullInfoEntity
         return EntityFullInfoEntity(self, data)
 
 
     def HealthCheck(self, data=None) -> "HealthCheckEntity":
-        """Entity factory: client.HealthCheck().list({}) / client.HealthCheck().load({"id": ...})."""
+        """Entity factory: client.HealthCheck().list() / client.HealthCheck().load({"id": ...})."""
         from entity.health_check_entity import HealthCheckEntity
         return HealthCheckEntity(self, data)
 
 
     def LastUpdate(self, data=None) -> "LastUpdateEntity":
-        """Entity factory: client.LastUpdate().list({}) / client.LastUpdate().load({"id": ...})."""
+        """Entity factory: client.LastUpdate().list() / client.LastUpdate().load({"id": ...})."""
         from entity.last_update_entity import LastUpdateEntity
         return LastUpdateEntity(self, data)
 

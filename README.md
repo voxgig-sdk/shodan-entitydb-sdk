@@ -6,6 +6,21 @@ This is an unofficial SDK for the Shodan Business Entities public API, generated
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI, an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
 
+## Entities, not endpoints
+
+This SDK exposes the API as a small set of **semantic entities** — Entity, EntityFullInfo, HealthCheck and LastUpdate — that you
+call directly, instead of assembling URL paths and query strings. Entities are
+**Capitalised** to mark them as the primary surface, each with the operations they
+support (`list`, `load`):
+
+```ts
+const client = new ShodanEntitydbSDK()
+const items = await client.Entity().list()
+```
+
+Thinking in entities keeps the mental model small — for people and AI agents alike —
+rather than reasoning about raw HTTP routes and query parameters.
+
 ## Packages
 
 | Language | Package | Install |
@@ -76,8 +91,8 @@ The API exposes 4 entities:
 | **HealthCheck** | The HealthCheck entity (load). | `/health_check` |
 | **LastUpdate** | The LastUpdate entity (load). | `/api/last_updated` |
 
-Each entity supports the following operations where available: **load**,
-**list**, **create**, **update**, and **remove**.
+The operations available across these entities are **load**, **list** — see each entity's
+own list above for exactly which it supports.
 
 ## Quickstart in other languages
 
@@ -89,7 +104,7 @@ from shodanentitydb_sdk import ShodanEntitydbSDK
 client = ShodanEntitydbSDK()
 
 # List all entitys (returns a list, raises on error)
-entitys = client.Entity().list({})
+entitys = client.Entity().list()
 for entity in entitys:
     print(entity)
 
@@ -168,7 +183,7 @@ in-memory mock, so unit tests run offline.
 
 ```ts
 const client = ShodanEntitydbSDK.test()
-const entity = await client.Entity().load({ id: 1 })
+const entity = await client.Entity().list()
 // entity is a bare Entity populated with mock data
 console.log(entity)
 ```
@@ -177,7 +192,7 @@ console.log(entity)
 
 ```python
 client = ShodanEntitydbSDK.test()
-entity = client.Entity().load({"id": "test01"})
+entity = client.Entity().list()
 print(entity)
 ```
 
@@ -188,15 +203,15 @@ print(entity)
 $client = ShodanEntitydbSDK::test([
     "entity" => ["entity" => ["test01" => ["id" => "test01"]]],
 ]);
-$entity = $client->Entity()->load(["id" => "test01"]);
+$entity = $client->Entity()->list();
 ```
 
 ### Golang
 
 ```go
 client := sdk.Test()
-result, err := client.Entity(nil).Load(
-    map[string]any{"id": "test01"}, nil,
+result, err := client.Entity(nil).List(
+    nil, nil,
 )
 ```
 
@@ -207,39 +222,17 @@ result, err := client.Entity(nil).Load(
 client = ShodanEntitydbSDK.test({
   "entity" => { "entity" => { "test01" => { "id" => "test01" } } },
 })
-entity = client.Entity.load({ "id" => "test01" })
+entity = client.Entity.list()
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:Entity():load({ id = "test01" })
+local result, err = client:Entity():list()
 ```
 
-## How it works
-
-Every SDK call runs the same five-stage pipeline:
-
-1. **Point** — resolve the API endpoint from the operation definition.
-2. **Spec** — build the HTTP specification (URL, method, headers, body).
-3. **Request** — send the HTTP request.
-4. **Response** — receive and parse the response.
-5. **Result** — extract the result data for the caller.
-
-A feature hook fires at each stage (e.g. `PrePoint`, `PreSpec`,
-`PreRequest`), so features can inspect or modify the pipeline without
-forking the SDK.
-
-### Features
-
-| Feature | Purpose |
-| --- | --- |
-| **TestFeature** | In-memory mock transport for testing without a live server |
-
-Pass custom features via the `extend` option at construction time.
-
-### Direct and Prepare
+## Direct and prepare
 
 For endpoints the entity model doesn't cover, use the low-level methods:
 
@@ -312,6 +305,31 @@ local result, err = client:direct({
   params = { id = "example" },
 })
 ```
+
+## Advanced
+
+> Everyday use only needs the sections above. This explains the internals
+> behind every call — relevant when writing custom features.
+
+Every SDK call runs the same five-stage pipeline:
+
+1. **Point** — resolve the API endpoint from the operation definition.
+2. **Spec** — build the HTTP specification (URL, method, headers, body).
+3. **Request** — send the HTTP request.
+4. **Response** — receive and parse the response.
+5. **Result** — extract the result data for the caller.
+
+A feature hook fires at each stage (e.g. `PrePoint`, `PreSpec`,
+`PreRequest`), so features can inspect or modify the pipeline without
+forking the SDK.
+
+### Features
+
+| Feature | Purpose |
+| --- | --- |
+| **TestFeature** | In-memory mock transport for testing without a live server |
+
+Pass custom features via the `extend` option at construction time.
 
 ## Per-language documentation
 

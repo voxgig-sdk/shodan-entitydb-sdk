@@ -8,7 +8,7 @@ Complete API reference for the ShodanEntitydb Ruby SDK.
 ### Constructor
 
 ```ruby
-require_relative 'shodan-entitydb_sdk'
+require_relative 'ShodanEntitydb_sdk'
 
 client = ShodanEntitydbSDK.new(options)
 ```
@@ -105,22 +105,22 @@ entity = client.Entity
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cik` | ``$INTEGER`` | Yes |  |
-| `entity` | ``$OBJECT`` | Yes |  |
-| `entity_name` | ``$STRING`` | Yes |  |
-| `executif` | ``$ARRAY`` | Yes |  |
-| `finance_data` | ``$ARRAY`` | Yes |  |
-| `id` | ``$INTEGER`` | Yes |  |
-| `ticker` | ``$ARRAY`` | Yes |  |
+| `cik` | `Integer` | Yes |  |
+| `entity` | `Hash` | Yes |  |
+| `entity_name` | `String` | Yes |  |
+| `executif` | `Array` | Yes |  |
+| `finance_data` | `Array` | Yes |  |
+| `id` | `Integer` | Yes |  |
+| `ticker` | `Array` | Yes |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Entity.list(nil)
+results = client.Entity.list
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -171,9 +171,9 @@ entity_full_info = client.EntityFullInfo
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `entity` | ``$OBJECT`` | Yes |  |
-| `executif` | ``$ARRAY`` | Yes |  |
-| `finance_data` | ``$ARRAY`` | Yes |  |
+| `entity` | `Hash` | Yes |  |
+| `executif` | `Array` | Yes |  |
+| `finance_data` | `Array` | Yes |  |
 
 ### Operations
 
@@ -182,7 +182,7 @@ entity_full_info = client.EntityFullInfo
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.EntityFullInfo.load({ "id" => "entity_full_info_id" })
+result = client.EntityFullInfo.load()
 ```
 
 ### Common Methods
@@ -228,7 +228,7 @@ health_check = client.HealthCheck
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.HealthCheck.load({ "id" => "health_check_id" })
+result = client.HealthCheck.load()
 ```
 
 ### Common Methods
@@ -271,7 +271,7 @@ last_update = client.LastUpdate
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `last_updated` | ``$STRING`` | Yes |  |
+| `last_updated` | `String` | Yes |  |
 
 ### Operations
 
@@ -280,7 +280,7 @@ last_update = client.LastUpdate
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.LastUpdate.load({ "id" => "last_update_id" })
+result = client.LastUpdate.load()
 ```
 
 ### Common Methods

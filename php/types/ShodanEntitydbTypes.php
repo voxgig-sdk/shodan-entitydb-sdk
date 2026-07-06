@@ -30,7 +30,7 @@ class EntityLoadMatch
     public int $id;
 }
 
-/** Match filter for Entity#list (any subset of Entity fields). */
+/** Request payload for Entity#list. */
 class EntityListMatch
 {
     public ?int $cik = null;
@@ -61,7 +61,7 @@ class HealthCheck
 {
 }
 
-/** Match filter for HealthCheck#load (any subset of HealthCheck fields). */
+/** Request payload for HealthCheck#load. */
 class HealthCheckLoadMatch
 {
 }
@@ -72,7 +72,7 @@ class LastUpdate
     public string $last_updated;
 }
 
-/** Match filter for LastUpdate#load (any subset of LastUpdate fields). */
+/** Request payload for LastUpdate#load. */
 class LastUpdateLoadMatch
 {
     public ?string $last_updated = null;

@@ -19,6 +19,13 @@
 ---@field id number
 
 ---@class EntityListMatch
+---@field cik? number
+---@field entity? table
+---@field entity_name? string
+---@field executif? table
+---@field finance_data? table
+---@field id? number
+---@field ticker? table
 
 ---@class EntityFullInfo
 ---@field entity table
@@ -36,6 +43,7 @@
 ---@field last_updated string
 
 ---@class LastUpdateLoadMatch
+---@field last_updated? string
 
 local M = {}
 

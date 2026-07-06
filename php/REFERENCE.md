@@ -8,7 +8,7 @@ Complete API reference for the ShodanEntitydb PHP SDK.
 ### Constructor
 
 ```php
-require_once __DIR__ . '/shodan-entitydb_sdk.php';
+require_once __DIR__ . '/shodanentitydb_sdk.php';
 
 $client = new ShodanEntitydbSDK($options);
 ```
@@ -57,11 +57,11 @@ Create a new `HealthCheckEntity` instance. Pass `null` for no initial data.
 
 Create a new `LastUpdateEntity` instance. Pass `null` for no initial data.
 
-#### `optionsMap(): array`
+#### `options_map(): array`
 
 Return a deep copy of the current SDK options.
 
-#### `getUtility(): ProjectNameUtility`
+#### `get_utility(): ShodanEntitydbUtility`
 
 Return a copy of the SDK utility object.
 
@@ -104,22 +104,22 @@ $entity = $client->Entity();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cik` | ``$INTEGER`` | Yes |  |
-| `entity` | ``$OBJECT`` | Yes |  |
-| `entity_name` | ``$STRING`` | Yes |  |
-| `executif` | ``$ARRAY`` | Yes |  |
-| `finance_data` | ``$ARRAY`` | Yes |  |
-| `id` | ``$INTEGER`` | Yes |  |
-| `ticker` | ``$ARRAY`` | Yes |  |
+| `cik` | `int` | Yes |  |
+| `entity` | `array` | Yes |  |
+| `entity_name` | `string` | Yes |  |
+| `executif` | `array` | Yes |  |
+| `finance_data` | `array` | Yes |  |
+| `id` | `int` | Yes |  |
+| `ticker` | `array` | Yes |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->Entity()->list([]);
+$results = $client->Entity()->list();
 ```
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
@@ -132,19 +132,19 @@ $result = $client->Entity()->load(["id" => "entity_id"]);
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -153,7 +153,7 @@ Set the entity match criteria.
 Create a new `EntityEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -170,9 +170,9 @@ $entity_full_info = $client->EntityFullInfo();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `entity` | ``$OBJECT`` | Yes |  |
-| `executif` | ``$ARRAY`` | Yes |  |
-| `finance_data` | ``$ARRAY`` | Yes |  |
+| `entity` | `array` | Yes |  |
+| `executif` | `array` | Yes |  |
+| `finance_data` | `array` | Yes |  |
 
 ### Operations
 
@@ -181,24 +181,24 @@ $entity_full_info = $client->EntityFullInfo();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->EntityFullInfo()->load(["id" => "entity_full_info_id"]);
+$result = $client->EntityFullInfo()->load();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -207,7 +207,7 @@ Set the entity match criteria.
 Create a new `EntityFullInfoEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -227,24 +227,24 @@ $health_check = $client->HealthCheck();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->HealthCheck()->load(["id" => "health_check_id"]);
+$result = $client->HealthCheck()->load();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -253,7 +253,7 @@ Set the entity match criteria.
 Create a new `HealthCheckEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -270,7 +270,7 @@ $last_update = $client->LastUpdate();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `last_updated` | ``$STRING`` | Yes |  |
+| `last_updated` | `string` | Yes |  |
 
 ### Operations
 
@@ -279,24 +279,24 @@ $last_update = $client->LastUpdate();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->LastUpdate()->load(["id" => "last_update_id"]);
+$result = $client->LastUpdate()->load();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -305,7 +305,7 @@ Set the entity match criteria.
 Create a new `LastUpdateEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 

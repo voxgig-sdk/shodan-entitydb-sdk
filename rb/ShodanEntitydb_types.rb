@@ -50,7 +50,7 @@ EntityLoadMatch = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Entity#list (any subset of Entity fields).
+# Request payload for Entity#list.
 #
 # @!attribute [rw] cik
 #   @return [Integer, nil]
@@ -113,7 +113,7 @@ EntityFullInfoLoadMatch = Struct.new(
 class HealthCheck
 end
 
-# Match filter for HealthCheck#load (any subset of HealthCheck fields).
+# Request payload for HealthCheck#load.
 class HealthCheckLoadMatch
 end
 
@@ -126,7 +126,7 @@ LastUpdate = Struct.new(
   keyword_init: true
 )
 
-# Match filter for LastUpdate#load (any subset of LastUpdate fields).
+# Request payload for LastUpdate#load.
 #
 # @!attribute [rw] last_updated
 #   @return [String, nil]

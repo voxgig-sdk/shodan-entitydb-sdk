@@ -19,7 +19,15 @@ export interface EntityLoadMatch {
   id: number
 }
 
-export type EntityListMatch = Partial<Entity>
+export interface EntityListMatch {
+  cik?: number
+  entity?: Record<string, any>
+  entity_name?: string
+  executif?: any[]
+  finance_data?: any[]
+  id?: number
+  ticker?: any[]
+}
 
 export interface EntityFullInfo {
   entity: Record<string, any>
@@ -34,11 +42,14 @@ export interface EntityFullInfoLoadMatch {
 export interface HealthCheck {
 }
 
-export type HealthCheckLoadMatch = Partial<HealthCheck>
+export interface HealthCheckLoadMatch {
+}
 
 export interface LastUpdate {
   last_updated: string
 }
 
-export type LastUpdateLoadMatch = Partial<LastUpdate>
+export interface LastUpdateLoadMatch {
+  last_updated?: string
+}
 

@@ -152,13 +152,13 @@ const entity = client.Entity()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cik` | ``$INTEGER`` | Yes |  |
-| `entity` | ``$OBJECT`` | Yes |  |
-| `entity_name` | ``$STRING`` | Yes |  |
-| `executif` | ``$ARRAY`` | Yes |  |
-| `finance_data` | ``$ARRAY`` | Yes |  |
-| `id` | ``$INTEGER`` | Yes |  |
-| `ticker` | ``$ARRAY`` | Yes |  |
+| `cik` | `number` | Yes |  |
+| `entity` | `Record<string, any>` | Yes |  |
+| `entity_name` | `string` | Yes |  |
+| `executif` | `any[]` | Yes |  |
+| `finance_data` | `any[]` | Yes |  |
+| `id` | `number` | Yes |  |
+| `ticker` | `any[]` | Yes |  |
 
 ### Operations
 
@@ -175,7 +175,7 @@ const results = await client.Entity().list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Entity().load({ id: 'entity_id' })
+const result = await client.Entity().load({ id: 1 })
 ```
 
 ### Common Methods
@@ -216,9 +216,9 @@ const entity_full_info = client.EntityFullInfo()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `entity` | ``$OBJECT`` | Yes |  |
-| `executif` | ``$ARRAY`` | Yes |  |
-| `finance_data` | ``$ARRAY`` | Yes |  |
+| `entity` | `Record<string, any>` | Yes |  |
+| `executif` | `any[]` | Yes |  |
+| `finance_data` | `any[]` | Yes |  |
 
 ### Operations
 
@@ -227,7 +227,7 @@ const entity_full_info = client.EntityFullInfo()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.EntityFullInfo().load({ id: 'entity_full_info_id' })
+const result = await client.EntityFullInfo().load()
 ```
 
 ### Common Methods
@@ -271,7 +271,7 @@ const health_check = client.HealthCheck()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.HealthCheck().load({ id: 'health_check_id' })
+const result = await client.HealthCheck().load()
 ```
 
 ### Common Methods
@@ -312,7 +312,7 @@ const last_update = client.LastUpdate()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `last_updated` | ``$STRING`` | Yes |  |
+| `last_updated` | `string` | Yes |  |
 
 ### Operations
 
@@ -321,7 +321,7 @@ const last_update = client.LastUpdate()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.LastUpdate().load({ id: 'last_update_id' })
+const result = await client.LastUpdate().load()
 ```
 
 ### Common Methods

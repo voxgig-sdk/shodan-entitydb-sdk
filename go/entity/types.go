@@ -24,8 +24,7 @@ type EntityLoadMatch struct {
 	Id int `json:"id"`
 }
 
-// EntityListMatch mirrors the entity fields as an all-optional match
-// filter (Go analog of Partial<Entity>).
+// EntityListMatch is the typed request payload for Entity.ListTyped.
 type EntityListMatch struct {
 	Cik *int `json:"cik,omitempty"`
 	Entity *map[string]any `json:"entity,omitempty"`
@@ -52,8 +51,7 @@ type EntityFullInfoLoadMatch struct {
 type HealthCheck struct {
 }
 
-// HealthCheckLoadMatch mirrors the health_check fields as an all-optional match
-// filter (Go analog of Partial<HealthCheck>).
+// HealthCheckLoadMatch is the typed request payload for HealthCheck.LoadTyped.
 type HealthCheckLoadMatch struct {
 }
 
@@ -62,8 +60,7 @@ type LastUpdate struct {
 	LastUpdated string `json:"last_updated"`
 }
 
-// LastUpdateLoadMatch mirrors the last_update fields as an all-optional match
-// filter (Go analog of Partial<LastUpdate>).
+// LastUpdateLoadMatch is the typed request payload for LastUpdate.LoadTyped.
 type LastUpdateLoadMatch struct {
 	LastUpdated *string `json:"last_updated,omitempty"`
 }

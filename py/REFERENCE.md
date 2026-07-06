@@ -8,7 +8,7 @@ Complete API reference for the ShodanEntitydb Python SDK.
 ### Constructor
 
 ```python
-from shodan-entitydb_sdk import ShodanEntitydbSDK
+from shodanentitydb_sdk import ShodanEntitydbSDK
 
 client = ShodanEntitydbSDK(options)
 ```
@@ -99,22 +99,22 @@ entity = client.Entity()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cik` | ``$INTEGER`` | Yes |  |
-| `entity` | ``$OBJECT`` | Yes |  |
-| `entity_name` | ``$STRING`` | Yes |  |
-| `executif` | ``$ARRAY`` | Yes |  |
-| `finance_data` | ``$ARRAY`` | Yes |  |
-| `id` | ``$INTEGER`` | Yes |  |
-| `ticker` | ``$ARRAY`` | Yes |  |
+| `cik` | `int` | Yes |  |
+| `entity` | `dict` | Yes |  |
+| `entity_name` | `str` | Yes |  |
+| `executif` | `list` | Yes |  |
+| `finance_data` | `list` | Yes |  |
+| `id` | `int` | Yes |  |
+| `ticker` | `list` | Yes |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Entity().list({})
+results = client.Entity().list()
 for entity in results:
     print(entity)
 ```
@@ -166,9 +166,9 @@ entity_full_info = client.EntityFullInfo()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `entity` | ``$OBJECT`` | Yes |  |
-| `executif` | ``$ARRAY`` | Yes |  |
-| `finance_data` | ``$ARRAY`` | Yes |  |
+| `entity` | `dict` | Yes |  |
+| `executif` | `list` | Yes |  |
+| `finance_data` | `list` | Yes |  |
 
 ### Operations
 
@@ -177,7 +177,7 @@ entity_full_info = client.EntityFullInfo()
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.EntityFullInfo().load({"id": "entity_full_info_id"})
+result = client.EntityFullInfo().load()
 ```
 
 ### Common Methods
@@ -222,7 +222,7 @@ health_check = client.HealthCheck()
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.HealthCheck().load({"id": "health_check_id"})
+result = client.HealthCheck().load()
 ```
 
 ### Common Methods
@@ -264,7 +264,7 @@ last_update = client.LastUpdate()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `last_updated` | ``$STRING`` | Yes |  |
+| `last_updated` | `str` | Yes |  |
 
 ### Operations
 
@@ -273,7 +273,7 @@ last_update = client.LastUpdate()
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.LastUpdate().load({"id": "last_update_id"})
+result = client.LastUpdate().load()
 ```
 
 ### Common Methods

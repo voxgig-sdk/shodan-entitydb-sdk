@@ -102,13 +102,13 @@ local entity = client:Entity(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cik` | ``$INTEGER`` | Yes |  |
-| `entity` | ``$OBJECT`` | Yes |  |
-| `entity_name` | ``$STRING`` | Yes |  |
-| `executif` | ``$ARRAY`` | Yes |  |
-| `finance_data` | ``$ARRAY`` | Yes |  |
-| `id` | ``$INTEGER`` | Yes |  |
-| `ticker` | ``$ARRAY`` | Yes |  |
+| `cik` | `number` | Yes |  |
+| `entity` | `table` | Yes |  |
+| `entity_name` | `string` | Yes |  |
+| `executif` | `table` | Yes |  |
+| `finance_data` | `table` | Yes |  |
+| `id` | `number` | Yes |  |
+| `ticker` | `table` | Yes |  |
 
 ### Operations
 
@@ -168,9 +168,9 @@ local entity_full_info = client:EntityFullInfo(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `entity` | ``$OBJECT`` | Yes |  |
-| `executif` | ``$ARRAY`` | Yes |  |
-| `finance_data` | ``$ARRAY`` | Yes |  |
+| `entity` | `table` | Yes |  |
+| `executif` | `table` | Yes |  |
+| `finance_data` | `table` | Yes |  |
 
 ### Operations
 
@@ -179,7 +179,7 @@ local entity_full_info = client:EntityFullInfo(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:EntityFullInfo():load({ id = "entity_full_info_id" })
+local result, err = client:EntityFullInfo():load()
 ```
 
 ### Common Methods
@@ -225,7 +225,7 @@ local health_check = client:HealthCheck(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:HealthCheck():load({ id = "health_check_id" })
+local result, err = client:HealthCheck():load()
 ```
 
 ### Common Methods
@@ -268,7 +268,7 @@ local last_update = client:LastUpdate(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `last_updated` | ``$STRING`` | Yes |  |
+| `last_updated` | `string` | Yes |  |
 
 ### Operations
 
@@ -277,7 +277,7 @@ local last_update = client:LastUpdate(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:LastUpdate():load({ id = "last_update_id" })
+local result, err = client:LastUpdate():load()
 ```
 
 ### Common Methods
