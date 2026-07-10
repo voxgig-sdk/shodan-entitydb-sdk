@@ -50,14 +50,15 @@ except Exception as err:
     print(f"list failed: {err}")
 ```
 
-### 3. Load an entity
+### 3. Load an entityfullinfo
 
+EntityFullInfo is nested under symbol, so provide the `symbol`.
 `load()` returns the bare record (a `dict`) and raises on error.
 
 ```python
 try:
-    entity = client.Entity().load({"id": "example_id"})
-    print(entity)
+    entityfullinfo = client.EntityFullInfo().load({"symbol": "example_symbol"})
+    print(entityfullinfo)
 except Exception as err:
     print(f"load failed: {err}")
 ```
@@ -332,7 +333,7 @@ Create an instance: `entity = client.Entity()`
 #### Example: Load
 
 ```python
-entity = client.Entity().load({"id": "entity_id"})
+entity = client.Entity().load({"id": 1})
 ```
 
 #### Example: List
@@ -363,7 +364,7 @@ Create an instance: `entity_full_info = client.EntityFullInfo()`
 #### Example: Load
 
 ```python
-entity_full_info = client.EntityFullInfo().load()
+entity_full_info = client.EntityFullInfo().load({"symbol": "symbol"})
 ```
 
 

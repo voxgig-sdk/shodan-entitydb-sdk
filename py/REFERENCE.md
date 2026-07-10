@@ -124,7 +124,7 @@ for entity in results:
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.Entity().load({"id": "entity_id"})
+result = client.Entity().load({"id": 1})
 ```
 
 ### Common Methods
@@ -177,7 +177,7 @@ entity_full_info = client.EntityFullInfo()
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.EntityFullInfo().load()
+result = client.EntityFullInfo().load({"symbol": "symbol"})
 ```
 
 ### Common Methods

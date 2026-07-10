@@ -346,7 +346,7 @@ Create an instance: `entity := client.Entity(nil)`
 #### Example: Load
 
 ```go
-entity, err := client.Entity(nil).Load(map[string]any{"id": "entity_id"}, nil)
+entity, err := client.Entity(nil).Load(map[string]any{"id": 1}, nil)
 if err != nil {
     panic(err)
 }
@@ -366,7 +366,7 @@ fmt.Println(entitys) // the array of records
 
 ### EntityFullInfo
 
-Create an instance: `entity_full_info := client.EntityFullInfo(nil)`
+Create an instance: `entityFullInfo := client.EntityFullInfo(nil)`
 
 #### Operations
 
@@ -385,17 +385,17 @@ Create an instance: `entity_full_info := client.EntityFullInfo(nil)`
 #### Example: Load
 
 ```go
-entity_full_info, err := client.EntityFullInfo(nil).Load(nil, nil)
+entityFullInfo, err := client.EntityFullInfo(nil).Load(map[string]any{"symbol": "symbol"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(entity_full_info) // the loaded record
+fmt.Println(entityFullInfo) // the loaded record
 ```
 
 
 ### HealthCheck
 
-Create an instance: `health_check := client.HealthCheck(nil)`
+Create an instance: `healthCheck := client.HealthCheck(nil)`
 
 #### Operations
 
@@ -406,17 +406,17 @@ Create an instance: `health_check := client.HealthCheck(nil)`
 #### Example: Load
 
 ```go
-health_check, err := client.HealthCheck(nil).Load(nil, nil)
+healthCheck, err := client.HealthCheck(nil).Load(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(health_check) // the loaded record
+fmt.Println(healthCheck) // the loaded record
 ```
 
 
 ### LastUpdate
 
-Create an instance: `last_update := client.LastUpdate(nil)`
+Create an instance: `lastUpdate := client.LastUpdate(nil)`
 
 #### Operations
 
@@ -433,11 +433,11 @@ Create an instance: `last_update := client.LastUpdate(nil)`
 #### Example: Load
 
 ```go
-last_update, err := client.LastUpdate(nil).Load(nil, nil)
+lastUpdate, err := client.LastUpdate(nil).Load(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(last_update) // the loaded record
+fmt.Println(lastUpdate) // the loaded record
 ```
 
 

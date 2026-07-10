@@ -1,6 +1,0 @@
-# Flows
-
-@"BasicEntityFlow.jsonic"
-@"BasicEntityFullInfoFlow.jsonic"
-@"BasicHealthCheckFlow.jsonic"
-@"BasicLastUpdateFlow.jsonic"

@@ -44,13 +44,15 @@ rescue => err
 end
 ```
 
-### 3. Load an entity
+### 3. Load an entityfullinfo
+
+EntityFullInfo is nested under symbol, so provide the `symbol`.
 
 ```ruby
 begin
-  # load returns the bare Entity record (raises on error).
-  entity = client.Entity.load({ "id" => "example_id" })
-  puts entity
+  # load returns the bare EntityFullInfo record (raises on error).
+  entityfullinfo = client.EntityFullInfo.load({ "symbol" => "example_symbol" })
+  puts entityfullinfo
 rescue => err
   warn "load failed: #{err}"
 end
@@ -330,7 +332,7 @@ Create an instance: `entity = client.Entity`
 
 ```ruby
 # load returns the bare Entity record (raises on error).
-entity = client.Entity.load({ "id" => "entity_id" })
+entity = client.Entity.load({ "id" => 1 })
 ```
 
 #### Example: List
@@ -363,7 +365,7 @@ Create an instance: `entity_full_info = client.EntityFullInfo`
 
 ```ruby
 # load returns the bare EntityFullInfo record (raises on error).
-entity_full_info = client.EntityFullInfo.load()
+entity_full_info = client.EntityFullInfo.load({ "symbol" => "symbol" })
 ```
 
 

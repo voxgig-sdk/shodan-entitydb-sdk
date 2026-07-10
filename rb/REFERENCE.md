@@ -128,7 +128,7 @@ results = client.Entity.list
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.Entity.load({ "id" => "entity_id" })
+result = client.Entity.load({ "id" => 1 })
 ```
 
 ### Common Methods
@@ -182,7 +182,7 @@ entity_full_info = client.EntityFullInfo
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.EntityFullInfo.load()
+result = client.EntityFullInfo.load({ "symbol" => "symbol" })
 ```
 
 ### Common Methods

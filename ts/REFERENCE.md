@@ -227,7 +227,7 @@ const entity_full_info = client.EntityFullInfo()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.EntityFullInfo().load()
+const result = await client.EntityFullInfo().load({ symbol: 'symbol' })
 ```
 
 ### Common Methods

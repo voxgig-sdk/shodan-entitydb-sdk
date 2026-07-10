@@ -125,7 +125,7 @@ local results, err = client:Entity():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Entity():load({ id = "entity_id" })
+local result, err = client:Entity():load({ id = 1 })
 ```
 
 ### Common Methods
@@ -179,7 +179,7 @@ local entity_full_info = client:EntityFullInfo(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:EntityFullInfo():load()
+local result, err = client:EntityFullInfo():load({ symbol = "symbol" })
 ```
 
 ### Common Methods

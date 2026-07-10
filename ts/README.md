@@ -45,14 +45,17 @@ for (const entity of entitys) {
 }
 ```
 
-### 3. Load an entity
+### 3. Load an entityfullinfo
 
+EntityFullInfo is nested under symbol, so provide the `symbol`.
 `load()` returns the entity directly and throws on failure:
 
 ```ts
 try {
-  const entity = await client.Entity().load({ id: 1 })
-  console.log(entity)
+  const entityfullinfo = await client.EntityFullInfo().load({
+    symbol: 'example_symbol',
+  })
+  console.log(entityfullinfo)
 } catch (err) {
   console.error('load failed:', err)
 }
@@ -407,7 +410,7 @@ Create an instance: `const entity_full_info = client.EntityFullInfo()`
 #### Example: Load
 
 ```ts
-const entity_full_info = await client.EntityFullInfo().load()
+const entity_full_info = await client.EntityFullInfo().load({ symbol: 'symbol' })
 ```
 
 

@@ -103,6 +103,7 @@ same parameters as `Direct()`.
 
 ```go
 entity := client.Entity(nil)
+fmt.Println(entity.GetName()) // "entity"
 ```
 
 ### Fields
@@ -125,6 +126,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.Entity(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 #### `Load(reqmatch, ctrl map[string]any) (any, error)`
@@ -132,7 +137,11 @@ results, err := client.Entity(nil).List(nil, nil)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.Entity(nil).Load(map[string]any{"id": "entity_id"}, nil)
+result, err := client.Entity(nil).Load(map[string]any{"id": 1}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods
@@ -162,7 +171,8 @@ Return the entity name.
 ## EntityFullInfoEntity
 
 ```go
-entity_full_info := client.EntityFullInfo(nil)
+entityFullInfo := client.EntityFullInfo(nil)
+fmt.Println(entityFullInfo.GetName()) // "entity_full_info"
 ```
 
 ### Fields
@@ -180,7 +190,11 @@ entity_full_info := client.EntityFullInfo(nil)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.EntityFullInfo(nil).Load(nil, nil)
+result, err := client.EntityFullInfo(nil).Load(map[string]any{"symbol": "symbol"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods
@@ -210,7 +224,8 @@ Return the entity name.
 ## HealthCheckEntity
 
 ```go
-health_check := client.HealthCheck(nil)
+healthCheck := client.HealthCheck(nil)
+fmt.Println(healthCheck.GetName()) // "health_check"
 ```
 
 ### Operations
@@ -221,6 +236,10 @@ Load a single entity matching the given criteria.
 
 ```go
 result, err := client.HealthCheck(nil).Load(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods
@@ -250,7 +269,8 @@ Return the entity name.
 ## LastUpdateEntity
 
 ```go
-last_update := client.LastUpdate(nil)
+lastUpdate := client.LastUpdate(nil)
+fmt.Println(lastUpdate.GetName()) // "last_update"
 ```
 
 ### Fields
@@ -267,6 +287,10 @@ Load a single entity matching the given criteria.
 
 ```go
 result, err := client.LastUpdate(nil).Load(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods

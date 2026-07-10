@@ -18,7 +18,6 @@ main: {
       termsOfService: "https://static.shodan.io/legal/terms.html"
       title: "Shodan Business Entities"
       version: "1.0.0"
+      website: "https://entitydb.shodan.io"
     }
   }
-}
-

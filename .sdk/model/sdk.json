@@ -6,9 +6,6 @@
     },
     "kit": {
       "config": {
-        "auth": {
-          "prefix": "Bearer"
-        },
         "docs_order": [
           "ts",
           "py",
@@ -533,6 +530,7 @@
           "name": "Shodan Team",
           "url": "https://twitter.com/shodanhq"
         },
+        "meta_source": "https://www.freepublicapis.com",
         "servers": [
           {
             "url": "https://entitydb.shodan.io"
@@ -540,7 +538,8 @@
         ],
         "termsOfService": "https://static.shodan.io/legal/terms.html",
         "title": "Shodan Business Entities",
-        "version": "1.0.0"
+        "version": "1.0.0",
+        "website": "https://entitydb.shodan.io"
       },
       "option": {},
       "target": {
@@ -593,6 +592,9 @@
           },
           "name": "go-cli",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },
@@ -643,6 +645,9 @@
           },
           "name": "go-mcp",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },

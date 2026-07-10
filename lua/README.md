@@ -47,12 +47,14 @@ for _, item in ipairs(entitys) do
 end
 ```
 
-### 3. Load an entity
+### 3. Load an entityfullinfo
+
+EntityFullInfo is nested under symbol, so provide the `symbol`.
 
 ```lua
-local entity, err = client:Entity():load({ id = "example_id" })
+local entityfullinfo, err = client:EntityFullInfo():load({ symbol = "example_symbol" })
 if err then error(err) end
-print(entity)
+print(entityfullinfo)
 ```
 
 
@@ -318,7 +320,7 @@ Create an instance: `local entity = client:Entity(nil)`
 #### Example: Load
 
 ```lua
-local entity, err = client:Entity():load({ id = "entity_id" })
+local entity, err = client:Entity():load({ id = 1 })
 ```
 
 #### Example: List
@@ -349,7 +351,7 @@ Create an instance: `local entity_full_info = client:EntityFullInfo(nil)`
 #### Example: Load
 
 ```lua
-local entity_full_info, err = client:EntityFullInfo():load()
+local entity_full_info, err = client:EntityFullInfo():load({ symbol = "symbol" })
 ```
 
 
