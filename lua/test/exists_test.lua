@@ -1,4 +1,4 @@
--- ProjectName SDK exists test
+-- ShodanEntitydb SDK exists test
 
 local sdk = require("shodan-entitydb_sdk")
 
