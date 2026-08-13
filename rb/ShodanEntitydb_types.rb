@@ -19,7 +19,7 @@
 # @!attribute [rw] entity_name
 #   @return [String]
 #
-# @!attribute [rw] executif
+# @!attribute [rw] executives
 #   @return [Array]
 #
 # @!attribute [rw] finance_data
@@ -28,16 +28,16 @@
 # @!attribute [rw] id
 #   @return [Integer]
 #
-# @!attribute [rw] ticker
+# @!attribute [rw] tickers
 #   @return [Array]
 Entity = Struct.new(
   :cik,
   :entity,
   :entity_name,
-  :executif,
+  :executives,
   :finance_data,
   :id,
-  :ticker,
+  :tickers,
   keyword_init: true
 )
 
@@ -61,7 +61,7 @@ EntityLoadMatch = Struct.new(
 # @!attribute [rw] entity_name
 #   @return [String, nil]
 #
-# @!attribute [rw] executif
+# @!attribute [rw] executives
 #   @return [Array, nil]
 #
 # @!attribute [rw] finance_data
@@ -70,16 +70,16 @@ EntityLoadMatch = Struct.new(
 # @!attribute [rw] id
 #   @return [Integer, nil]
 #
-# @!attribute [rw] ticker
+# @!attribute [rw] tickers
 #   @return [Array, nil]
 EntityListMatch = Struct.new(
   :cik,
   :entity,
   :entity_name,
-  :executif,
+  :executives,
   :finance_data,
   :id,
-  :ticker,
+  :tickers,
   keyword_init: true
 )
 
@@ -88,14 +88,14 @@ EntityListMatch = Struct.new(
 # @!attribute [rw] entity
 #   @return [Hash]
 #
-# @!attribute [rw] executif
+# @!attribute [rw] executives
 #   @return [Array]
 #
 # @!attribute [rw] finance_data
 #   @return [Array]
 EntityFullInfo = Struct.new(
   :entity,
-  :executif,
+  :executives,
   :finance_data,
   keyword_init: true
 )

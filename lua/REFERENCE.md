@@ -105,10 +105,10 @@ local entity = client:Entity(nil)
 | `cik` | `number` | Yes |  |
 | `entity` | `table` | Yes |  |
 | `entity_name` | `string` | Yes |  |
-| `executif` | `table` | Yes |  |
+| `executives` | `table` | Yes |  |
 | `finance_data` | `table` | Yes |  |
 | `id` | `number` | Yes |  |
-| `ticker` | `table` | Yes |  |
+| `tickers` | `table` | Yes |  |
 
 ### Operations
 
@@ -169,7 +169,7 @@ local entity_full_info = client:EntityFullInfo(nil)
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `entity` | `table` | Yes |  |
-| `executif` | `table` | Yes |  |
+| `executives` | `table` | Yes |  |
 | `finance_data` | `table` | Yes |  |
 
 ### Operations

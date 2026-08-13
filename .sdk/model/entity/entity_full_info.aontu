@@ -11,7 +11,7 @@ main: kit: entity: entity_full_info: {
       type: "`$OBJECT`"
     }
     {
-      name: "executif"
+      name: "executives"
       req: true
       type: "`$ARRAY`"
     }

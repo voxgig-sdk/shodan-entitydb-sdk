@@ -35,7 +35,9 @@ const client = new ShodanEntitydbSDK()
 
 ### 2. List entity records
 
-`list()` resolves to an array of Entity objects — iterate it directly:
+`list()` resolves to an array of Entity ENTITIES — every operation
+resolves to entities, not raw records. Iterate them directly, and call
+`.data()` on one for the record it holds:
 
 ```ts
 const entitys = await client.Entity().list()
@@ -68,10 +70,10 @@ Entity operations reject on failure, so wrap them in `try` / `catch`:
 
 ```ts
 try {
-  const entitys = await client.Entity().list()
-  console.log(entitys)
+  const lastupdate = await client.LastUpdate().load()
+  console.log(lastupdate)
 } catch (err) {
-  console.error('list failed:', err)
+  console.error('load failed:', err)
 }
 ```
 
@@ -135,9 +137,10 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = ShodanEntitydbSDK.test()
 
-const entity = await client.Entity().list()
-// entity is a bare entity populated with mock response data
-console.log(entity)
+const lastupdate = await client.LastUpdate().load()
+// lastupdate is the entity, populated with mock response data
+// — call lastupdate.data() for the record itself
+console.log(lastupdate)
 ```
 
 You can also use the instance method:
@@ -152,14 +155,14 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.Entity()
+const entity = client.LastUpdate()
 
 // First call runs the operation and stores its result
-await entity.list()
+await entity.load()
 
 // Subsequent calls reuse the stored state
 const data = entity.data()
-console.log(data.id)
+console.log(data)
 ```
 
 ### Add custom middleware
@@ -308,10 +311,10 @@ The `prepare()` method returns:
 | `cik` |  |
 | `entity` |  |
 | `entity_name` |  |
-| `executif` |  |
+| `executives` |  |
 | `finance_data` |  |
 | `id` |  |
-| `ticker` |  |
+| `tickers` |  |
 
 Operations: list, load.
 
@@ -322,7 +325,7 @@ API path: `/api/entities`
 | Field | Description |
 | --- | --- |
 | `entity` |  |
-| `executif` |  |
+| `executives` |  |
 | `finance_data` |  |
 
 Operations: load.
@@ -371,10 +374,10 @@ Create an instance: `const entity = client.Entity()`
 | `cik` | `number` |  |
 | `entity` | `Record<string, any>` |  |
 | `entity_name` | `string` |  |
-| `executif` | `any[]` |  |
+| `executives` | `any[]` |  |
 | `finance_data` | `any[]` |  |
 | `id` | `number` |  |
-| `ticker` | `any[]` |  |
+| `tickers` | `any[]` |  |
 
 #### Example: Load
 
@@ -404,7 +407,7 @@ Create an instance: `const entity_full_info = client.EntityFullInfo()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `entity` | `Record<string, any>` |  |
-| `executif` | `any[]` |  |
+| `executives` | `any[]` |  |
 | `finance_data` | `any[]` |  |
 
 #### Example: Load
@@ -518,16 +521,16 @@ import { ShodanEntitydbSDK } from '@voxgig-sdk/shodan-entitydb'
 
 ### Entity state
 
-Entity instances are stateful. After a successful `list`, the entity
+Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const entity = client.Entity()
-await entity.list()
+const lastupdate = client.LastUpdate()
+await lastupdate.load()
 
-// entity.data() now returns the entity data from the last `list`
-// entity.match() returns the last match criteria
+// lastupdate.data() now returns the lastupdate data from the last `load`
+// lastupdate.match() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

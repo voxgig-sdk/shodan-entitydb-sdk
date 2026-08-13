@@ -1,4 +1,4 @@
-# ProjectName SDK exists test
+# ShodanEntitydb SDK exists test
 
 import pytest
 from shodanentitydb_sdk import ShodanEntitydbSDK

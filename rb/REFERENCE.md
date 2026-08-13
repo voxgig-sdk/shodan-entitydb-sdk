@@ -108,10 +108,10 @@ entity = client.Entity
 | `cik` | `Integer` | Yes |  |
 | `entity` | `Hash` | Yes |  |
 | `entity_name` | `String` | Yes |  |
-| `executif` | `Array` | Yes |  |
+| `executives` | `Array` | Yes |  |
 | `finance_data` | `Array` | Yes |  |
 | `id` | `Integer` | Yes |  |
-| `ticker` | `Array` | Yes |  |
+| `tickers` | `Array` | Yes |  |
 
 ### Operations
 
@@ -172,7 +172,7 @@ entity_full_info = client.EntityFullInfo
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `entity` | `Hash` | Yes |  |
-| `executif` | `Array` | Yes |  |
+| `executives` | `Array` | Yes |  |
 | `finance_data` | `Array` | Yes |  |
 
 ### Operations

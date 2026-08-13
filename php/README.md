@@ -51,7 +51,7 @@ EntityFullInfo is nested under symbol, so provide the `symbol`.
 
 ```php
 try {
-    // load() returns the bare EntityFullInfo record (throws on error).
+    // load() returns the ENTITY — call data_get() for the EntityFullInfo record (throws on error).
     $entityfullinfo = $client->EntityFullInfo()->load(["symbol" => "example_symbol"]);
     print_r($entityfullinfo);
 } catch (\Throwable $err) {
@@ -67,7 +67,7 @@ Entity operations throw a `\Throwable` on failure, so wrap them in
 
 ```php
 try {
-    $entitys = $client->Entity()->list();
+    $lastupdate = $client->LastUpdate()->load();
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
@@ -134,17 +134,15 @@ print_r($fetchdef["headers"]);
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required. Seed fixture
-data via the `entity` option so offline calls resolve without a live server:
+Create a mock client for unit testing — no server required:
 
 ```php
-$client = ShodanEntitydbSDK::test([
-    "entity" => ["entity" => ["test01" => ["id" => "test01"]]],
-]);
+$client = ShodanEntitydbSDK::test();
 
-// Entity ops return the bare mock record (throws on error).
-$entity = $client->Entity()->list();
-print_r($entity);
+// Entity ops return the ENTITY (throws on error);
+// call data_get() for the mock record.
+$lastupdate = $client->LastUpdate()->load();
+print_r($lastupdate);
 ```
 
 ### Use a custom fetch function
@@ -245,7 +243,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (an `array` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (an `array` for single-entity
 ops, a `list` for `list`) and throw on error. Wrap calls in
 `try`/`catch` to handle failures.
 
@@ -270,10 +268,10 @@ On error, `ok` is `false` and `$err` contains the error value.
 | `cik` |  |
 | `entity` |  |
 | `entity_name` |  |
-| `executif` |  |
+| `executives` |  |
 | `finance_data` |  |
 | `id` |  |
-| `ticker` |  |
+| `tickers` |  |
 
 Operations: List, Load.
 
@@ -284,7 +282,7 @@ API path: `/api/entities`
 | Field | Description |
 | --- | --- |
 | `entity` |  |
-| `executif` |  |
+| `executives` |  |
 | `finance_data` |  |
 
 Operations: Load.
@@ -333,15 +331,15 @@ Create an instance: `$entity = $client->Entity();`
 | `cik` | `int` |  |
 | `entity` | `array` |  |
 | `entity_name` | `string` |  |
-| `executif` | `array` |  |
+| `executives` | `array` |  |
 | `finance_data` | `array` |  |
 | `id` | `int` |  |
-| `ticker` | `array` |  |
+| `tickers` | `array` |  |
 
 #### Example: Load
 
 ```php
-// load() returns the bare Entity record (throws on error).
+// load() returns the ENTITY — call data_get() for the Entity record (throws on error).
 $entity = $client->Entity()->load(["id" => 1]);
 ```
 
@@ -368,13 +366,13 @@ Create an instance: `$entity_full_info = $client->EntityFullInfo();`
 | Field | Type | Description |
 | --- | --- | --- |
 | `entity` | `array` |  |
-| `executif` | `array` |  |
+| `executives` | `array` |  |
 | `finance_data` | `array` |  |
 
 #### Example: Load
 
 ```php
-// load() returns the bare EntityFullInfo record (throws on error).
+// load() returns the ENTITY — call data_get() for the EntityFullInfo record (throws on error).
 $entity_full_info = $client->EntityFullInfo()->load(["symbol" => "symbol"]);
 ```
 
@@ -392,7 +390,7 @@ Create an instance: `$health_check = $client->HealthCheck();`
 #### Example: Load
 
 ```php
-// load() returns the bare HealthCheck record (throws on error).
+// load() returns the ENTITY — call data_get() for the HealthCheck record (throws on error).
 $health_check = $client->HealthCheck()->load();
 ```
 
@@ -416,7 +414,7 @@ Create an instance: `$last_update = $client->LastUpdate();`
 #### Example: Load
 
 ```php
-// load() returns the bare LastUpdate record (throws on error).
+// load() returns the ENTITY — call data_get() for the LastUpdate record (throws on error).
 $last_update = $client->LastUpdate()->load();
 ```
 
@@ -493,15 +491,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `list`, the entity
+Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$entity = $client->Entity();
-$entity->list();
+$lastupdate = $client->LastUpdate();
+$lastupdate->load();
 
-// $entity->data_get() now returns the entity data from the last list
-// $entity->match_get() returns the last match criteria
+// $lastupdate->data_get() now returns the lastupdate data from the last load
+// $lastupdate->match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

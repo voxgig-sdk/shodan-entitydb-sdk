@@ -50,7 +50,7 @@ local function make_config()
           },
           {
             ["active"] = true,
-            ["name"] = "executif",
+            ["name"] = "executives",
             ["req"] = true,
             ["type"] = "`$ARRAY`",
             ["index$"] = 3,
@@ -71,7 +71,7 @@ local function make_config()
           },
           {
             ["active"] = true,
-            ["name"] = "ticker",
+            ["name"] = "tickers",
             ["req"] = true,
             ["type"] = "`$ARRAY`",
             ["index$"] = 6,
@@ -86,6 +86,7 @@ local function make_config()
               {
                 ["active"] = true,
                 ["args"] = {},
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/api/entities",
                 ["parts"] = {
@@ -95,7 +96,7 @@ local function make_config()
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
-                  ["res"] = "`body`",
+                  ["res"] = "`body.entities`",
                 },
                 ["index$"] = 0,
               },
@@ -122,6 +123,7 @@ local function make_config()
                     },
                   },
                 },
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/api/entities/{id}",
                 ["parts"] = {
@@ -159,7 +161,7 @@ local function make_config()
           },
           {
             ["active"] = true,
-            ["name"] = "executif",
+            ["name"] = "executives",
             ["req"] = true,
             ["type"] = "`$ARRAY`",
             ["index$"] = 1,
@@ -194,6 +196,7 @@ local function make_config()
                     },
                   },
                 },
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/api/entities/symbol/{symbol}",
                 ["parts"] = {
@@ -236,6 +239,7 @@ local function make_config()
               {
                 ["active"] = true,
                 ["args"] = {},
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/health_check",
                 ["parts"] = {
@@ -275,6 +279,7 @@ local function make_config()
               {
                 ["active"] = true,
                 ["args"] = {},
+                ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/api/last_updated",
                 ["parts"] = {

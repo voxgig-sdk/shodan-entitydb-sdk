@@ -53,7 +53,7 @@ except Exception as err:
 ### 3. Load an entityfullinfo
 
 EntityFullInfo is nested under symbol, so provide the `symbol`.
-`load()` returns the bare record (a `dict`) and raises on error.
+`load()` returns the ENTITY — call data_get() for the record — and raises on error.
 
 ```python
 try:
@@ -70,10 +70,10 @@ Entity operations raise on failure, so wrap them in `try` / `except`:
 
 ```python
 try:
-    entitys = client.Entity().list()
-    print(entitys)
+    lastupdate = client.LastUpdate().load()
+    print(lastupdate)
 except Exception as err:
-    print(f"list failed: {err}")
+    print(f"load failed: {err}")
 ```
 
 `direct()` does **not** raise — it returns the result envelope. Branch
@@ -137,9 +137,10 @@ Create a mock client for unit testing — no server required:
 ```python
 client = ShodanEntitydbSDK.test()
 
-# Entity ops return the bare record and raise on error.
-entity = client.Entity().list()
-# entity contains the mock response record
+# Entity ops return the ENTITY and raises on error;
+# call data_get() for the record.
+lastupdate = client.LastUpdate().load()
+# lastupdate contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -237,7 +238,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (a `dict` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (a `dict` for single-entity
 ops, a `list` for `list`) and raise on error. Wrap calls in
 `try`/`except` to handle failures.
 
@@ -262,10 +263,10 @@ On error, `ok` is `False` and `err` contains the error value.
 | `cik` |  |
 | `entity` |  |
 | `entity_name` |  |
-| `executif` |  |
+| `executives` |  |
 | `finance_data` |  |
 | `id` |  |
-| `ticker` |  |
+| `tickers` |  |
 
 Operations: List, Load.
 
@@ -276,7 +277,7 @@ API path: `/api/entities`
 | Field | Description |
 | --- | --- |
 | `entity` |  |
-| `executif` |  |
+| `executives` |  |
 | `finance_data` |  |
 
 Operations: Load.
@@ -325,10 +326,10 @@ Create an instance: `entity = client.Entity()`
 | `cik` | `int` |  |
 | `entity` | `dict` |  |
 | `entity_name` | `str` |  |
-| `executif` | `list` |  |
+| `executives` | `list` |  |
 | `finance_data` | `list` |  |
 | `id` | `int` |  |
-| `ticker` | `list` |  |
+| `tickers` | `list` |  |
 
 #### Example: Load
 
@@ -358,7 +359,7 @@ Create an instance: `entity_full_info = client.EntityFullInfo()`
 | Field | Type | Description |
 | --- | --- | --- |
 | `entity` | `dict` |  |
-| `executif` | `list` |  |
+| `executives` | `list` |  |
 | `finance_data` | `list` |  |
 
 #### Example: Load
@@ -479,15 +480,15 @@ Import entity or utility modules directly only when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `list`, the entity
+Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-entity = client.Entity()
-entity.list()
+lastupdate = client.LastUpdate()
+lastupdate.load()
 
-# entity.data_get() now returns the entity data from the last list
-# entity.match_get() returns the last match criteria
+# lastupdate.data_get() now returns the lastupdate data from the last load
+# lastupdate.match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

@@ -43,8 +43,8 @@ class ShodanEntitydbTestRunner
 
     public static function env_override(array $m): array
     {
-        $live = self::getenv('SHODANENTITYDB_TEST_LIVE');
-        $override = self::getenv('SHODANENTITYDB_TEST_OVERRIDE');
+        $live = self::getenv('SHODAN_ENTITYDB_TEST_LIVE');
+        $override = self::getenv('SHODAN_ENTITYDB_TEST_OVERRIDE');
 
         if ($live === 'TRUE' || $override === 'TRUE') {
             foreach (array_keys($m) as $key) {
@@ -63,9 +63,9 @@ class ShodanEntitydbTestRunner
             }
         }
 
-        $explain = self::getenv('SHODANENTITYDB_TEST_EXPLAIN');
+        $explain = self::getenv('SHODAN_ENTITYDB_TEST_EXPLAIN');
         if ($explain !== null && $explain !== '') {
-            $m['SHODANENTITYDB_TEST_EXPLAIN'] = $explain;
+            $m['SHODAN_ENTITYDB_TEST_EXPLAIN'] = $explain;
         }
 
         return $m;

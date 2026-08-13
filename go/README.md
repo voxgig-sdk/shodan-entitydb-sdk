@@ -75,12 +75,12 @@ Every entity operation returns `(value, error)`. Check `err` before
 using the value — there is no exception to catch:
 
 ```go
-entitys, err := client.Entity(nil).List(nil, nil)
+lastupdate, err := client.LastUpdate(nil).Load(nil, nil)
 if err != nil {
     // handle err
     return
 }
-_ = entitys
+_ = lastupdate
 ```
 
 `Direct` follows the same `(value, error)` convention:
@@ -144,13 +144,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-entity, err := client.Entity(nil).List(
+lastUpdate, err := client.LastUpdate(nil).Load(
     nil, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(entity) // the returned mock data
+fmt.Println(lastUpdate) // the returned mock data
 ```
 
 ### Use a custom fetch function
@@ -275,10 +275,10 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 | `"cik"` |  |
 | `"entity"` |  |
 | `"entity_name"` |  |
-| `"executif"` |  |
+| `"executives"` |  |
 | `"finance_data"` |  |
 | `"id"` |  |
-| `"ticker"` |  |
+| `"tickers"` |  |
 
 Operations: List, Load.
 
@@ -289,7 +289,7 @@ API path: `/api/entities`
 | Field | Description |
 | --- | --- |
 | `"entity"` |  |
-| `"executif"` |  |
+| `"executives"` |  |
 | `"finance_data"` |  |
 
 Operations: Load.
@@ -338,10 +338,10 @@ Create an instance: `entity := client.Entity(nil)`
 | `cik` | `int` |  |
 | `entity` | `map[string]any` |  |
 | `entity_name` | `string` |  |
-| `executif` | `[]any` |  |
+| `executives` | `[]any` |  |
 | `finance_data` | `[]any` |  |
 | `id` | `int` |  |
-| `ticker` | `[]any` |  |
+| `tickers` | `[]any` |  |
 
 #### Example: Load
 
@@ -379,7 +379,7 @@ Create an instance: `entityFullInfo := client.EntityFullInfo(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `entity` | `map[string]any` |  |
-| `executif` | `[]any` |  |
+| `executives` | `[]any` |  |
 | `finance_data` | `[]any` |  |
 
 #### Example: Load
@@ -510,15 +510,15 @@ like `core.ToMapAny`.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `List`, the entity
+Entity instances are stateful. After a successful `Load`, the entity
 stores the returned data and match criteria internally.
 
 ```go
-entity := client.Entity(nil)
-entity.List(nil, nil)
+lastupdate := client.LastUpdate(nil)
+lastupdate.Load(nil, nil)
 
-// entity.Data() now returns the entity data from the last list
-// entity.Match() returns the last match criteria
+// lastupdate.Data() now returns the lastupdate data from the last load
+// lastupdate.Match() returns the last match criteria
 ```
 
 Call `Make()` to create a fresh instance with the same configuration

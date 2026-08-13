@@ -21,7 +21,7 @@ class Config {
 
 
   main = {
-    name: 'ProjectName',
+    name: 'ShodanEntitydb',
   }
 
 
@@ -86,7 +86,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "executif",
+          "name": "executives",
           "req": true,
           "type": "`$ARRAY`",
           "index$": 3
@@ -107,7 +107,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "ticker",
+          "name": "tickers",
           "req": true,
           "type": "`$ARRAY`",
           "index$": 6
@@ -122,6 +122,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "GET",
               "orig": "/api/entities",
               "parts": [
@@ -131,7 +132,7 @@ class Config {
               "select": {},
               "transform": {
                 "req": "`reqdata`",
-                "res": "`body`"
+                "res": "`body.entities`"
               },
               "index$": 0
             }
@@ -158,6 +159,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/api/entities/{id}",
               "parts": [
@@ -195,7 +197,7 @@ class Config {
         },
         {
           "active": true,
-          "name": "executif",
+          "name": "executives",
           "req": true,
           "type": "`$ARRAY`",
           "index$": 1
@@ -230,6 +232,7 @@ class Config {
                   }
                 ]
               },
+              "kind": "http",
               "method": "GET",
               "orig": "/api/entities/symbol/{symbol}",
               "parts": [
@@ -272,6 +275,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "GET",
               "orig": "/health_check",
               "parts": [
@@ -311,6 +315,7 @@ class Config {
             {
               "active": true,
               "args": {},
+              "kind": "http",
               "method": "GET",
               "orig": "/api/last_updated",
               "parts": [

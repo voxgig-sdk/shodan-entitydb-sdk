@@ -26,8 +26,8 @@ import {
 describe('EntityFullInfoEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when SHODANENTITYDB_TEST_LIVE=TRUE.
-  afterEach(liveDelay('SHODANENTITYDB_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when SHODAN_ENTITYDB_TEST_LIVE=TRUE.
+  afterEach(liveDelay('SHODAN_ENTITYDB_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = ShodanEntitydbSDK.test()

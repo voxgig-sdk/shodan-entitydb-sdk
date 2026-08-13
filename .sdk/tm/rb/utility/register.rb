@@ -24,6 +24,7 @@ require_relative 'prepare_method'
 require_relative 'prepare_params'
 require_relative 'prepare_path'
 require_relative 'prepare_query'
+require_relative 'graphql'
 require_relative 'result_basic'
 require_relative 'result_body'
 require_relative 'result_headers'
@@ -55,6 +56,8 @@ ShodanEntitydbUtility.registrar = ->(u) {
   u.prepare_params = ShodanEntitydbUtilities::PrepareParams
   u.prepare_path = ShodanEntitydbUtilities::PreparePath
   u.prepare_query = ShodanEntitydbUtilities::PrepareQuery
+  u.graphql_body = ShodanEntitydbUtilities::GraphqlBody
+  u.graphql_errors = ShodanEntitydbUtilities::GraphqlErrors
   u.result_basic = ShodanEntitydbUtilities::ResultBasic
   u.result_body = ShodanEntitydbUtilities::ResultBody
   u.result_headers = ShodanEntitydbUtilities::ResultHeaders

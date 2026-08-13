@@ -21,7 +21,7 @@ main: kit: entity: entity: {
       type: "`$STRING`"
     }
     {
-      name: "executif"
+      name: "executives"
       req: true
       type: "`$ARRAY`"
     }
@@ -36,7 +36,7 @@ main: kit: entity: entity: {
       type: "`$INTEGER`"
     }
     {
-      name: "ticker"
+      name: "tickers"
       req: true
       type: "`$ARRAY`"
     }
@@ -61,7 +61,7 @@ main: kit: entity: entity: {
           ]
           transform: {
             req: "`reqdata`"
-            res: "`body`"
+            res: "`body.entities`"
           }
         }
       ]

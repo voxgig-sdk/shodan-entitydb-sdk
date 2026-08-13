@@ -10,10 +10,10 @@
 ---@field cik number
 ---@field entity table
 ---@field entity_name string
----@field executif table
+---@field executives table
 ---@field finance_data table
 ---@field id number
----@field ticker table
+---@field tickers table
 
 ---@class EntityLoadMatch
 ---@field id number
@@ -22,14 +22,14 @@
 ---@field cik? number
 ---@field entity? table
 ---@field entity_name? string
----@field executif? table
+---@field executives? table
 ---@field finance_data? table
 ---@field id? number
----@field ticker? table
+---@field tickers? table
 
 ---@class EntityFullInfo
 ---@field entity table
----@field executif table
+---@field executives table
 ---@field finance_data table
 
 ---@class EntityFullInfoLoadMatch

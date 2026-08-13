@@ -102,10 +102,10 @@ entity = client.Entity()
 | `cik` | `int` | Yes |  |
 | `entity` | `dict` | Yes |  |
 | `entity_name` | `str` | Yes |  |
-| `executif` | `list` | Yes |  |
+| `executives` | `list` | Yes |  |
 | `finance_data` | `list` | Yes |  |
 | `id` | `int` | Yes |  |
-| `ticker` | `list` | Yes |  |
+| `tickers` | `list` | Yes |  |
 
 ### Operations
 
@@ -167,7 +167,7 @@ entity_full_info = client.EntityFullInfo()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `entity` | `dict` | Yes |  |
-| `executif` | `list` | Yes |  |
+| `executives` | `list` | Yes |  |
 | `finance_data` | `list` | Yes |  |
 
 ### Operations

@@ -10,6 +10,7 @@ main: {
         name: "Shodan Team"
         url: "https://twitter.com/shodanhq"
       }
+      description: "The Shodan Business Entities API."
       servers: [
         {
           url: "https://entitydb.shodan.io"
@@ -21,3 +22,5 @@ main: {
       website: "https://entitydb.shodan.io"
     }
   }
+}
+

@@ -14,12 +14,12 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from config import make_config
-from features import _make_feature
-from core.control import ShodanEntitydbControl
-from core.error import ShodanEntitydbError
-from core.result import ShodanEntitydbResult
-from core.spec import ShodanEntitydbSpec
+from shodanentitydb_sdk.config import make_config
+from shodanentitydb_sdk.features import _make_feature
+from shodanentitydb_sdk.core.control import ShodanEntitydbControl
+from shodanentitydb_sdk.core.error import ShodanEntitydbError
+from shodanentitydb_sdk.core.result import ShodanEntitydbResult
+from shodanentitydb_sdk.core.spec import ShodanEntitydbSpec
 
 
 # True when this SDK was generated with the named feature.

@@ -113,11 +113,11 @@ function entity_direct_setup(mockres)
   local calls = {}
 
   local env = runner.env_override({
-    ["SHODANENTITYDB_TEST_ENTITY_ENTID"] = {},
-    ["SHODANENTITYDB_TEST_LIVE"] = "FALSE",
+    ["SHODAN_ENTITYDB_TEST_ENTITY_ENTID"] = {},
+    ["SHODAN_ENTITYDB_TEST_LIVE"] = "FALSE",
   })
 
-  local live = env["SHODANENTITYDB_TEST_LIVE"] == "TRUE"
+  local live = env["SHODAN_ENTITYDB_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {

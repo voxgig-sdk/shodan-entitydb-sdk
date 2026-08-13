@@ -16,11 +16,11 @@
 import pytest
 
 from shodanentitydb_sdk import ShodanEntitydbSDK
-from core.error import ShodanEntitydbError
-from core.result import ShodanEntitydbResult
-from core.response import ShodanEntitydbResponse
-from core.spec import ShodanEntitydbSpec
-from feature.base_feature import ShodanEntitydbBaseFeature
+from shodanentitydb_sdk.core.error import ShodanEntitydbError
+from shodanentitydb_sdk.core.result import ShodanEntitydbResult
+from shodanentitydb_sdk.core.response import ShodanEntitydbResponse
+from shodanentitydb_sdk.core.spec import ShodanEntitydbSpec
+from shodanentitydb_sdk.feature.base_feature import ShodanEntitydbBaseFeature
 
 
 def _client():

@@ -64,7 +64,7 @@ Entity operations return `(value, err)`. Check `err` before using
 the value:
 
 ```lua
-local entitys, err = client:Entity():list()
+local lastupdate, err = client:LastUpdate():load()
 if err then error(err) end
 ```
 
@@ -122,7 +122,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:Entity():list()
+local result, err = client:LastUpdate():load()
 -- result is the returned data; err is set on failure
 ```
 
@@ -249,10 +249,10 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 | `cik` |  |
 | `entity` |  |
 | `entity_name` |  |
-| `executif` |  |
+| `executives` |  |
 | `finance_data` |  |
 | `id` |  |
-| `ticker` |  |
+| `tickers` |  |
 
 Operations: List, Load.
 
@@ -263,7 +263,7 @@ API path: `/api/entities`
 | Field | Description |
 | --- | --- |
 | `entity` |  |
-| `executif` |  |
+| `executives` |  |
 | `finance_data` |  |
 
 Operations: Load.
@@ -312,10 +312,10 @@ Create an instance: `local entity = client:Entity(nil)`
 | `cik` | `number` |  |
 | `entity` | `table` |  |
 | `entity_name` | `string` |  |
-| `executif` | `table` |  |
+| `executives` | `table` |  |
 | `finance_data` | `table` |  |
 | `id` | `number` |  |
-| `ticker` | `table` |  |
+| `tickers` | `table` |  |
 
 #### Example: Load
 
@@ -345,7 +345,7 @@ Create an instance: `local entity_full_info = client:EntityFullInfo(nil)`
 | Field | Type | Description |
 | --- | --- | --- |
 | `entity` | `table` |  |
-| `executif` | `table` |  |
+| `executives` | `table` |  |
 | `finance_data` | `table` |  |
 
 #### Example: Load
@@ -467,15 +467,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `list`, the entity
+Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local entity = client:Entity()
-entity:list()
+local lastupdate = client:LastUpdate()
+lastupdate:load()
 
--- entity:data_get() now returns the entity data from the last list
--- entity:match_get() returns the last match criteria
+-- lastupdate:data_get() now returns the lastupdate data from the last load
+-- lastupdate:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

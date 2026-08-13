@@ -33,7 +33,7 @@ class EntityFullInfoEntityTest extends TestCase
         // The basic flow consumes synthetic IDs from the fixture. In live mode
         // without an *_ENTID env override, those IDs hit the live API and 4xx.
         if (!empty($setup["synthetic_only"])) {
-            $this->markTestSkipped("live entity test uses synthetic IDs from fixture — set SHODANENTITYDB_TEST_ENTITY_FULL_INFO_ENTID JSON to run live");
+            $this->markTestSkipped("live entity test uses synthetic IDs from fixture — set SHODAN_ENTITYDB_TEST_ENTITY_FULL_INFO_ENTID JSON to run live");
             return;
         }
         $client = $setup["client"];
@@ -77,22 +77,22 @@ function entity_full_info_basic_setup($extra)
     // Detect ENTID env override before envOverride consumes it. When live
     // mode is on without a real override, the basic test runs against synthetic
     // IDs from the fixture and 4xx's. Surface this so the test can skip.
-    $entid_env_raw = getenv("SHODANENTITYDB_TEST_ENTITY_FULL_INFO_ENTID");
+    $entid_env_raw = getenv("SHODAN_ENTITYDB_TEST_ENTITY_FULL_INFO_ENTID");
     $idmap_overridden = $entid_env_raw !== false && str_starts_with(trim($entid_env_raw), "{");
 
     $env = Runner::env_override([
-        "SHODANENTITYDB_TEST_ENTITY_FULL_INFO_ENTID" => $idmap,
-        "SHODANENTITYDB_TEST_LIVE" => "FALSE",
-        "SHODANENTITYDB_TEST_EXPLAIN" => "FALSE",
+        "SHODAN_ENTITYDB_TEST_ENTITY_FULL_INFO_ENTID" => $idmap,
+        "SHODAN_ENTITYDB_TEST_LIVE" => "FALSE",
+        "SHODAN_ENTITYDB_TEST_EXPLAIN" => "FALSE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
-        $env["SHODANENTITYDB_TEST_ENTITY_FULL_INFO_ENTID"]);
+        $env["SHODAN_ENTITYDB_TEST_ENTITY_FULL_INFO_ENTID"]);
     if ($idmap_resolved === null) {
         $idmap_resolved = Helpers::to_map($idmap);
     }
 
-    if ($env["SHODANENTITYDB_TEST_LIVE"] === "TRUE") {
+    if ($env["SHODAN_ENTITYDB_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
             ],
@@ -101,13 +101,13 @@ function entity_full_info_basic_setup($extra)
         $client = new ShodanEntitydbSDK(Helpers::to_map($merged_opts));
     }
 
-    $live = $env["SHODANENTITYDB_TEST_LIVE"] === "TRUE";
+    $live = $env["SHODAN_ENTITYDB_TEST_LIVE"] === "TRUE";
     return [
         "client" => $client,
         "data" => $entity_data,
         "idmap" => $idmap_resolved,
         "env" => $env,
-        "explain" => $env["SHODANENTITYDB_TEST_EXPLAIN"] === "TRUE",
+        "explain" => $env["SHODAN_ENTITYDB_TEST_EXPLAIN"] === "TRUE",
         "live" => $live,
         "synthetic_only" => $live && !$idmap_overridden,
         "now" => (int)(microtime(true) * 1000),

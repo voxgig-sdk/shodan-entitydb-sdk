@@ -26,8 +26,8 @@ import {
 describe('HealthCheckEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when SHODANENTITYDB_TEST_LIVE=TRUE.
-  afterEach(liveDelay('SHODANENTITYDB_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when SHODAN_ENTITYDB_TEST_LIVE=TRUE.
+  afterEach(liveDelay('SHODAN_ENTITYDB_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = ShodanEntitydbSDK.test()
@@ -62,7 +62,7 @@ describe('HealthCheckEntity', async () => {
     // LOAD
     const health_check_ref01_ent = client.HealthCheck()
     const health_check_ref01_match_dt0: any = {}
-    const health_check_ref01_data_dt0 = await health_check_ref01_ent.load(health_check_ref01_match_dt0)
+    const health_check_ref01_data_dt0 = (await health_check_ref01_ent.load(health_check_ref01_match_dt0)).data()
     assert(null != health_check_ref01_data_dt0)
 
 

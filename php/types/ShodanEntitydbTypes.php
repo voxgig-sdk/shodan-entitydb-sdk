@@ -18,10 +18,10 @@ class Entity
     public int $cik;
     public array $entity;
     public string $entity_name;
-    public array $executif;
+    public array $executives;
     public array $finance_data;
     public int $id;
-    public array $ticker;
+    public array $tickers;
 }
 
 /** Request payload for Entity#load. */
@@ -36,17 +36,17 @@ class EntityListMatch
     public ?int $cik = null;
     public ?array $entity = null;
     public ?string $entity_name = null;
-    public ?array $executif = null;
+    public ?array $executives = null;
     public ?array $finance_data = null;
     public ?int $id = null;
-    public ?array $ticker = null;
+    public ?array $tickers = null;
 }
 
 /** EntityFullInfo entity data model. */
 class EntityFullInfo
 {
     public array $entity;
-    public array $executif;
+    public array $executives;
     public array $finance_data;
 }
 

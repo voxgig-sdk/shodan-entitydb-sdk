@@ -51,7 +51,7 @@ module ShodanEntitydbConfig
             },
             {
               "active" => true,
-              "name" => "executif",
+              "name" => "executives",
               "req" => true,
               "type" => "`$ARRAY`",
               "index$" => 3,
@@ -72,7 +72,7 @@ module ShodanEntitydbConfig
             },
             {
               "active" => true,
-              "name" => "ticker",
+              "name" => "tickers",
               "req" => true,
               "type" => "`$ARRAY`",
               "index$" => 6,
@@ -87,6 +87,7 @@ module ShodanEntitydbConfig
                 {
                   "active" => true,
                   "args" => {},
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/api/entities",
                   "parts" => [
@@ -96,7 +97,7 @@ module ShodanEntitydbConfig
                   "select" => {},
                   "transform" => {
                     "req" => "`reqdata`",
-                    "res" => "`body`",
+                    "res" => "`body.entities`",
                   },
                   "index$" => 0,
                 },
@@ -123,6 +124,7 @@ module ShodanEntitydbConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/api/entities/{id}",
                   "parts" => [
@@ -160,7 +162,7 @@ module ShodanEntitydbConfig
             },
             {
               "active" => true,
-              "name" => "executif",
+              "name" => "executives",
               "req" => true,
               "type" => "`$ARRAY`",
               "index$" => 1,
@@ -195,6 +197,7 @@ module ShodanEntitydbConfig
                       },
                     ],
                   },
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/api/entities/symbol/{symbol}",
                   "parts" => [
@@ -237,6 +240,7 @@ module ShodanEntitydbConfig
                 {
                   "active" => true,
                   "args" => {},
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/health_check",
                   "parts" => [
@@ -276,6 +280,7 @@ module ShodanEntitydbConfig
                 {
                   "active" => true,
                   "args" => {},
+                  "kind" => "http",
                   "method" => "GET",
                   "orig" => "/api/last_updated",
                   "parts" => [

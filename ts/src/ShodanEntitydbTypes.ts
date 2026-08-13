@@ -9,10 +9,10 @@ export interface Entity {
   cik: number
   entity: Record<string, any>
   entity_name: string
-  executif: any[]
+  executives: any[]
   finance_data: any[]
   id: number
-  ticker: any[]
+  tickers: any[]
 }
 
 export interface EntityLoadMatch {
@@ -23,15 +23,15 @@ export interface EntityListMatch {
   cik?: number
   entity?: Record<string, any>
   entity_name?: string
-  executif?: any[]
+  executives?: any[]
   finance_data?: any[]
   id?: number
-  ticker?: any[]
+  tickers?: any[]
 }
 
 export interface EntityFullInfo {
   entity: Record<string, any>
-  executif: any[]
+  executives: any[]
   finance_data: any[]
 }
 

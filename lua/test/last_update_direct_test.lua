@@ -60,11 +60,11 @@ function last_update_direct_setup(mockres)
   local calls = {}
 
   local env = runner.env_override({
-    ["SHODANENTITYDB_TEST_LAST_UPDATE_ENTID"] = {},
-    ["SHODANENTITYDB_TEST_LIVE"] = "FALSE",
+    ["SHODAN_ENTITYDB_TEST_LAST_UPDATE_ENTID"] = {},
+    ["SHODAN_ENTITYDB_TEST_LIVE"] = "FALSE",
   })
 
-  local live = env["SHODANENTITYDB_TEST_LIVE"] == "TRUE"
+  local live = env["SHODAN_ENTITYDB_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {

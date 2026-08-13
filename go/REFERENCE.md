@@ -113,10 +113,10 @@ fmt.Println(entity.GetName()) // "entity"
 | `cik` | `int` | Yes |  |
 | `entity` | `map[string]any` | Yes |  |
 | `entity_name` | `string` | Yes |  |
-| `executif` | `[]any` | Yes |  |
+| `executives` | `[]any` | Yes |  |
 | `finance_data` | `[]any` | Yes |  |
 | `id` | `int` | Yes |  |
-| `ticker` | `[]any` | Yes |  |
+| `tickers` | `[]any` | Yes |  |
 
 ### Operations
 
@@ -180,7 +180,7 @@ fmt.Println(entityFullInfo.GetName()) // "entity_full_info"
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `entity` | `map[string]any` | Yes |  |
-| `executif` | `[]any` | Yes |  |
+| `executives` | `[]any` | Yes |  |
 | `finance_data` | `[]any` | Yes |  |
 
 ### Operations

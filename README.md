@@ -36,18 +36,27 @@ network, and no credentials:
 ### TypeScript
 
 ```ts
-const client = ShodanEntitydbSDK.test()
-const entitys = await client.Entity().list()
-// entitys is an array of bare Entity records populated with mock data
-console.log(entitys)
+// The offline mock starts EMPTY — seed it with the records the test needs.
+// Shape: { entity: { <entity-name>: { <id>: <record> } } }
+const client = ShodanEntitydbSDK.test({
+  entity: {
+    last_update: {
+      test01: { id: 'test01' },
+    },
+  },
+})
+const lastupdate = await client.LastUpdate().load()
+// lastupdate is the LastUpdate entity, populated with mock data
+// — call lastupdate.data() for the record itself
+console.log(lastupdate)
 ```
 
 ### Python
 
 ```python
 client = ShodanEntitydbSDK.test()
-entitys = client.Entity().list()
-print(entitys)
+lastupdate = client.LastUpdate().load()
+print(lastupdate)
 ```
 
 ### PHP
@@ -55,16 +64,16 @@ print(entitys)
 ```php
 // Seed fixture data so offline calls resolve without a live server.
 $client = ShodanEntitydbSDK::test([
-    "entity" => ["entity" => ["test01" => ["id" => "test01"]]],
+    "entity" => ["lastupdate" => ["test01" => []]],
 ]);
-$entitys = $client->Entity()->list();
+$lastupdate = $client->LastUpdate()->load();
 ```
 
 ### Golang
 
 ```go
 client := sdk.Test()
-result, err := client.Entity(nil).List(
+result, err := client.LastUpdate(nil).Load(
     nil, nil,
 )
 ```
@@ -74,16 +83,16 @@ result, err := client.Entity(nil).List(
 ```ruby
 # Seed fixture data so offline calls resolve without a live server.
 client = ShodanEntitydbSDK.test({
-  "entity" => { "entity" => { "test01" => { "id" => "test01" } } },
+  "entity" => { "lastupdate" => { "test01" => {} } },
 })
-entitys = client.Entity.list()
+lastupdate = client.LastUpdate.load()
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local results, err = client:Entity():list()
+local result, err = client:LastUpdate():load()
 ```
 
 ## Packages
@@ -108,7 +117,7 @@ import { ShodanEntitydbSDK } from '@voxgig-sdk/shodan-entitydb'
 
 const client = new ShodanEntitydbSDK()
 
-// List all entitys (returns Entity[])
+// List all entitys (returns EntityEntity[] — .data() for the record)
 const entitys = await client.Entity().list()
 for (const entity of entitys) {
   console.log(entity)
@@ -198,7 +207,7 @@ $client = new ShodanEntitydbSDK();
 $entitys = $client->Entity()->list();
 print_r($entitys);
 
-// Load a specific entity (returns the bare record; throws on error)
+// Load a specific entity (returns the ENTITY; call data_get() for the record; throws on error)
 $entity = $client->Entity()->load(["id" => 1]);
 print_r($entity);
 ```
@@ -238,7 +247,7 @@ client = ShodanEntitydbSDK.new
 entitys = client.Entity.list
 puts entitys
 
-# Load a specific entity (returns the bare record; raises on error)
+# Load a specific entity (returns the ENTITY; call data_get for the record)
 entity = client.Entity.load({ "id" => 1 })
 puts entity
 ```
@@ -375,6 +384,9 @@ Pass custom features via the `extend` option at construction time.
 
 This SDK is generated from the upstream OpenAPI specification. It is an
 unofficial client and is not affiliated with the API provider.
+
+The OpenAPI spec(s) this SDK was generated from are kept in the
+[`.sdk/def/`](.sdk/def/) folder.
 
 - Upstream API: [https://twitter.com/shodanhq](https://twitter.com/shodanhq)
 

@@ -1,4 +1,4 @@
 module github.com/voxgig-sdk/shodan-entitydb-sdk/go
 
-go 1.20
+go 1.21
 

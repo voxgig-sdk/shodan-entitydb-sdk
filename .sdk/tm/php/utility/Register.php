@@ -23,6 +23,7 @@ require_once __DIR__ . '/MakeUrl.php';
 require_once __DIR__ . '/Param.php';
 require_once __DIR__ . '/PrepareAuth.php';
 require_once __DIR__ . '/PrepareBody.php';
+require_once __DIR__ . '/Graphql.php';
 require_once __DIR__ . '/PrepareHeaders.php';
 require_once __DIR__ . '/PrepareMethod.php';
 require_once __DIR__ . '/PrepareParams.php';
@@ -59,6 +60,8 @@ ShodanEntitydbUtility::setRegistrar(function (ShodanEntitydbUtility $u): void {
     $u->prepare_params = [ShodanEntitydbPrepareParams::class, 'call'];
     $u->prepare_path = [ShodanEntitydbPreparePath::class, 'call'];
     $u->prepare_query = [ShodanEntitydbPrepareQuery::class, 'call'];
+    $u->graphql_body = [ShodanEntitydbGraphql::class, 'body'];
+    $u->graphql_errors = [ShodanEntitydbGraphql::class, 'errors'];
     $u->result_basic = [ShodanEntitydbResultBasic::class, 'call'];
     $u->result_body = [ShodanEntitydbResultBody::class, 'call'];
     $u->result_headers = [ShodanEntitydbResultHeaders::class, 'call'];

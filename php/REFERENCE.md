@@ -107,10 +107,10 @@ $entity = $client->Entity();
 | `cik` | `int` | Yes |  |
 | `entity` | `array` | Yes |  |
 | `entity_name` | `string` | Yes |  |
-| `executif` | `array` | Yes |  |
+| `executives` | `array` | Yes |  |
 | `finance_data` | `array` | Yes |  |
 | `id` | `int` | Yes |  |
-| `ticker` | `array` | Yes |  |
+| `tickers` | `array` | Yes |  |
 
 ### Operations
 
@@ -171,7 +171,7 @@ $entity_full_info = $client->EntityFullInfo();
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `entity` | `array` | Yes |  |
-| `executif` | `array` | Yes |  |
+| `executives` | `array` | Yes |  |
 | `finance_data` | `array` | Yes |  |
 
 ### Operations

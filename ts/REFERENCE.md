@@ -155,10 +155,10 @@ const entity = client.Entity()
 | `cik` | `number` | Yes |  |
 | `entity` | `Record<string, any>` | Yes |  |
 | `entity_name` | `string` | Yes |  |
-| `executif` | `any[]` | Yes |  |
+| `executives` | `any[]` | Yes |  |
 | `finance_data` | `any[]` | Yes |  |
 | `id` | `number` | Yes |  |
-| `ticker` | `any[]` | Yes |  |
+| `tickers` | `any[]` | Yes |  |
 
 ### Operations
 
@@ -217,7 +217,7 @@ const entity_full_info = client.EntityFullInfo()
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `entity` | `Record<string, any>` | Yes |  |
-| `executif` | `any[]` | Yes |  |
+| `executives` | `any[]` | Yes |  |
 | `finance_data` | `any[]` | Yes |  |
 
 ### Operations

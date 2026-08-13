@@ -5,28 +5,28 @@
         "cik": "s46",
         "entity": {},
         "entity_name": "s48",
-        "executif": [],
+        "executives": [],
         "finance_data": [],
         "id": "ENTITY00",
-        "ticker": []
+        "tickers": []
       },
       "ENTITY01": {
         "cik": "s8c",
         "entity": {},
         "entity_name": "s8e",
-        "executif": [],
+        "executives": [],
         "finance_data": [],
         "id": "ENTITY01",
-        "ticker": []
+        "tickers": []
       },
       "ENTITY02": {
         "cik": "sd2",
         "entity": {},
         "entity_name": "sd4",
-        "executif": [],
+        "executives": [],
         "finance_data": [],
         "id": "ENTITY02",
-        "ticker": []
+        "tickers": []
       }
     }
   },
@@ -36,9 +36,9 @@
         "cik": "s118",
         "entity": {},
         "entity_name": "s11a",
-        "executif": [],
+        "executives": [],
         "finance_data": [],
-        "ticker": []
+        "tickers": []
       }
     }
   }

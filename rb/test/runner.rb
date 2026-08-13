@@ -23,8 +23,8 @@ module ShodanEntitydbTestRunner
   end
 
   def self.env_override(m)
-    live = getenv("SHODANENTITYDB_TEST_LIVE")
-    override = getenv("SHODANENTITYDB_TEST_OVERRIDE")
+    live = getenv("SHODAN_ENTITYDB_TEST_LIVE")
+    override = getenv("SHODAN_ENTITYDB_TEST_OVERRIDE")
 
     if live == "TRUE" || override == "TRUE"
       m.each_key do |key|
@@ -44,8 +44,8 @@ module ShodanEntitydbTestRunner
       end
     end
 
-    explain = getenv("SHODANENTITYDB_TEST_EXPLAIN")
-    m["SHODANENTITYDB_TEST_EXPLAIN"] = explain if explain && !explain.empty?
+    explain = getenv("SHODAN_ENTITYDB_TEST_EXPLAIN")
+    m["SHODAN_ENTITYDB_TEST_EXPLAIN"] = explain if explain && !explain.empty?
 
     m
   end

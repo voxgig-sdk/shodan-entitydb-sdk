@@ -56,7 +56,7 @@ class ShodanEntitydbConfig
             ],
             [
               'active' => true,
-              'name' => 'executif',
+              'name' => 'executives',
               'req' => true,
               'type' => '`$ARRAY`',
               'index$' => 3,
@@ -77,7 +77,7 @@ class ShodanEntitydbConfig
             ],
             [
               'active' => true,
-              'name' => 'ticker',
+              'name' => 'tickers',
               'req' => true,
               'type' => '`$ARRAY`',
               'index$' => 6,
@@ -92,6 +92,7 @@ class ShodanEntitydbConfig
                 [
                   'active' => true,
                   'args' => [],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/api/entities',
                   'parts' => [
@@ -101,7 +102,7 @@ class ShodanEntitydbConfig
                   'select' => [],
                   'transform' => [
                     'req' => '`reqdata`',
-                    'res' => '`body`',
+                    'res' => '`body.entities`',
                   ],
                   'index$' => 0,
                 ],
@@ -128,6 +129,7 @@ class ShodanEntitydbConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/api/entities/{id}',
                   'parts' => [
@@ -165,7 +167,7 @@ class ShodanEntitydbConfig
             ],
             [
               'active' => true,
-              'name' => 'executif',
+              'name' => 'executives',
               'req' => true,
               'type' => '`$ARRAY`',
               'index$' => 1,
@@ -200,6 +202,7 @@ class ShodanEntitydbConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/api/entities/symbol/{symbol}',
                   'parts' => [
@@ -242,6 +245,7 @@ class ShodanEntitydbConfig
                 [
                   'active' => true,
                   'args' => [],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/health_check',
                   'parts' => [
@@ -281,6 +285,7 @@ class ShodanEntitydbConfig
                 [
                   'active' => true,
                   'args' => [],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/api/last_updated',
                   'parts' => [

@@ -119,11 +119,11 @@ function entity_direct_setup($mockres)
     $calls = new \ArrayObject();
 
     $env = Runner::env_override([
-        "SHODANENTITYDB_TEST_ENTITY_ENTID" => [],
-        "SHODANENTITYDB_TEST_LIVE" => "FALSE",
+        "SHODAN_ENTITYDB_TEST_ENTITY_ENTID" => [],
+        "SHODAN_ENTITYDB_TEST_LIVE" => "FALSE",
     ]);
 
-    $live = $env["SHODANENTITYDB_TEST_LIVE"] === "TRUE";
+    $live = $env["SHODAN_ENTITYDB_TEST_LIVE"] === "TRUE";
 
     if ($live) {
         $merged_opts = [

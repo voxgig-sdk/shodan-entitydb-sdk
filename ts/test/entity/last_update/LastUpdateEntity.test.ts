@@ -26,8 +26,8 @@ import {
 describe('LastUpdateEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when SHODANENTITYDB_TEST_LIVE=TRUE.
-  afterEach(liveDelay('SHODANENTITYDB_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when SHODAN_ENTITYDB_TEST_LIVE=TRUE.
+  afterEach(liveDelay('SHODAN_ENTITYDB_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = ShodanEntitydbSDK.test()
@@ -62,7 +62,7 @@ describe('LastUpdateEntity', async () => {
     // LOAD
     const last_update_ref01_ent = client.LastUpdate()
     const last_update_ref01_match_dt0: any = {}
-    const last_update_ref01_data_dt0 = await last_update_ref01_ent.load(last_update_ref01_match_dt0)
+    const last_update_ref01_data_dt0 = (await last_update_ref01_ent.load(last_update_ref01_match_dt0)).data()
     assert(null != last_update_ref01_data_dt0)
 
 

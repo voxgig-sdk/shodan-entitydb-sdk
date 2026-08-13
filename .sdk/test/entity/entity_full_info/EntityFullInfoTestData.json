@@ -3,21 +3,21 @@
     "entity_full_info": {
       "ENTITY_FULL_INFO00": {
         "entity": {},
-        "executif": [],
+        "executives": [],
         "finance_data": [],
         "symbol": "SYMBOL01",
         "id": "ENTITY_FULL_INFO00"
       },
       "ENTITY_FULL_INFO01": {
         "entity": {},
-        "executif": [],
+        "executives": [],
         "finance_data": [],
         "symbol": "SYMBOL01",
         "id": "ENTITY_FULL_INFO01"
       },
       "ENTITY_FULL_INFO02": {
         "entity": {},
-        "executif": [],
+        "executives": [],
         "finance_data": [],
         "symbol": "SYMBOL01",
         "id": "ENTITY_FULL_INFO02"
@@ -28,7 +28,7 @@
     "entity_full_info": {
       "entity_full_info_ref01": {
         "entity": {},
-        "executif": [],
+        "executives": [],
         "finance_data": []
       }
     }

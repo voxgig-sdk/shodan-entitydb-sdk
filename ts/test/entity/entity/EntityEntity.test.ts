@@ -26,8 +26,8 @@ import {
 describe('EntityEntity', async () => {
 
   // Per-test live pacing. Delay is read from sdk-test-control.json's
-  // `test.live.delayMs`; only sleeps when SHODANENTITYDB_TEST_LIVE=TRUE.
-  afterEach(liveDelay('SHODANENTITYDB_TEST_LIVE'))
+  // `test.live.delayMs`; only sleeps when SHODAN_ENTITYDB_TEST_LIVE=TRUE.
+  afterEach(liveDelay('SHODAN_ENTITYDB_TEST_LIVE'))
 
   test('instance', async () => {
     const testsdk = ShodanEntitydbSDK.test()
@@ -63,13 +63,13 @@ describe('EntityEntity', async () => {
     const entity_ref01_ent = client.Entity()
     const entity_ref01_match: any = {}
 
-    const entity_ref01_list = await entity_ref01_ent.list(entity_ref01_match)
+    const entity_ref01_list = (await entity_ref01_ent.list(entity_ref01_match)).map((e: any) => e.data())
 
 
     // LOAD
     const entity_ref01_match_dt0: any = {}
     entity_ref01_match_dt0.id = entity_ref01_data.id
-    const entity_ref01_data_dt0 = await entity_ref01_ent.load(entity_ref01_match_dt0)
+    const entity_ref01_data_dt0 = (await entity_ref01_ent.load(entity_ref01_match_dt0)).data()
     assert(entity_ref01_data_dt0.id === entity_ref01_data.id)
 
 

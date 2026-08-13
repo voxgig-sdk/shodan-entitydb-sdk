@@ -50,7 +50,7 @@ EntityFullInfo is nested under symbol, so provide the `symbol`.
 
 ```ruby
 begin
-  # load returns the bare EntityFullInfo record (raises on error).
+  # load returns the ENTITY — call data_get for the EntityFullInfo record (raises on error).
   entityfullinfo = client.EntityFullInfo.load({ "symbol" => "example_symbol" })
   puts entityfullinfo
 rescue => err
@@ -65,9 +65,9 @@ Entity operations raise on failure, so rescue them:
 
 ```ruby
 begin
-  entitys = client.Entity.list()
+  lastupdate = client.LastUpdate.load()
 rescue => err
-  warn "list failed: #{err}"
+  warn "load failed: #{err}"
 end
 ```
 
@@ -128,17 +128,15 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required. Seed fixture
-data via the `entity` option so offline calls resolve without a live server:
+Create a mock client for unit testing — no server required:
 
 ```ruby
-client = ShodanEntitydbSDK.test({
-  "entity" => { "entity" => { "test01" => { "id" => "test01" } } },
-})
+client = ShodanEntitydbSDK.test
 
-# Entity ops return the bare mock record (raises on error).
-entity = client.Entity.list()
-puts entity
+# Entity ops return the ENTITY (raises on error);
+# call data_get for the mock record.
+lastupdate = client.LastUpdate.load()
+puts lastupdate
 ```
 
 ### Use a custom fetch function
@@ -260,10 +258,10 @@ returns a result `Hash` with these keys:
 | `cik` |  |
 | `entity` |  |
 | `entity_name` |  |
-| `executif` |  |
+| `executives` |  |
 | `finance_data` |  |
 | `id` |  |
-| `ticker` |  |
+| `tickers` |  |
 
 Operations: List, Load.
 
@@ -274,7 +272,7 @@ API path: `/api/entities`
 | Field | Description |
 | --- | --- |
 | `entity` |  |
-| `executif` |  |
+| `executives` |  |
 | `finance_data` |  |
 
 Operations: Load.
@@ -323,15 +321,15 @@ Create an instance: `entity = client.Entity`
 | `cik` | `Integer` |  |
 | `entity` | `Hash` |  |
 | `entity_name` | `String` |  |
-| `executif` | `Array` |  |
+| `executives` | `Array` |  |
 | `finance_data` | `Array` |  |
 | `id` | `Integer` |  |
-| `ticker` | `Array` |  |
+| `tickers` | `Array` |  |
 
 #### Example: Load
 
 ```ruby
-# load returns the bare Entity record (raises on error).
+# load returns the ENTITY — call data_get for the Entity record (raises on error).
 entity = client.Entity.load({ "id" => 1 })
 ```
 
@@ -358,13 +356,13 @@ Create an instance: `entity_full_info = client.EntityFullInfo`
 | Field | Type | Description |
 | --- | --- | --- |
 | `entity` | `Hash` |  |
-| `executif` | `Array` |  |
+| `executives` | `Array` |  |
 | `finance_data` | `Array` |  |
 
 #### Example: Load
 
 ```ruby
-# load returns the bare EntityFullInfo record (raises on error).
+# load returns the ENTITY — call data_get for the EntityFullInfo record (raises on error).
 entity_full_info = client.EntityFullInfo.load({ "symbol" => "symbol" })
 ```
 
@@ -382,7 +380,7 @@ Create an instance: `health_check = client.HealthCheck`
 #### Example: Load
 
 ```ruby
-# load returns the bare HealthCheck record (raises on error).
+# load returns the ENTITY — call data_get for the HealthCheck record (raises on error).
 health_check = client.HealthCheck.load()
 ```
 
@@ -406,7 +404,7 @@ Create an instance: `last_update = client.LastUpdate`
 #### Example: Load
 
 ```ruby
-# load returns the bare LastUpdate record (raises on error).
+# load returns the ENTITY — call data_get for the LastUpdate record (raises on error).
 last_update = client.LastUpdate.load()
 ```
 
@@ -483,15 +481,15 @@ when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `list`, the entity
+Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-entity = client.Entity
-entity.list()
+lastupdate = client.LastUpdate
+lastupdate.load()
 
-# entity.data_get now returns the entity data from the last list
-# entity.match_get returns the last match criteria
+# lastupdate.data_get now returns the lastupdate data from the last load
+# lastupdate.match_get returns the last match criteria
 ```
 
 Call `make` to create a fresh instance with the same configuration
