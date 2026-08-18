@@ -5,6 +5,29 @@ declare(strict_types=1);
 
 class ShodanEntitydbConfig
 {
+    /** @var array<string,mixed>|null */
+    private static ?array $shared_config = null;
+
+    /**
+     * Return the process-wide config, built once on first use. The SDK reads
+     * the config on every request and never writes to it, so one instance is
+     * shared by every client rather than rebuilt per client.
+     *
+     * PHP arrays are copy-on-write, so callers that do mutate the result get
+     * their own copy and cannot disturb the shared one.
+     */
+    public static function shared_config(): array
+    {
+        if (self::$shared_config === null) {
+            self::$shared_config = self::make_config();
+        }
+        return self::$shared_config;
+    }
+
+    /**
+     * Build a fresh, fully materialised config array. Every call rebuilds the
+     * whole structure, so prefer shared_config unless you need a private copy.
+     */
     public static function make_config(): array
     {
         return [
@@ -34,53 +57,49 @@ class ShodanEntitydbConfig
         'entity' => [
           'fields' => [
             [
-              'active' => true,
               'name' => 'cik',
               'req' => true,
               'type' => '`$INTEGER`',
-              'index$' => 0,
             ],
             [
-              'active' => true,
               'name' => 'entity',
               'req' => true,
               'type' => '`$OBJECT`',
-              'index$' => 1,
             ],
             [
-              'active' => true,
               'name' => 'entity_name',
               'req' => true,
               'type' => '`$STRING`',
-              'index$' => 2,
             ],
             [
-              'active' => true,
               'name' => 'executives',
               'req' => true,
               'type' => '`$ARRAY`',
-              'index$' => 3,
+              'union' => [
+                'branches' => 2,
+                'count' => 3,
+                'depth' => 3,
+              ],
             ],
             [
-              'active' => true,
               'name' => 'finance_data',
               'req' => true,
               'type' => '`$ARRAY`',
-              'index$' => 4,
+              'union' => [
+                'branches' => 2,
+                'count' => 13,
+                'depth' => 3,
+              ],
             ],
             [
-              'active' => true,
               'name' => 'id',
               'req' => true,
               'type' => '`$INTEGER`',
-              'index$' => 5,
             ],
             [
-              'active' => true,
               'name' => 'tickers',
               'req' => true,
               'type' => '`$ARRAY`',
-              'index$' => 6,
             ],
           ],
           'name' => 'entity',
@@ -90,7 +109,6 @@ class ShodanEntitydbConfig
               'name' => 'list',
               'points' => [
                 [
-                  'active' => true,
                   'args' => [],
                   'kind' => 'http',
                   'method' => 'GET',
@@ -104,28 +122,23 @@ class ShodanEntitydbConfig
                     'req' => '`reqdata`',
                     'res' => '`body.entities`',
                   ],
-                  'index$' => 0,
                 ],
               ],
-              'key$' => 'list',
             ],
             'load' => [
               'input' => 'data',
               'name' => 'load',
               'points' => [
                 [
-                  'active' => true,
                   'args' => [
                     'params' => [
                       [
-                        'active' => true,
                         'example' => 3,
                         'kind' => 'param',
                         'name' => 'id',
                         'orig' => 'id',
                         'reqd' => true,
                         'type' => '`$INTEGER`',
-                        'index$' => 0,
                       ],
                     ],
                   ],
@@ -146,10 +159,8 @@ class ShodanEntitydbConfig
                     'req' => '`reqdata`',
                     'res' => '`body.entity`',
                   ],
-                  'index$' => 0,
                 ],
               ],
-              'key$' => 'load',
             ],
           ],
           'relations' => [
@@ -159,25 +170,29 @@ class ShodanEntitydbConfig
         'entity_full_info' => [
           'fields' => [
             [
-              'active' => true,
               'name' => 'entity',
               'req' => true,
               'type' => '`$OBJECT`',
-              'index$' => 0,
             ],
             [
-              'active' => true,
               'name' => 'executives',
               'req' => true,
               'type' => '`$ARRAY`',
-              'index$' => 1,
+              'union' => [
+                'branches' => 2,
+                'count' => 3,
+                'depth' => 3,
+              ],
             ],
             [
-              'active' => true,
               'name' => 'finance_data',
               'req' => true,
               'type' => '`$ARRAY`',
-              'index$' => 2,
+              'union' => [
+                'branches' => 2,
+                'count' => 13,
+                'depth' => 3,
+              ],
             ],
           ],
           'name' => 'entity_full_info',
@@ -187,18 +202,15 @@ class ShodanEntitydbConfig
               'name' => 'load',
               'points' => [
                 [
-                  'active' => true,
                   'args' => [
                     'params' => [
                       [
-                        'active' => true,
                         'example' => 'GOOGL',
                         'kind' => 'param',
                         'name' => 'symbol',
                         'orig' => 'symbol',
                         'reqd' => true,
                         'type' => '`$STRING`',
-                        'index$' => 0,
                       ],
                     ],
                   ],
@@ -220,10 +232,8 @@ class ShodanEntitydbConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'index$' => 0,
                 ],
               ],
-              'key$' => 'load',
             ],
           ],
           'relations' => [
@@ -243,7 +253,6 @@ class ShodanEntitydbConfig
               'name' => 'load',
               'points' => [
                 [
-                  'active' => true,
                   'args' => [],
                   'kind' => 'http',
                   'method' => 'GET',
@@ -256,10 +265,8 @@ class ShodanEntitydbConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'index$' => 0,
                 ],
               ],
-              'key$' => 'load',
             ],
           ],
           'relations' => [
@@ -269,11 +276,9 @@ class ShodanEntitydbConfig
         'last_update' => [
           'fields' => [
             [
-              'active' => true,
               'name' => 'last_updated',
               'req' => true,
               'type' => '`$STRING`',
-              'index$' => 0,
             ],
           ],
           'name' => 'last_update',
@@ -283,7 +288,6 @@ class ShodanEntitydbConfig
               'name' => 'load',
               'points' => [
                 [
-                  'active' => true,
                   'args' => [],
                   'kind' => 'http',
                   'method' => 'GET',
@@ -297,10 +301,8 @@ class ShodanEntitydbConfig
                     'req' => '`reqdata`',
                     'res' => '`body`',
                   ],
-                  'index$' => 0,
                 ],
               ],
-              'key$' => 'load',
             ],
           ],
           'relations' => [

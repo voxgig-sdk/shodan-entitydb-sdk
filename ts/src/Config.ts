@@ -36,7 +36,7 @@ class Config {
 
 
   options = {
-    base: 'https://entitydb.shodan.io',
+    base: "https://entitydb.shodan.io",
 
     headers: {
       "content-type": "application/json"
@@ -64,53 +64,49 @@ class Config {
     "entity": {
       "fields": [
         {
-          "active": true,
           "name": "cik",
           "req": true,
-          "type": "`$INTEGER`",
-          "index$": 0
+          "type": "`$INTEGER`"
         },
         {
-          "active": true,
           "name": "entity",
           "req": true,
-          "type": "`$OBJECT`",
-          "index$": 1
+          "type": "`$OBJECT`"
         },
         {
-          "active": true,
           "name": "entity_name",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 2
+          "type": "`$STRING`"
         },
         {
-          "active": true,
           "name": "executives",
           "req": true,
           "type": "`$ARRAY`",
-          "index$": 3
+          "union": {
+            "branches": 2,
+            "count": 3,
+            "depth": 3
+          }
         },
         {
-          "active": true,
           "name": "finance_data",
           "req": true,
           "type": "`$ARRAY`",
-          "index$": 4
+          "union": {
+            "branches": 2,
+            "count": 13,
+            "depth": 3
+          }
         },
         {
-          "active": true,
           "name": "id",
           "req": true,
-          "type": "`$INTEGER`",
-          "index$": 5
+          "type": "`$INTEGER`"
         },
         {
-          "active": true,
           "name": "tickers",
           "req": true,
-          "type": "`$ARRAY`",
-          "index$": 6
+          "type": "`$ARRAY`"
         }
       ],
       "name": "entity",
@@ -120,7 +116,6 @@ class Config {
           "name": "list",
           "points": [
             {
-              "active": true,
               "args": {},
               "kind": "http",
               "method": "GET",
@@ -133,29 +128,24 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.entities`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "list"
+          ]
         },
         "load": {
           "input": "data",
           "name": "load",
           "points": [
             {
-              "active": true,
               "args": {
                 "params": [
                   {
-                    "active": true,
                     "example": 3,
                     "kind": "param",
                     "name": "id",
                     "orig": "id",
                     "reqd": true,
-                    "type": "`$INTEGER`",
-                    "index$": 0
+                    "type": "`$INTEGER`"
                   }
                 ]
               },
@@ -175,11 +165,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.entity`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "load"
+          ]
         }
       },
       "relations": {
@@ -189,25 +177,29 @@ class Config {
     "entity_full_info": {
       "fields": [
         {
-          "active": true,
           "name": "entity",
           "req": true,
-          "type": "`$OBJECT`",
-          "index$": 0
+          "type": "`$OBJECT`"
         },
         {
-          "active": true,
           "name": "executives",
           "req": true,
           "type": "`$ARRAY`",
-          "index$": 1
+          "union": {
+            "branches": 2,
+            "count": 3,
+            "depth": 3
+          }
         },
         {
-          "active": true,
           "name": "finance_data",
           "req": true,
           "type": "`$ARRAY`",
-          "index$": 2
+          "union": {
+            "branches": 2,
+            "count": 13,
+            "depth": 3
+          }
         }
       ],
       "name": "entity_full_info",
@@ -217,18 +209,15 @@ class Config {
           "name": "load",
           "points": [
             {
-              "active": true,
               "args": {
                 "params": [
                   {
-                    "active": true,
                     "example": "GOOGL",
                     "kind": "param",
                     "name": "symbol",
                     "orig": "symbol",
                     "reqd": true,
-                    "type": "`$STRING`",
-                    "index$": 0
+                    "type": "`$STRING`"
                   }
                 ]
               },
@@ -249,11 +238,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "load"
+          ]
         }
       },
       "relations": {
@@ -273,7 +260,6 @@ class Config {
           "name": "load",
           "points": [
             {
-              "active": true,
               "args": {},
               "kind": "http",
               "method": "GET",
@@ -285,11 +271,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "load"
+          ]
         }
       },
       "relations": {
@@ -299,11 +283,9 @@ class Config {
     "last_update": {
       "fields": [
         {
-          "active": true,
           "name": "last_updated",
           "req": true,
-          "type": "`$STRING`",
-          "index$": 0
+          "type": "`$STRING`"
         }
       ],
       "name": "last_update",
@@ -313,7 +295,6 @@ class Config {
           "name": "load",
           "points": [
             {
-              "active": true,
               "args": {},
               "kind": "http",
               "method": "GET",
@@ -326,11 +307,9 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              },
-              "index$": 0
+              }
             }
-          ],
-          "key$": "load"
+          ]
         }
       },
       "relations": {

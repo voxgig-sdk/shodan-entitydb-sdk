@@ -24,11 +24,21 @@ main: kit: entity: entity: {
       name: "executives"
       req: true
       type: "`$ARRAY`"
+      union: {
+        branches: 2
+        count: 3
+        depth: 3
+      }
     }
     {
       name: "finance_data"
       req: true
       type: "`$ARRAY`"
+      union: {
+        branches: 2
+        count: 13
+        depth: 3
+      }
     }
     {
       name: "id"

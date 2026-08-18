@@ -40,7 +40,7 @@ class ShodanEntitydbSDK
         $utility = new ShodanEntitydbUtility();
         $this->_utility = $utility;
 
-        $config = ShodanEntitydbConfig::make_config();
+        $config = ShodanEntitydbConfig::shared_config();
 
         $this->_rootctx = ($utility->make_context)([
             "client" => $this,

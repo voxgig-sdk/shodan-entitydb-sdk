@@ -23,8 +23,8 @@ class ShodanEntitydbSDK:
         utility = ShodanEntitydbUtility()
         self._utility = utility
 
-        from shodanentitydb_sdk.config import make_config
-        config = make_config()
+        from shodanentitydb_sdk.config import shared_config
+        config = shared_config()
 
         self._rootctx = utility.make_context({
             "client": self,

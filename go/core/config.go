@@ -1,5 +1,12 @@
 package core
 
+import (
+	"sync"
+)
+
+// MakeConfig builds a fresh, fully materialised config map. Every call
+// rebuilds the whole structure, so prefer SharedConfig unless you need a
+// private copy you intend to mutate.
 func MakeConfig() map[string]any {
 	return map[string]any{
 		"main": map[string]any{
@@ -28,53 +35,49 @@ func MakeConfig() map[string]any {
 			"entity": map[string]any{
 				"fields": []any{
 					map[string]any{
-						"active": true,
 						"name": "cik",
 						"req": true,
 						"type": "`$INTEGER`",
-						"index$": 0,
 					},
 					map[string]any{
-						"active": true,
 						"name": "entity",
 						"req": true,
 						"type": "`$OBJECT`",
-						"index$": 1,
 					},
 					map[string]any{
-						"active": true,
 						"name": "entity_name",
 						"req": true,
 						"type": "`$STRING`",
-						"index$": 2,
 					},
 					map[string]any{
-						"active": true,
 						"name": "executives",
 						"req": true,
 						"type": "`$ARRAY`",
-						"index$": 3,
+						"union": map[string]any{
+							"branches": 2,
+							"count": 3,
+							"depth": 3,
+						},
 					},
 					map[string]any{
-						"active": true,
 						"name": "finance_data",
 						"req": true,
 						"type": "`$ARRAY`",
-						"index$": 4,
+						"union": map[string]any{
+							"branches": 2,
+							"count": 13,
+							"depth": 3,
+						},
 					},
 					map[string]any{
-						"active": true,
 						"name": "id",
 						"req": true,
 						"type": "`$INTEGER`",
-						"index$": 5,
 					},
 					map[string]any{
-						"active": true,
 						"name": "tickers",
 						"req": true,
 						"type": "`$ARRAY`",
-						"index$": 6,
 					},
 				},
 				"name": "entity",
@@ -84,7 +87,6 @@ func MakeConfig() map[string]any {
 						"name": "list",
 						"points": []any{
 							map[string]any{
-								"active": true,
 								"args": map[string]any{},
 								"kind": "http",
 								"method": "GET",
@@ -98,7 +100,6 @@ func MakeConfig() map[string]any {
 									"req": "`reqdata`",
 									"res": "`body.entities`",
 								},
-								"index$": 0,
 							},
 						},
 					},
@@ -107,18 +108,15 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"active": true,
 								"args": map[string]any{
 									"params": []any{
 										map[string]any{
-											"active": true,
 											"example": 3,
 											"kind": "param",
 											"name": "id",
 											"orig": "id",
 											"reqd": true,
 											"type": "`$INTEGER`",
-											"index$": 0,
 										},
 									},
 								},
@@ -139,7 +137,6 @@ func MakeConfig() map[string]any {
 									"req": "`reqdata`",
 									"res": "`body.entity`",
 								},
-								"index$": 0,
 							},
 						},
 					},
@@ -151,25 +148,29 @@ func MakeConfig() map[string]any {
 			"entity_full_info": map[string]any{
 				"fields": []any{
 					map[string]any{
-						"active": true,
 						"name": "entity",
 						"req": true,
 						"type": "`$OBJECT`",
-						"index$": 0,
 					},
 					map[string]any{
-						"active": true,
 						"name": "executives",
 						"req": true,
 						"type": "`$ARRAY`",
-						"index$": 1,
+						"union": map[string]any{
+							"branches": 2,
+							"count": 3,
+							"depth": 3,
+						},
 					},
 					map[string]any{
-						"active": true,
 						"name": "finance_data",
 						"req": true,
 						"type": "`$ARRAY`",
-						"index$": 2,
+						"union": map[string]any{
+							"branches": 2,
+							"count": 13,
+							"depth": 3,
+						},
 					},
 				},
 				"name": "entity_full_info",
@@ -179,18 +180,15 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"active": true,
 								"args": map[string]any{
 									"params": []any{
 										map[string]any{
-											"active": true,
 											"example": "GOOGL",
 											"kind": "param",
 											"name": "symbol",
 											"orig": "symbol",
 											"reqd": true,
 											"type": "`$STRING`",
-											"index$": 0,
 										},
 									},
 								},
@@ -212,7 +210,6 @@ func MakeConfig() map[string]any {
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
-								"index$": 0,
 							},
 						},
 					},
@@ -234,7 +231,6 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"active": true,
 								"args": map[string]any{},
 								"kind": "http",
 								"method": "GET",
@@ -247,7 +243,6 @@ func MakeConfig() map[string]any {
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
-								"index$": 0,
 							},
 						},
 					},
@@ -259,11 +254,9 @@ func MakeConfig() map[string]any {
 			"last_update": map[string]any{
 				"fields": []any{
 					map[string]any{
-						"active": true,
 						"name": "last_updated",
 						"req": true,
 						"type": "`$STRING`",
-						"index$": 0,
 					},
 				},
 				"name": "last_update",
@@ -273,7 +266,6 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"active": true,
 								"args": map[string]any{},
 								"kind": "http",
 								"method": "GET",
@@ -287,7 +279,6 @@ func MakeConfig() map[string]any {
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
-								"index$": 0,
 							},
 						},
 					},
@@ -298,6 +289,24 @@ func MakeConfig() map[string]any {
 			},
 		},
 	}
+}
+
+var (
+	sharedConfigOnce sync.Once
+	sharedConfigVal  map[string]any
+)
+
+// SharedConfig returns the process-wide config, built once on first use.
+// The SDK reads the config on every request and never writes to it, so one
+// instance is shared by every client rather than rebuilt per client.
+//
+// The returned map is shared: treat it as read-only. Callers that need to
+// mutate should use MakeConfig, which always returns a fresh copy.
+func SharedConfig() map[string]any {
+	sharedConfigOnce.Do(func() {
+		sharedConfigVal = MakeConfig()
+	})
+	return sharedConfigVal
 }
 
 func makeFeature(name string) Feature {

@@ -28,7 +28,7 @@ class ShodanEntitydbSDK
     utility = ShodanEntitydbUtility.new
     @_utility = utility
 
-    config = ShodanEntitydbConfig.make_config
+    config = ShodanEntitydbConfig.shared_config
 
     @_rootctx = utility.make_context.call({
       "client" => self,
