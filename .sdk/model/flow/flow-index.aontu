@@ -1,6 +1,0 @@
-# Flows
-
-@"BasicEntityFlow.aontu"
-@"BasicEntityFullInfoFlow.aontu"
-@"BasicHealthCheckFlow.aontu"
-@"BasicLastUpdateFlow.aontu"

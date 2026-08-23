@@ -33,6 +33,9 @@ class ShodanEntitydbConfig
         return [
             "main" => [
                 "name" => "ShodanEntitydb",
+                "slug" => "shodan-entitydb",
+                "version" => "0.0.1",
+                "target" => "php",
             ],
             "feature" => [
                 "test" => [
