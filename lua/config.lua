@@ -80,6 +80,10 @@ local function make_config()
             ["type"] = "`$ARRAY`",
           },
         },
+        ["id"] = {
+          ["field"] = "id",
+          ["name"] = "id",
+        },
         ["name"] = "entity",
         ["op"] = {
           ["list"] = {
@@ -91,14 +95,22 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/api/entities",
-                ["parts"] = {
-                  "api",
-                  "entities",
+                ["segments"] = {
+                  {
+                    ["lit"] = "api",
+                  },
+                  {
+                    ["lit"] = "entities",
+                  },
                 },
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body.entities`",
+                },
+                ["parts"] = {
+                  "api",
+                  "entities",
                 },
               },
             },
@@ -123,10 +135,16 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/api/entities/{id}",
-                ["parts"] = {
-                  "api",
-                  "entities",
-                  "{id}",
+                ["segments"] = {
+                  {
+                    ["lit"] = "api",
+                  },
+                  {
+                    ["lit"] = "entities",
+                  },
+                  {
+                    ["var"] = "id",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -136,6 +154,11 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body.entity`",
+                },
+                ["parts"] = {
+                  "api",
+                  "entities",
+                  "{id}",
                 },
               },
             },
@@ -195,11 +218,19 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/api/entities/symbol/{symbol}",
-                ["parts"] = {
-                  "api",
-                  "entities",
-                  "symbol",
-                  "{symbol}",
+                ["segments"] = {
+                  {
+                    ["lit"] = "api",
+                  },
+                  {
+                    ["lit"] = "entities",
+                  },
+                  {
+                    ["lit"] = "symbol",
+                  },
+                  {
+                    ["var"] = "symbol",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -209,6 +240,12 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "api",
+                  "entities",
+                  "symbol",
+                  "{symbol}",
                 },
               },
             },
@@ -235,13 +272,18 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/health_check",
-                ["parts"] = {
-                  "health_check",
+                ["segments"] = {
+                  {
+                    ["lit"] = "health_check",
+                  },
                 },
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "health_check",
                 },
               },
             },
@@ -270,14 +312,22 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/api/last_updated",
-                ["parts"] = {
-                  "api",
-                  "last_updated",
+                ["segments"] = {
+                  {
+                    ["lit"] = "api",
+                  },
+                  {
+                    ["lit"] = "last_updated",
+                  },
                 },
                 ["select"] = {},
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "api",
+                  "last_updated",
                 },
               },
             },

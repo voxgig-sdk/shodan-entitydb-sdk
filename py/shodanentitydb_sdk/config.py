@@ -1,6 +1,14 @@
 # ShodanEntitydb SDK configuration
 
 
+# The sekreto plugin DEFINITIONS the model selected per feature, imported
+# above by name from the modules the catalogue's active `plugin.def`
+# entries declare. Handed to each feature (secrets builds its Sekreto
+# with them): a provider kind not listed here is unknown to that SDK.
+FEATURE_PLUGINS = {
+}
+
+
 _shared_config = None
 
 
@@ -101,6 +109,10 @@ def make_config():
             "type": "`$ARRAY`",
           },
         ],
+        "id": {
+          "field": "id",
+          "name": "id",
+        },
         "name": "entity",
         "op": {
           "list": {
@@ -112,15 +124,23 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/api/entities",
-                "parts": [
-                  "api",
-                  "entities",
+                "segments": [
+                  {
+                    "lit": "api",
+                  },
+                  {
+                    "lit": "entities",
+                  },
                 ],
                 "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body.entities`",
                 },
+                "parts": [
+                  "api",
+                  "entities",
+                ],
               },
             ],
           },
@@ -144,10 +164,16 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/api/entities/{id}",
-                "parts": [
-                  "api",
-                  "entities",
-                  "{id}",
+                "segments": [
+                  {
+                    "lit": "api",
+                  },
+                  {
+                    "lit": "entities",
+                  },
+                  {
+                    "var": "id",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -158,6 +184,11 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body.entity`",
                 },
+                "parts": [
+                  "api",
+                  "entities",
+                  "{id}",
+                ],
               },
             ],
           },
@@ -216,11 +247,19 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/api/entities/symbol/{symbol}",
-                "parts": [
-                  "api",
-                  "entities",
-                  "symbol",
-                  "{symbol}",
+                "segments": [
+                  {
+                    "lit": "api",
+                  },
+                  {
+                    "lit": "entities",
+                  },
+                  {
+                    "lit": "symbol",
+                  },
+                  {
+                    "var": "symbol",
+                  },
                 ],
                 "select": {
                   "exist": [
@@ -231,6 +270,12 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "api",
+                  "entities",
+                  "symbol",
+                  "{symbol}",
+                ],
               },
             ],
           },
@@ -256,14 +301,19 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/health_check",
-                "parts": [
-                  "health_check",
+                "segments": [
+                  {
+                    "lit": "health_check",
+                  },
                 ],
                 "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "health_check",
+                ],
               },
             ],
           },
@@ -291,15 +341,23 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/api/last_updated",
-                "parts": [
-                  "api",
-                  "last_updated",
+                "segments": [
+                  {
+                    "lit": "api",
+                  },
+                  {
+                    "lit": "last_updated",
+                  },
                 ],
                 "select": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "api",
+                  "last_updated",
+                ],
               },
             ],
           },

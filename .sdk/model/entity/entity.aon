@@ -65,9 +65,13 @@ main: kit: entity: entity: {
         {
           method: "GET"
           orig: "/api/entities"
-          parts: [
-            "api"
-            "entities"
+          segments: [
+            {
+              lit: "api"
+            }
+            {
+              lit: "entities"
+            }
           ]
           transform: {
             req: "`reqdata`"
@@ -94,10 +98,16 @@ main: kit: entity: entity: {
           }
           method: "GET"
           orig: "/api/entities/{id}"
-          parts: [
-            "api"
-            "entities"
-            "{id}"
+          segments: [
+            {
+              lit: "api"
+            }
+            {
+              lit: "entities"
+            }
+            {
+              var: "id"
+            }
           ]
           select: {
             exist: [

@@ -50,7 +50,7 @@ func TestHealthCheckEntity(t *testing.T) {
 		client := setup.client
 
 		// Bootstrap entity data from existing test data (no create step in flow).
-		healthCheckRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath("existing.health_check", setup.data)))
+		healthCheckRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath(setup.data, "existing.health_check")))
 		var healthCheckRef01Data map[string]any
 		if len(healthCheckRef01DataRaw) > 0 {
 			healthCheckRef01Data = core.ToMapAny(healthCheckRef01DataRaw[0][1])
@@ -97,7 +97,7 @@ func health_checkBasicSetup(extra map[string]any) *entityTestSetup {
 	client := sdk.TestSDK(options, extra)
 
 	// Generate idmap via transform, matching TS pattern.
-	idmap := vs.Transform(
+	idmap, _ := vs.Transform(
 		[]any{"health_check01", "health_check02", "health_check03"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
@@ -125,10 +125,22 @@ func health_checkBasicSetup(extra map[string]any) *entityTestSetup {
 	}
 
 	if env["SHODAN_ENTITYDB_TEST_LIVE"] == "TRUE" {
+		// An empty map, not a nil one: Merge returns nil when its last entry
+		// is nil, and BasicSetup is normally called with no extras - so a
+		// bare nil silently discarded the apikey and server values below.
+		extraOpts := extra
+		if extraOpts == nil {
+			extraOpts = map[string]any{}
+		}
+
 		mergedOpts := vs.Merge([]any{
+			// liveClientOptions() FIRST, so the generated fields below win:
+			// sdk-test-control.json's test.client.options adds to the live
+			// client, it does not redirect it.
+			liveClientOptions(),
 			map[string]any{
 			},
-			extra,
+			extraOpts,
 		})
 		client = sdk.NewShodanEntitydbSDK(core.ToMapAny(mergedOpts))
 	}

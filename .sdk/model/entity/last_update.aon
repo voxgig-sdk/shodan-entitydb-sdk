@@ -20,9 +20,13 @@ main: kit: entity: last_update: {
         {
           method: "GET"
           orig: "/api/last_updated"
-          parts: [
-            "api"
-            "last_updated"
+          segments: [
+            {
+              lit: "api"
+            }
+            {
+              lit: "last_updated"
+            }
           ]
           transform: {
             req: "`reqdata`"

@@ -52,11 +52,19 @@ main: kit: entity: entity_full_info: {
           }
           method: "GET"
           orig: "/api/entities/symbol/{symbol}"
-          parts: [
-            "api"
-            "entities"
-            "symbol"
-            "{symbol}"
+          segments: [
+            {
+              lit: "api"
+            }
+            {
+              lit: "entities"
+            }
+            {
+              lit: "symbol"
+            }
+            {
+              var: "symbol"
+            }
           ]
           select: {
             exist: [

@@ -106,6 +106,10 @@ class ShodanEntitydbConfig
               'type' => '`$ARRAY`',
             ],
           ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
+          ],
           'name' => 'entity',
           'op' => [
             'list' => [
@@ -117,14 +121,22 @@ class ShodanEntitydbConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/api/entities',
-                  'parts' => [
-                    'api',
-                    'entities',
+                  'segments' => [
+                    [
+                      'lit' => 'api',
+                    ],
+                    [
+                      'lit' => 'entities',
+                    ],
                   ],
                   'select' => [],
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.entities`',
+                  ],
+                  'parts' => [
+                    'api',
+                    'entities',
                   ],
                 ],
               ],
@@ -149,10 +161,16 @@ class ShodanEntitydbConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/api/entities/{id}',
-                  'parts' => [
-                    'api',
-                    'entities',
-                    '{id}',
+                  'segments' => [
+                    [
+                      'lit' => 'api',
+                    ],
+                    [
+                      'lit' => 'entities',
+                    ],
+                    [
+                      'var' => 'id',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -162,6 +180,11 @@ class ShodanEntitydbConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.entity`',
+                  ],
+                  'parts' => [
+                    'api',
+                    'entities',
+                    '{id}',
                   ],
                 ],
               ],
@@ -221,11 +244,19 @@ class ShodanEntitydbConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/api/entities/symbol/{symbol}',
-                  'parts' => [
-                    'api',
-                    'entities',
-                    'symbol',
-                    '{symbol}',
+                  'segments' => [
+                    [
+                      'lit' => 'api',
+                    ],
+                    [
+                      'lit' => 'entities',
+                    ],
+                    [
+                      'lit' => 'symbol',
+                    ],
+                    [
+                      'var' => 'symbol',
+                    ],
                   ],
                   'select' => [
                     'exist' => [
@@ -235,6 +266,12 @@ class ShodanEntitydbConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'api',
+                    'entities',
+                    'symbol',
+                    '{symbol}',
                   ],
                 ],
               ],
@@ -261,13 +298,18 @@ class ShodanEntitydbConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/health_check',
-                  'parts' => [
-                    'health_check',
+                  'segments' => [
+                    [
+                      'lit' => 'health_check',
+                    ],
                   ],
                   'select' => [],
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'health_check',
                   ],
                 ],
               ],
@@ -296,14 +338,22 @@ class ShodanEntitydbConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/api/last_updated',
-                  'parts' => [
-                    'api',
-                    'last_updated',
+                  'segments' => [
+                    [
+                      'lit' => 'api',
+                    ],
+                    [
+                      'lit' => 'last_updated',
+                    ],
                   ],
                   'select' => [],
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    'api',
+                    'last_updated',
                   ],
                 ],
               ],
