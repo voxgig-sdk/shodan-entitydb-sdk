@@ -28,7 +28,7 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { ShodanEntitydbSDK } from '@voxgig-sdk/shodan-entitydb'
+import { ShodanEntitydbSDK } from '@voxgig-sdk/shodan-entitydb-sdk'
 
 const client = new ShodanEntitydbSDK()
 ```
@@ -539,7 +539,7 @@ shodan-entitydb/
 Import the SDK from the package root:
 
 ```ts
-import { ShodanEntitydbSDK } from '@voxgig-sdk/shodan-entitydb'
+import { ShodanEntitydbSDK } from '@voxgig-sdk/shodan-entitydb-sdk'
 ```
 
 ### Entity state

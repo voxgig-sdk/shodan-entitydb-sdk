@@ -103,7 +103,7 @@ local result, err = client:LastUpdate():load()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/shodan-entitydb` | publish pending — [install from git tag](https://github.com/voxgig-sdk/shodan-entitydb-sdk/releases) |
+| TypeScript | `@voxgig-sdk/shodan-entitydb-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/shodan-entitydb-sdk/releases) |
 | Python | `voxgig-sdk-shodan-entitydb` | publish pending — [install from git tag](https://github.com/voxgig-sdk/shodan-entitydb-sdk/releases) |
 | PHP | `voxgig-sdk/shodan-entitydb` | publish pending — [install from git tag](https://github.com/voxgig-sdk/shodan-entitydb-sdk/releases) |
 | Golang | `github.com/voxgig-sdk/shodan-entitydb-sdk/go` | `go get github.com/voxgig-sdk/shodan-entitydb-sdk/go@latest` |
@@ -117,7 +117,7 @@ local result, err = client:LastUpdate():load()
 ### TypeScript
 
 ```ts
-import { ShodanEntitydbSDK } from '@voxgig-sdk/shodan-entitydb'
+import { ShodanEntitydbSDK } from '@voxgig-sdk/shodan-entitydb-sdk'
 
 const client = new ShodanEntitydbSDK()
 
