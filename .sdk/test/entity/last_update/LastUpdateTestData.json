@@ -21,5 +21,38 @@
         "last_updated": "s28"
       }
     }
+  },
+  "requests": {
+    "GET /api/last_updated": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "get_latest_database_built_api_last_updated_get",
+        "parameters": [],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "last_updated": {
+                      "title": "Last Updated",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "last_updated"
+                  ],
+                  "title": "LastUpdateResponse",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    }
   }
 }

@@ -16,5 +16,26 @@
     "health_check": {
       "health_check_ref01": {}
     }
+  },
+  "requests": {
+    "GET /health_check": {
+      "provenance": "operation-contract",
+      "contract": {
+        "operationId": "health_check_health_check_get",
+        "parameters": [],
+        "protocol": "http",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "securitySource": "unspecified"
+      }
+    }
   }
 }

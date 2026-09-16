@@ -1,12 +1,18 @@
 # ShodanEntitydb SDK feature factory
 
 from shodanentitydb_sdk.feature.base_feature import ShodanEntitydbBaseFeature
+from shodanentitydb_sdk.feature.ratelimit_feature import ShodanEntitydbRatelimitFeature
+from shodanentitydb_sdk.feature.retry_feature import ShodanEntitydbRetryFeature
 from shodanentitydb_sdk.feature.test_feature import ShodanEntitydbTestFeature
+from shodanentitydb_sdk.feature.timeout_feature import ShodanEntitydbTimeoutFeature
 
 
 _FEATURES = {
     "base": lambda: ShodanEntitydbBaseFeature(),
+    "ratelimit": lambda: ShodanEntitydbRatelimitFeature(),
+    "retry": lambda: ShodanEntitydbRetryFeature(),
     "test": lambda: ShodanEntitydbTestFeature(),
+    "timeout": lambda: ShodanEntitydbTimeoutFeature(),
 }
 
 
