@@ -127,18 +127,18 @@ class Config {
 
     entity: {
       
-      entity: {
-      },
-
-      entity_full_info: {
-      },
-
-      health_check: {
-      },
-
-      last_update: {
-      },
-
+        entity: {
+        },
+  
+        entity_full_info: {
+        },
+  
+        health_check: {
+        },
+  
+        last_update: {
+        },
+  
     }
   }
 

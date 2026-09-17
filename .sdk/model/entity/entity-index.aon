@@ -1,6 +1,6 @@
 # Entity Models
 
-@"entity.aon"
-@"entity_full_info.aon"
-@"health_check.aon"
-@"last_update.aon"
+@"./entity.aon"
+@"./entity_full_info.aon"
+@"./health_check.aon"
+@"./last_update.aon"

@@ -1,6 +1,6 @@
 # Flows
 
-@"BasicEntityFlow.aon"
-@"BasicEntityFullInfoFlow.aon"
-@"BasicHealthCheckFlow.aon"
-@"BasicLastUpdateFlow.aon"
+@"./BasicEntityFlow.aon"
+@"./BasicEntityFullInfoFlow.aon"
+@"./BasicHealthCheckFlow.aon"
+@"./BasicLastUpdateFlow.aon"

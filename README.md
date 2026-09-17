@@ -103,12 +103,12 @@ local result, err = client:LastUpdate():load()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/shodan-entitydb-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/shodan-entitydb-sdk/releases) |
-| Python | `voxgig-sdk-shodan-entitydb` | publish pending — [install from git tag](https://github.com/voxgig-sdk/shodan-entitydb-sdk/releases) |
-| PHP | `voxgig-sdk/shodan-entitydb` | publish pending — [install from git tag](https://github.com/voxgig-sdk/shodan-entitydb-sdk/releases) |
+| TypeScript | `@voxgig-sdk/shodan-entitydb-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/shodan-entitydb-sdk/tags) |
+| Python | `voxgig-sdk-shodan-entitydb` | publish pending — [install from git tag](https://github.com/voxgig-sdk/shodan-entitydb-sdk/tags) |
+| PHP | `voxgig-sdk/shodan-entitydb` | publish pending — [install from git tag](https://github.com/voxgig-sdk/shodan-entitydb-sdk/tags) |
 | Golang | `github.com/voxgig-sdk/shodan-entitydb-sdk/go` | `go get github.com/voxgig-sdk/shodan-entitydb-sdk/go@latest` |
-| Ruby | `voxgig-sdk-shodan-entitydb` | publish pending — [install from git tag](https://github.com/voxgig-sdk/shodan-entitydb-sdk/releases) |
-| Lua | `voxgig-sdk-shodan-entitydb` | publish pending — [install from git tag](https://github.com/voxgig-sdk/shodan-entitydb-sdk/releases) |
+| Ruby | `voxgig-sdk-shodan-entitydb` | publish pending — [install from git tag](https://github.com/voxgig-sdk/shodan-entitydb-sdk/tags) |
+| Lua | `voxgig-sdk-shodan-entitydb` | publish pending — [install from git tag](https://github.com/voxgig-sdk/shodan-entitydb-sdk/tags) |
 | Go CLI | `github.com/voxgig-sdk/shodan-entitydb-sdk/go-cli` | `go install github.com/voxgig-sdk/shodan-entitydb-sdk/go-cli/cmd/shodan-entitydb@latest` |
 | Go MCP server | `github.com/voxgig-sdk/shodan-entitydb-sdk/go-mcp` | `go get github.com/voxgig-sdk/shodan-entitydb-sdk/go-mcp@latest` |
 
