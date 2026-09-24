@@ -56,6 +56,10 @@ Create a new `HealthCheck` entity instance. Pass `nil` for no initial data.
 
 Create a new `LastUpdate` entity instance. Pass `nil` for no initial data.
 
+#### `LightEntity(data)`
+
+Create a new `LightEntity` entity instance. Pass `nil` for no initial data.
+
 #### `options_map() -> table`
 
 Return a deep copy of the current SDK options.
@@ -102,23 +106,12 @@ local entity = client:Entity(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cik` | `number` | Yes |  |
 | `entity` | `table` | Yes |  |
-| `entity_name` | `string` | Yes |  |
 | `executives` | `table` | Yes |  |
 | `finance_data` | `table` | Yes |  |
-| `id` | `number` | Yes |  |
-| `tickers` | `table` | Yes |  |
+| `id` | `string` | No |  |
 
 ### Operations
-
-#### `list(reqmatch, ctrl) -> any, err`
-
-List entities matching the given criteria. Returns an array.
-
-```lua
-local results, err = client:Entity():list()
-```
 
 #### `load(reqmatch, ctrl) -> any, err`
 
@@ -301,6 +294,61 @@ Set the entity match criteria.
 #### `make() -> Entity`
 
 Create a new `LastUpdateEntity` instance with the same client and
+options.
+
+#### `get_name() -> string`
+
+Return the entity name.
+
+
+---
+
+## LightEntityEntity
+
+```lua
+local light_entity = client:LightEntity(nil)
+```
+
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `cik` | `number` | Yes |  |
+| `entity_name` | `string` | Yes |  |
+| `id` | `number` | Yes |  |
+| `tickers` | `table` | Yes |  |
+
+### Operations
+
+#### `list(reqmatch, ctrl) -> any, err`
+
+List entities matching the given criteria. Returns an array.
+
+```lua
+local results, err = client:LightEntity():list()
+```
+
+### Common Methods
+
+#### `data_get() -> table`
+
+Get the entity data. Returns a copy of the current data.
+
+#### `data_set(data)`
+
+Set the entity data.
+
+#### `match_get() -> table`
+
+Get the entity match criteria.
+
+#### `match_set(match)`
+
+Set the entity match criteria.
+
+#### `make() -> Entity`
+
+Create a new `LightEntityEntity` instance with the same client and
 options.
 
 #### `get_name() -> string`

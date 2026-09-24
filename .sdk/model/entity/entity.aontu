@@ -1,0 +1,101 @@
+# Entity: entity
+
+main: kit: entity: entity: {
+
+  alias: field: {}
+
+  fields: {
+    entity: {
+      h: "Entity"
+      n: "entity"
+      r: true
+      t: "`$OBJECT`"
+    }
+    executives: {
+      h: "Executives"
+      n: "executives"
+      r: true
+      t: "`$ARRAY`"
+      union: {
+        branches: 2
+        count: 3
+        depth: 3
+      }
+    }
+    finance_data: {
+      h: "Finance Data"
+      n: "finance_data"
+      r: true
+      t: "`$ARRAY`"
+      union: {
+        branches: 2
+        count: 13
+        depth: 3
+      }
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: false
+      t: "`$STRING`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "entity"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /api/entities/{id}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                ex: 3
+                k: "param"
+                n: "id"
+                or: "id"
+                r: true
+                t: "`$INTEGER`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/api/entities/{id}"
+          q: {
+            exist: [
+              "id"
+            ]
+          }
+          s: [
+            {
+              lit: "api"
+            }
+            {
+              lit: "entities"
+            }
+            {
+              var: "id"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.entity`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

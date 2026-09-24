@@ -57,6 +57,10 @@ Create a new `HealthCheckEntity` instance. Pass `None` for no initial data.
 
 Create a new `LastUpdateEntity` instance. Pass `None` for no initial data.
 
+#### `LightEntity(data=None)`
+
+Create a new `LightEntityEntity` instance. Pass `None` for no initial data.
+
 #### `options_map() -> dict`
 
 Return a deep copy of the current SDK options.
@@ -99,25 +103,12 @@ entity = client.Entity()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cik` | `int` | Yes |  |
 | `entity` | `dict` | Yes |  |
-| `entity_name` | `str` | Yes |  |
 | `executives` | `list` | Yes |  |
 | `finance_data` | `list` | Yes |  |
-| `id` | `int` | Yes |  |
-| `tickers` | `list` | Yes |  |
+| `id` | `str` | No |  |
 
 ### Operations
-
-#### `list(reqmatch=None, ctrl=None) -> list`
-
-List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
-
-```python
-results = client.Entity().list()
-for entity in results:
-    print(entity)
-```
 
 #### `load(reqmatch, ctrl=None) -> dict`
 
@@ -297,6 +288,62 @@ Set the entity match criteria.
 #### `make() -> Entity`
 
 Create a new `LastUpdateEntity` instance with the same options.
+
+#### `get_name() -> str`
+
+Return the entity name.
+
+
+---
+
+## LightEntityEntity
+
+```python
+light_entity = client.LightEntity()
+```
+
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `cik` | `int` | Yes |  |
+| `entity_name` | `str` | Yes |  |
+| `id` | `int` | Yes |  |
+| `tickers` | `list` | Yes |  |
+
+### Operations
+
+#### `list(reqmatch=None, ctrl=None) -> list`
+
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
+
+```python
+results = client.LightEntity().list()
+for light_entity in results:
+    print(light_entity)
+```
+
+### Common Methods
+
+#### `data_get() -> dict`
+
+Get the entity data.
+
+#### `data_set(data)`
+
+Set the entity data.
+
+#### `match_get() -> dict`
+
+Get the entity match criteria.
+
+#### `match_set(match)`
+
+Set the entity match criteria.
+
+#### `make() -> Entity`
+
+Create a new `LightEntityEntity` instance with the same options.
 
 #### `get_name() -> str`
 

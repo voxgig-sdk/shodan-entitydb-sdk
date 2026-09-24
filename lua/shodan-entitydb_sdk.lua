@@ -405,6 +405,20 @@ function ShodanEntitydbSDK:LastUpdate(data)
 end
 
 
+-- Idiomatic facade: client:LightEntity():list() / client:LightEntity():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function ShodanEntitydbSDK:LightEntity(data)
+  local EntityMod = require("entity.light_entity_entity")
+  if data == nil then
+    if self._light_entity == nil then
+      self._light_entity = EntityMod.new(self, nil)
+    end
+    return self._light_entity
+  end
+  return EntityMod.new(self, data)
+end
+
+
 
 
 function ShodanEntitydbSDK.test(testopts, sdkopts)

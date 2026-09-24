@@ -73,24 +73,21 @@ declare class Config {
             entity_full_info: {};
             health_check: {};
             last_update: {};
+            light_entity: {};
         };
     };
     entity: {
         entity: {
             fields: ({
                 name: string;
-                req: boolean;
+                title: string;
                 type: string;
-                union?: undefined;
+                req: boolean;
             } | {
                 name: string;
-                req: boolean;
+                title: string;
                 type: string;
-                union: {
-                    branches: number;
-                    count: number;
-                    depth: number;
-                };
+                req?: undefined;
             })[];
             id: {
                 field: string;
@@ -98,39 +95,10 @@ declare class Config {
             };
             name: string;
             op: {
-                list: {
-                    input: string;
-                    name: string;
-                    points: {
-                        args: {};
-                        kind: string;
-                        method: string;
-                        orig: string;
-                        segments: {
-                            lit: string;
-                        }[];
-                        select: {};
-                        transform: {
-                            req: string;
-                            res: string;
-                        };
-                        parts: string[];
-                    }[];
-                };
                 load: {
                     input: string;
                     name: string;
                     points: {
-                        args: {
-                            params: {
-                                example: number;
-                                kind: string;
-                                name: string;
-                                orig: string;
-                                reqd: boolean;
-                                type: string;
-                            }[];
-                        };
                         kind: string;
                         method: string;
                         orig: string;
@@ -141,14 +109,25 @@ declare class Config {
                             var: string;
                             lit?: undefined;
                         })[];
-                        select: {
-                            exist: string[];
-                        };
+                        parts: string[];
+                        rename: {};
                         transform: {
                             req: string;
                             res: string;
                         };
-                        parts: string[];
+                        args: {
+                            params: {
+                                name: string;
+                                orig: string;
+                                type: string;
+                                kind: string;
+                                reqd: boolean;
+                                example: number;
+                            }[];
+                        };
+                        select: {
+                            exist: string[];
+                        };
                     }[];
                 };
             };
@@ -157,37 +136,18 @@ declare class Config {
             };
         };
         entity_full_info: {
-            fields: ({
+            fields: {
                 name: string;
-                req: boolean;
+                title: string;
                 type: string;
-                union?: undefined;
-            } | {
-                name: string;
                 req: boolean;
-                type: string;
-                union: {
-                    branches: number;
-                    count: number;
-                    depth: number;
-                };
-            })[];
+            }[];
             name: string;
             op: {
                 load: {
                     input: string;
                     name: string;
                     points: {
-                        args: {
-                            params: {
-                                example: string;
-                                kind: string;
-                                name: string;
-                                orig: string;
-                                reqd: boolean;
-                                type: string;
-                            }[];
-                        };
                         kind: string;
                         method: string;
                         orig: string;
@@ -198,19 +158,30 @@ declare class Config {
                             var: string;
                             lit?: undefined;
                         })[];
-                        select: {
-                            exist: string[];
-                        };
+                        parts: string[];
+                        rename: {};
                         transform: {
                             req: string;
                             res: string;
                         };
-                        parts: string[];
+                        args: {
+                            params: {
+                                name: string;
+                                orig: string;
+                                type: string;
+                                kind: string;
+                                reqd: boolean;
+                                example: string;
+                            }[];
+                        };
+                        select: {
+                            exist: string[];
+                        };
                     }[];
                 };
             };
             relations: {
-                ancestors: string[][];
+                ancestors: never[];
             };
         };
         health_check: {
@@ -221,19 +192,20 @@ declare class Config {
                     input: string;
                     name: string;
                     points: {
-                        args: {};
                         kind: string;
                         method: string;
                         orig: string;
                         segments: {
                             lit: string;
                         }[];
-                        select: {};
+                        parts: string[];
+                        rename: {};
                         transform: {
                             req: string;
                             res: string;
                         };
-                        parts: string[];
+                        args: {};
+                        select: {};
                     }[];
                 };
             };
@@ -244,8 +216,9 @@ declare class Config {
         last_update: {
             fields: {
                 name: string;
-                req: boolean;
+                title: string;
                 type: string;
+                req: boolean;
             }[];
             name: string;
             op: {
@@ -253,19 +226,58 @@ declare class Config {
                     input: string;
                     name: string;
                     points: {
-                        args: {};
                         kind: string;
                         method: string;
                         orig: string;
                         segments: {
                             lit: string;
                         }[];
-                        select: {};
+                        parts: string[];
+                        rename: {};
                         transform: {
                             req: string;
                             res: string;
                         };
+                        args: {};
+                        select: {};
+                    }[];
+                };
+            };
+            relations: {
+                ancestors: never[];
+            };
+        };
+        light_entity: {
+            fields: {
+                name: string;
+                title: string;
+                type: string;
+                req: boolean;
+            }[];
+            id: {
+                field: string;
+                name: string;
+            };
+            name: string;
+            op: {
+                list: {
+                    input: string;
+                    name: string;
+                    points: {
+                        kind: string;
+                        method: string;
+                        orig: string;
+                        segments: {
+                            lit: string;
+                        }[];
                         parts: string[];
+                        rename: {};
+                        transform: {
+                            req: string;
+                            res: string;
+                        };
+                        args: {};
+                        select: {};
                     }[];
                 };
             };

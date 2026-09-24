@@ -25,10 +25,6 @@ import {
 } from '../../utility'
 
 
-// AFTER the imports on purpose: TypeScript hoists `import` above any
-// statement in the emitted CommonJS, so a loader placed above them would
-// run only after every imported module had already been evaluated - and
-// anything reading process.env at module scope would miss these values.
 loadEnvLocal(__dirname + '/../../../.env.local')
 
 
@@ -55,7 +51,7 @@ describe('LastUpdateEntity', async () => {
     
     const setup = basicSetup()
     if (setup.live) {
-      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":[{"active":true,"name":"last_updated","req":true,"type":"`$STRING`","index$":0}],"name":"last_update","op":{"load":{"input":"data","name":"load","points":[{"active":true,"args":{},"contract":{"id":"GET /api/last_updated","json":"{\"operationId\":\"get_latest_database_built_api_last_updated_get\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"last_updated\":{\"title\":\"Last Updated\",\"type\":\"string\"}},\"required\":[\"last_updated\"],\"title\":\"LastUpdateResponse\",\"type\":\"object\"}}},\"description\":\"Successful Response\"}},\"securitySource\":\"unspecified\"}","source":"openapi3","version":1},"kind":"http","method":"GET","orig":"/api/last_updated","segments":[{"lit":"api"},{"lit":"last_updated"}],"select":{},"transform":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[]},"key$":"last_update","name__orig":"last_update","Name":"LastUpdate","name_":"last_update","name-":"last-update","NAME":"LAST_UPDATE","index$":3}, {"active":true,"entity":"last_update","key$":"BasicLastUpdateFlow","kind":"basic","name":"BasicLastUpdateFlow","param":{},"step":[{"active":true,"data":{},"input":{"ref":"last_update_ref01","srcdatavar":"last_update_ref01_data","suffix":"_dt0"},"match":{},"op":"load","spec":[],"valid":[{"apply":"TextFieldMark","def":{"mark":"Mark01-last_update_ref01"}}],"index$":0}]}, 'LastUpdate')
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{"last_updated":{"a":true,"h":"Last Updated","n":"last_updated","r":true,"t":"`$STRING`","key$":"last_updated","index$":0}},"name":"last_update","op":{"load":{"input":"data","name":"load","points":[{"a":true,"co":{"id":"GET /api/last_updated","source":"openapi3","version":2},"g":{},"k":"http","m":"GET","o":"/api/last_updated","q":{},"r":{},"s":[{"lit":"api"},{"lit":"last_updated"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[]},"key$":"last_update","name__orig":"last_update","Name":"LastUpdate","name_":"last_update","name-":"last-update","NAME":"LAST_UPDATE","index$":3}, {"active":true,"entity":"last_update","key$":"BasicLastUpdateFlow","kind":"basic","name":"BasicLastUpdateFlow","param":{},"step":[{"a":true,"d":{},"i":{"ref":"last_update_ref01","srcdatavar":"last_update_ref01_data","suffix":"_dt0"},"m":{},"o":"load","s":[],"v":[{"apply":"TextFieldMark","def":{"mark":"Mark01-last_update_ref01"}}],"index$":0}]}, 'LastUpdate', {"GET /api/last_updated":{"protocol":"http","operationId":"get_latest_database_built_api_last_updated_get","responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{"properties":{"last_updated":{"key$":"last_updated","title":"Last Updated","type":"string"}},"type":"object","required":["last_updated"],"title":"LastUpdateResponse","x-ref":"#/components/schemas/LastUpdateResponse","index$":0}}}}},"parameters":[],"securitySource":"unspecified"}})
     }
     const client = setup.client
     const struct = setup.struct

@@ -1,23 +1,11 @@
 export interface Entity {
-    cik: number;
     entity: Record<string, any>;
-    entity_name: string;
     executives: any[];
     finance_data: any[];
-    id: number;
-    tickers: any[];
+    id?: string;
 }
 export interface EntityLoadMatch {
     id: number;
-}
-export interface EntityListMatch {
-    cik?: number;
-    entity?: Record<string, any>;
-    entity_name?: string;
-    executives?: any[];
-    finance_data?: any[];
-    id?: number;
-    tickers?: any[];
 }
 export interface EntityFullInfo {
     entity: Record<string, any>;
@@ -36,4 +24,16 @@ export interface LastUpdate {
 }
 export interface LastUpdateLoadMatch {
     last_updated?: string;
+}
+export interface LightEntity {
+    cik: number;
+    entity_name: string;
+    id: number;
+    tickers: any[];
+}
+export interface LightEntityListMatch {
+    cik?: number;
+    entity_name?: string;
+    id?: number;
+    tickers?: any[];
 }

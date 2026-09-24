@@ -31,30 +31,13 @@ require_once 'shodanentitydb_sdk.php';
 $client = new ShodanEntitydbSDK();
 ```
 
-### 2. List entity records
+### 3. Load an entity
 
 ```php
 try {
-    // list() returns entity instances; data_get() reads each record.
-    $entitys = $client->Entity()->list();
-    foreach ($entitys as $record) {
-        $item = $record->data_get();
-        echo $item["id"] . " " . $item["cik"] . "\n";
-    }
-} catch (\Throwable $err) {
-    echo "Error: " . $err->getMessage();
-}
-```
-
-### 3. Load an entityfullinfo
-
-EntityFullInfo is nested under symbol, so provide the `symbol`.
-
-```php
-try {
-    // load() returns the ENTITY — call data_get() for the EntityFullInfo record (throws on error).
-    $entityfullinfo = $client->EntityFullInfo()->load(["symbol" => "example_symbol"]);
-    print_r($entityfullinfo->data_get());
+    // load() returns the ENTITY — call data_get() for the Entity record (throws on error).
+    $entity = $client->Entity()->load(["id" => 1]);
+    print_r($entity->data_get());
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
@@ -68,7 +51,7 @@ Entity operations throw a `\Throwable` on failure, so wrap them in
 
 ```php
 try {
-    $lastupdate = $client->LastUpdate()->load();
+    $entityfullinfo = $client->EntityFullInfo()->load(["symbol" => "example"]);
 } catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
@@ -143,10 +126,10 @@ $client = ShodanEntitydbSDK::test([
     "entity" => ["entity" => ["test01" => ["id" => "test01"]]],
 ]);
 
-// list() returns entity instances (throws on error);
+// Entity ops return the ENTITY (throws on error);
 // call data_get() for the mock record.
-$entity = $client->Entity()->list();
-print_r(array_map(fn($item) => $item->data_get(), $entity));
+$entity = $client->Entity()->load(["id" => "test01"]);
+print_r($entity->data_get());
 ```
 
 ### Use a custom fetch function
@@ -229,6 +212,7 @@ Creates a test-mode client with mock transport. Both arguments may be `null`.
 | `EntityFullInfo` | `($data): EntityFullInfoEntity` | Create an EntityFullInfo entity instance. |
 | `HealthCheck` | `($data): HealthCheckEntity` | Create a HealthCheck entity instance. |
 | `LastUpdate` | `($data): LastUpdateEntity` | Create a LastUpdate entity instance. |
+| `LightEntity` | `($data): LightEntityEntity` | Create a LightEntity entity instance. |
 
 ### Entity interface
 
@@ -269,17 +253,14 @@ On error, `ok` is `false` and `$err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `cik` |  |
 | `entity` |  |
-| `entity_name` |  |
 | `executives` |  |
 | `finance_data` |  |
 | `id` |  |
-| `tickers` |  |
 
-Operations: List, Load.
+Operations: Load.
 
-API path: `/api/entities`
+API path: `/api/entities/{id}`
 
 #### EntityFullInfo
 
@@ -312,6 +293,19 @@ Operations: Load.
 
 API path: `/api/last_updated`
 
+#### LightEntity
+
+| Field | Description |
+| --- | --- |
+| `cik` |  |
+| `entity_name` |  |
+| `id` |  |
+| `tickers` |  |
+
+Operations: List.
+
+API path: `/api/entities`
+
 
 
 ## Entities
@@ -325,33 +319,22 @@ Create an instance: `$entity = $client->Entity();`
 
 | Method | Description |
 | --- | --- |
-| `list(match)` | List entities matching the criteria. |
 | `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `cik` | `int` |  |
 | `entity` | `array` |  |
-| `entity_name` | `string` |  |
 | `executives` | `array` |  |
 | `finance_data` | `array` |  |
-| `id` | `int` |  |
-| `tickers` | `array` |  |
+| `id` | `string` |  |
 
 #### Example: Load
 
 ```php
 // load() returns the ENTITY — call data_get() for the Entity record (throws on error).
 $entity = $client->Entity()->load(["id" => 1]);
-```
-
-#### Example: List
-
-```php
-// list() returns an array of Entity records (throws on error).
-$entitys = $client->Entity()->list();
 ```
 
 
@@ -420,6 +403,33 @@ Create an instance: `$last_update = $client->LastUpdate();`
 ```php
 // load() returns the ENTITY — call data_get() for the LastUpdate record (throws on error).
 $last_update = $client->LastUpdate()->load();
+```
+
+
+### LightEntity
+
+Create an instance: `$light_entity = $client->LightEntity();`
+
+#### Operations
+
+| Method | Description |
+| --- | --- |
+| `list(match)` | List entities matching the criteria. |
+
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `cik` | `int` |  |
+| `entity_name` | `string` |  |
+| `id` | `int` |  |
+| `tickers` | `array` |  |
+
+#### Example: List
+
+```php
+// list() returns an array of LightEntity records (throws on error).
+$light_entitys = $client->LightEntity()->list();
 ```
 
 ## Features
@@ -584,11 +594,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$lastupdate = $client->LastUpdate();
-$lastupdate->load();
+$entityfullinfo = $client->EntityFullInfo();
+$entityfullinfo->load(["symbol" => "example"]);
 
-// $lastupdate->data_get() now returns the lastupdate data from the last load
-// $lastupdate->match_get() returns the last match criteria
+// $entityfullinfo->data_get() now returns the entityfullinfo data from the last load
+// $entityfullinfo->match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

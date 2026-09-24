@@ -413,6 +413,24 @@ class ShodanEntitydbSDK
     }
 
 
+    private $_light_entity = null;
+
+    // Canonical facade: $client->LightEntity()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->light_entity()
+    // resolves here too.
+    public function LightEntity($data = null)
+    {
+        require_once __DIR__ . '/entity/light_entity_entity.php';
+        if ($data === null) {
+            if ($this->_light_entity === null) {
+                $this->_light_entity = new LightEntityEntity($this, null);
+            }
+            return $this->_light_entity;
+        }
+        return new LightEntityEntity($this, $data);
+    }
+
+
 
     public static function test(?array $testopts = null, ?array $sdkopts = null): self
     {

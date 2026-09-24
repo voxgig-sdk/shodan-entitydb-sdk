@@ -27,8 +27,8 @@ Tool-call arguments (what an agent sends):
 
 ```jsonc
 // shodan-entitydb_list: first page of records
-{ "entity": "entity" }
-{ "entity": "entity", "query": { } }
+{ "entity": "light_entity" }
+{ "entity": "light_entity", "query": { } }
 
 // shodan-entitydb_load: one record by id
 { "entity": "entity", "query": { "id": 1 } }
@@ -60,8 +60,8 @@ Tool-call arguments (what an agent sends):
    ```
 
 4. **Restart Claude Code.** The `shodan-entitydb_list` and `shodan-entitydb_load` tools now appear
-   in new sessions. Ask the agent to *"list entity using shodan-entitydb"*
-   and it calls `shodan-entitydb_list` with `{"entity":"entity"}`.
+   in new sessions. Ask the agent to *"list light_entity using shodan-entitydb"*
+   and it calls `shodan-entitydb_list` with `{"entity":"light_entity"}`.
 
 ## How-to guides
 
@@ -92,7 +92,7 @@ Args: `entity` (required), `query` (optional filter map). Returns the first
 page of records as JSON:
 
 ```jsonc
-{ "entity": "entity" }
+{ "entity": "light_entity" }
 ```
 
 ### Call the `shodan-entitydb_load` tool
@@ -129,7 +129,7 @@ Both tools take the same argument object:
 
 | Field | Type | Notes |
 |-------|------|-------|
-| `entity` | string | One of the 4 supported entities (see below). |
+| `entity` | string | One of the 5 supported entities (see below). |
 | `query` | object | Optional match map. `{"id":N}` for load; omit or `{}` for list. |
 
 JSON schemas are emitted by the SDK from the `Args` struct's `json` /
@@ -151,9 +151,9 @@ JSON schemas are emitted by the SDK from the `Args` struct's `json` /
 
 ### Entities
 
-The 4 entities valid as the `entity` argument:
+The 5 entities valid as the `entity` argument:
 
-entity | entity_full_info | health_check | last_update
+entity | entity_full_info | health_check | last_update | light_entity
 
 ### Smoke test via HTTP (raw JSON-RPC)
 

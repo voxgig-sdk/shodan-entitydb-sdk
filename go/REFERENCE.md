@@ -63,6 +63,10 @@ Create a new `HealthCheck` entity instance. Pass `nil` for no initial data.
 
 Create a new `LastUpdate` entity instance. Pass `nil` for no initial data.
 
+#### `LightEntity(data map[string]any) ShodanEntitydbEntity`
+
+Create a new `LightEntity` entity instance. Pass `nil` for no initial data.
+
 #### `OptionsMap() map[string]any`
 
 Return a deep copy of the current SDK options.
@@ -110,27 +114,12 @@ fmt.Println(entity.GetName()) // "entity"
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cik` | `int` | Yes |  |
 | `entity` | `map[string]any` | Yes |  |
-| `entity_name` | `string` | Yes |  |
 | `executives` | `[]any` | Yes |  |
 | `finance_data` | `[]any` | Yes |  |
-| `id` | `int` | Yes |  |
-| `tickers` | `[]any` | Yes |  |
+| `id` | `string` | No |  |
 
 ### Operations
-
-#### `List(reqmatch, ctrl map[string]any) (any, error)`
-
-List entities matching the given criteria. Returns an array.
-
-```go
-results, err := client.Entity(nil).List(nil, nil)
-if err != nil {
-    panic(err)
-}
-fmt.Println(results)
-```
 
 #### `Load(reqmatch, ctrl map[string]any) (any, error)`
 
@@ -308,6 +297,60 @@ Get or set the entity match criteria. Works the same as `Data()`.
 #### `Make() Entity`
 
 Create a new `LastUpdateEntity` instance with the same client and
+options.
+
+#### `GetName() string`
+
+Return the entity name.
+
+
+---
+
+## LightEntityEntity
+
+```go
+lightEntity := client.LightEntity(nil)
+fmt.Println(lightEntity.GetName()) // "light_entity"
+```
+
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `cik` | `int` | Yes |  |
+| `entity_name` | `string` | Yes |  |
+| `id` | `int` | Yes |  |
+| `tickers` | `[]any` | Yes |  |
+
+### Operations
+
+#### `List(reqmatch, ctrl map[string]any) (any, error)`
+
+List entities matching the given criteria. Returns an array.
+
+```go
+results, err := client.LightEntity(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
+```
+
+### Common Methods
+
+#### `Data(args ...any) any`
+
+Get or set the entity data. When called with data, sets the entity's
+internal data and returns the current data. When called without
+arguments, returns a copy of the current data.
+
+#### `Match(args ...any) any`
+
+Get or set the entity match criteria. Works the same as `Data()`.
+
+#### `Make() Entity`
+
+Create a new `LightEntityEntity` instance with the same client and
 options.
 
 #### `GetName() string`

@@ -21,47 +21,13 @@ class TestEntityEntity:
         ent = testsdk.Entity(None)
         assert ent is not None
 
-    def test_should_stream(self):
-        # Feature #4: the entity stream(action, ...) method runs the op
-        # pipeline and yields result items. With the streaming feature active
-        # it yields the feature's incremental output; otherwise it falls back
-        # to the materialised list so stream always yields.
-        seed = {
-            "entity": {
-                "entity": {
-                    "s1": {"id": "s1"},
-                    "s2": {"id": "s2"},
-                    "s3": {"id": "s3"},
-                }
-            }
-        }
-
-        # Fallback: streaming inactive -> yields the materialised list items.
-        base = ShodanEntitydbSDK.test(seed, None)
-        seen = list(base.Entity(None).stream("list", None, None))
-        assert len(seen) == 3
-
-        # Inbound: streaming active -> yields each item from the feature.
-        from shodanentitydb_sdk.config import shared_config
-        cfg = shared_config()
-        if isinstance(cfg.get("feature"), dict) and "streaming" in cfg["feature"]:
-            sdk = ShodanEntitydbSDK.test(
-                seed, {"feature": {"streaming": {"active": True}}})
-            got = []
-            for item in sdk.Entity(None).stream("list", None, None):
-                if isinstance(item, list):
-                    got.extend(item)
-                else:
-                    got.append(item)
-            assert len(got) == 3
-
     def test_should_run_basic_flow(self):
         setup = _entity_basic_setup(None)
         # Per-op sdk-test-control.json skip — basic test exercises a flow with
         # multiple ops; skipping any one skips the whole flow (steps depend
         # on each other).
         _live = setup.get("live", False)
-        for _op in ["list", "load"]:
+        for _op in ["load"]:
             _skip, _reason = runner.is_control_skipped("entityOp", "entity." + _op, "live" if _live else "unit")
             if _skip:
                 pytest.skip(_reason or "skipped via sdk-test-control.json")
@@ -80,14 +46,8 @@ class TestEntityEntity:
         if len(entity_ref01_data_raw) > 0:
             entity_ref01_data = helpers.to_map(entity_ref01_data_raw[0][1])
 
-        # LIST
-        entity_ref01_ent = client.Entity(None)
-        entity_ref01_match = {}
-
-        entity_ref01_list_result = entity_ref01_ent.list(entity_ref01_match, None)
-        assert isinstance(entity_ref01_list_result, list)
-
         # LOAD
+        entity_ref01_ent = client.Entity(None)
         entity_ref01_match_dt0 = {
             "id": entity_ref01_data["id"],
         }

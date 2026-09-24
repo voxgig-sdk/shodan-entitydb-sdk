@@ -1,0 +1,22 @@
+# BasicLightEntityFlow
+
+main: kit: flow: BasicLightEntityFlow:
+{
+  entity: "light_entity",
+  kind: "basic",
+  name: "BasicLightEntityFlow",
+  step: [
+    {
+      o: "list",
+      v: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "light_entity_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicLightEntityFlow"
+}

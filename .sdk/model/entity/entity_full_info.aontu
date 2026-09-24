@@ -1,0 +1,93 @@
+# Entity: entity_full_info
+
+main: kit: entity: entity_full_info: {
+
+  alias: field: {}
+
+  fields: {
+    entity: {
+      h: "Entity"
+      n: "entity"
+      r: true
+      t: "`$OBJECT`"
+    }
+    executives: {
+      h: "Executives"
+      n: "executives"
+      r: true
+      t: "`$ARRAY`"
+      union: {
+        branches: 2
+        count: 3
+        depth: 3
+      }
+    }
+    finance_data: {
+      h: "Finance Data"
+      n: "finance_data"
+      r: true
+      t: "`$ARRAY`"
+      union: {
+        branches: 2
+        count: 13
+        depth: 3
+      }
+    }
+  }
+
+  name: "entity_full_info"
+  op: {
+    load: {
+      name: "load"
+      points: [
+        {
+          co: {
+            id: "GET /api/entities/symbol/{symbol}"
+            source: "openapi3"
+            version: 2
+          }
+          g: {
+            params: [
+              {
+                ex: "GOOGL"
+                k: "param"
+                n: "symbol"
+                or: "symbol"
+                r: true
+                t: "`$STRING`"
+              }
+            ]
+          }
+          m: "GET"
+          o: "/api/entities/symbol/{symbol}"
+          q: {
+            exist: [
+              "symbol"
+            ]
+          }
+          s: [
+            {
+              lit: "api"
+            }
+            {
+              lit: "entities"
+            }
+            {
+              lit: "symbol"
+            }
+            {
+              var: "symbol"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

@@ -331,6 +331,12 @@ class ShodanEntitydbSDK:
         return LastUpdateEntity(self, data)
 
 
+    def LightEntity(self, data=None) -> "LightEntityEntity":
+        """Entity factory: client.LightEntity().list() / client.LightEntity().load({"id": ...})."""
+        from shodanentitydb_sdk.entity.light_entity_entity import LightEntityEntity
+        return LightEntityEntity(self, data)
+
+
 
     @classmethod
     def test(cls, testopts=None, sdkopts=None) -> "ShodanEntitydbSDK":
@@ -362,3 +368,4 @@ if TYPE_CHECKING:
     from shodanentitydb_sdk.entity.entity_full_info_entity import EntityFullInfoEntity
     from shodanentitydb_sdk.entity.health_check_entity import HealthCheckEntity
     from shodanentitydb_sdk.entity.last_update_entity import LastUpdateEntity
+    from shodanentitydb_sdk.entity.light_entity_entity import LightEntityEntity

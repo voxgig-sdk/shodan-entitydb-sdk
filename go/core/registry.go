@@ -20,3 +20,5 @@ var NewHealthCheckEntityFunc func(client *ShodanEntitydbSDK, entopts map[string]
 
 var NewLastUpdateEntityFunc func(client *ShodanEntitydbSDK, entopts map[string]any) ShodanEntitydbEntity
 
+var NewLightEntityEntityFunc func(client *ShodanEntitydbSDK, entopts map[string]any) ShodanEntitydbEntity
+

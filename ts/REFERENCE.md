@@ -96,6 +96,18 @@ Create a new `LastUpdate` entity instance.
 
 **Returns:** `LastUpdateEntity` instance.
 
+#### `LightEntity(data?: object)`
+
+Create a new `LightEntity` entity instance.
+
+**Parameters:**
+
+| Name | Type | Description |
+| --- | --- | --- |
+| `data` | `object` | Initial entity data. |
+
+**Returns:** `LightEntityEntity` instance.
+
 #### `options()`
 
 Return a deep copy of the current SDK options.
@@ -152,23 +164,12 @@ const entity = client.Entity()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cik` | `number` | Yes |  |
 | `entity` | `Record<string, any>` | Yes |  |
-| `entity_name` | `string` | Yes |  |
 | `executives` | `any[]` | Yes |  |
 | `finance_data` | `any[]` | Yes |  |
-| `id` | `number` | Yes |  |
-| `tickers` | `any[]` | Yes |  |
+| `id` | `string` | No |  |
 
 ### Operations
-
-#### `list(match: object, ctrl?: object)`
-
-List entities matching the given criteria. Returns an array.
-
-```ts
-const results = await client.Entity().list()
-```
 
 #### `load(match: object, ctrl?: object)`
 
@@ -339,6 +340,59 @@ Get or set the entity match criteria. Works the same as `data()`.
 #### `make()`
 
 Create a new `LastUpdateEntity` instance with the same client and
+options.
+
+#### `client()`
+
+Return the parent `ShodanEntitydbSDK` instance.
+
+#### `entopts()`
+
+Return a copy of the entity options.
+
+
+---
+
+## LightEntityEntity
+
+```ts
+const light_entity = client.LightEntity()
+```
+
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `cik` | `number` | Yes |  |
+| `entity_name` | `string` | Yes |  |
+| `id` | `number` | Yes |  |
+| `tickers` | `any[]` | Yes |  |
+
+### Operations
+
+#### `list(match: object, ctrl?: object)`
+
+List entities matching the given criteria. Returns an array.
+
+```ts
+const results = await client.LightEntity().list()
+```
+
+### Common Methods
+
+#### `data(data?: object)`
+
+Get or set the entity data. When called with data, sets the entity's
+internal data and returns the current data. When called without
+arguments, returns a copy of the current data.
+
+#### `match(match?: object)`
+
+Get or set the entity match criteria. Works the same as `data()`.
+
+#### `make()`
+
+Create a new `LightEntityEntity` instance with the same client and
 options.
 
 #### `client()`

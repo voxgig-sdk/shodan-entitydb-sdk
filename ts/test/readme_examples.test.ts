@@ -37,7 +37,7 @@ const SDK_NAME = 'ShodanEntitydbSDK'
 
 // A fixture for every entity, so list()/load() resolve offline with no
 // network. Snippet client construction is rewritten to seed this.
-const TEST_SEED = {"entity":{"entity":{"test01":{"id":"test01"}},"entity_full_info":{"test01":{"id":"test01"}},"health_check":{"test01":{"id":"test01"}},"last_update":{"test01":{"id":"test01"}}}}
+const TEST_SEED = {"entity":{"entity":{"test01":{"id":"test01"}},"entity_full_info":{"test01":{"id":"test01"}},"health_check":{"test01":{"id":"test01"}},"last_update":{"test01":{"id":"test01"}},"light_entity":{"test01":{"id":"test01"}}}}
 const SEED_ARG = JSON.stringify(TEST_SEED)
 const SEEDED_CTOR = SDK_NAME + '.test(' + SEED_ARG + ')'
 

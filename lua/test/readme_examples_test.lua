@@ -20,7 +20,7 @@ local SDK_MODULE = "shodan-entitydb_sdk"
 -- A test-mode client seeded with a fixture for every entity. The constructor
 -- of each runnable snippet is rewritten to this form so the offline mock has
 -- data to return.
-local TEST_SEED = '{ entity = { ["entity"] = { ["test01"] = { id = "test01" } }, ["entity_full_info"] = { ["test01"] = { id = "test01" } }, ["health_check"] = { ["test01"] = { id = "test01" } }, ["last_update"] = { ["test01"] = { id = "test01" } } } }'
+local TEST_SEED = '{ entity = { ["entity"] = { ["test01"] = { id = "test01" } }, ["entity_full_info"] = { ["test01"] = { id = "test01" } }, ["health_check"] = { ["test01"] = { id = "test01" } }, ["last_update"] = { ["test01"] = { id = "test01" } }, ["light_entity"] = { ["test01"] = { id = "test01" } } } }'
 local TEST_CTOR = "sdk.test(" .. TEST_SEED .. ")"
 
 local function script_dir()

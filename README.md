@@ -12,20 +12,20 @@ Metadata kindly supplied by [www.freepublicapis.com](https://www.freepublicapis.
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI with an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
 
-> **Features:** `ratelimit`, `retry`, `test`, `timeout` — opt-in,
+> **Features:** `undefined`, `undefined`, `undefined`, `undefined` — opt-in,
 > inactive until switched on, and configured per client. See the Features
 > section of any SDK README below for what each one does.
 
 ## Entities, not endpoints
 
-This SDK exposes the API as a small set of **semantic entities** — Entity, EntityFullInfo, HealthCheck and LastUpdate — that you
+This SDK exposes the API as a small set of **semantic entities** — Entity, EntityFullInfo, HealthCheck, LastUpdate and LightEntity — that you
 call directly, instead of assembling URL paths and query strings. Entities are
 **Capitalised** to mark them as the primary surface, each with the operations they
 support (`list`, `load`):
 
 ```ts
 const client = new ShodanEntitydbSDK()
-const items = await client.Entity().list()
+const entity = await client.Entity().load({ id: 1 })
 ```
 
 Thinking in entities keeps the mental model small — for people and AI agents alike —
@@ -44,23 +44,23 @@ network, and no credentials:
 // Shape: { entity: { <entity-name>: { <id>: <record> } } }
 const client = ShodanEntitydbSDK.test({
   entity: {
-    last_update: {
+    entity_full_info: {
       test01: { id: 'test01' },
     },
   },
 })
-const lastupdate = await client.LastUpdate().load()
-// lastupdate is the LastUpdate entity, populated with mock data
-// — call lastupdate.data() for the record itself
-console.log(lastupdate)
+const entityfullinfo = await client.EntityFullInfo().load({ symbol: 'example_symbol' })
+// entityfullinfo is the EntityFullInfo entity, populated with mock data
+// — call entityfullinfo.data() for the record itself
+console.log(entityfullinfo)
 ```
 
 ### Python
 
 ```python
 client = ShodanEntitydbSDK.test()
-lastupdate = client.LastUpdate().load()
-print(lastupdate)
+entityfullinfo = client.EntityFullInfo().load({"symbol": "example"})
+print(entityfullinfo)
 ```
 
 ### PHP
@@ -68,16 +68,16 @@ print(lastupdate)
 ```php
 // Seed fixture data so offline calls resolve without a live server.
 $client = ShodanEntitydbSDK::test([
-    "entity" => ["lastupdate" => ["test01" => []]],
+    "entity" => ["entityfullinfo" => ["test01" => []]],
 ]);
-$lastupdate = $client->LastUpdate()->load();
+$entityfullinfo = $client->EntityFullInfo()->load(["symbol" => "example"]);
 ```
 
 ### Golang
 
 ```go
 client := sdk.Test()
-result, err := client.LastUpdate(nil).Load(
+result, err := client.EntityFullInfo(nil).Load(
     nil, nil,
 )
 ```
@@ -87,16 +87,16 @@ result, err := client.LastUpdate(nil).Load(
 ```ruby
 # Seed fixture data so offline calls resolve without a live server.
 client = ShodanEntitydbSDK.test({
-  "entity" => { "lastupdate" => { "test01" => {} } },
+  "entity" => { "entityfullinfo" => { "test01" => {} } },
 })
-lastupdate = client.LastUpdate.load()
+entityfullinfo = client.EntityFullInfo.load({ "symbol" => "example" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:LastUpdate():load()
+local result, err = client:EntityFullInfo():load({ symbol = "example" })
 ```
 
 ## Packages
@@ -121,17 +121,9 @@ import { ShodanEntitydbSDK } from '@voxgig-sdk/shodan-entitydb-sdk'
 
 const client = new ShodanEntitydbSDK()
 
-// List all entitys (returns EntityEntity[] — .data() for the record)
-const entitys = await client.Entity().list()
-for (const entity of entitys) {
-  console.log(entity)
-}
-
-// Load a specific entityfullinfo (returns a EntityFullInfo)
-const entityfullinfo = await client.EntityFullInfo().load({
-  symbol: 'example_symbol',
-})
-console.log(entityfullinfo)
+// Load entity data (returns a Entity)
+const entity = await client.Entity().load()
+console.log(entity)
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -168,14 +160,15 @@ Then add it to your agent's MCP config (Claude Desktop, Cursor, etc.):
 
 ## Entities
 
-The API exposes 4 entities:
+The API exposes 5 entities:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **Entity** | The Entity entity (list, load). | `/api/entities` |
+| **Entity** | The Entity entity (load). | `/api/entities/{id}` |
 | **EntityFullInfo** | The EntityFullInfo entity (load). | `/api/entities/symbol/{symbol}` |
 | **HealthCheck** | The HealthCheck entity (load). | `/health_check` |
 | **LastUpdate** | The LastUpdate entity (load). | `/api/last_updated` |
+| **LightEntity** | The LightEntity entity (list). | `/api/entities` |
 
 The operations available across these entities are **load**, **list** — see each entity's
 own list above for exactly which it supports.
@@ -189,10 +182,6 @@ from shodanentitydb_sdk import ShodanEntitydbSDK
 
 client = ShodanEntitydbSDK()
 
-# List all entitys (returns a list, raises on error)
-entitys = client.Entity().list()
-for entity in entitys:
-    print(entity)
 
 # Load a specific entity (returns the record, raises on error)
 entity = client.Entity().load({"id": 1})
@@ -207,9 +196,6 @@ require_once 'shodanentitydb_sdk.php';
 
 $client = new ShodanEntitydbSDK();
 
-// List all entitys (returns an array; throws on error)
-$entitys = $client->Entity()->list();
-print_r(array_map(fn($item) => $item->data_get(), $entitys));
 
 // Load a specific entity (returns the ENTITY; call data_get() for the record; throws on error)
 $entity = $client->Entity()->load(["id" => 1]);
@@ -223,21 +209,12 @@ import sdk "github.com/voxgig-sdk/shodan-entitydb-sdk/go"
 
 client := sdk.New()
 
-// List all entitys
-entitys, err := client.Entity(nil).List(nil, nil)
+// Load entity data
+entity, err := client.Entity(nil).Load(map[string]any{"id": 1}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(entitys)
-
-// Load a specific entityfullinfo
-entityFullInfo, err := client.EntityFullInfo(nil).Load(
-    map[string]any{"symbol": "example_symbol"}, nil,
-)
-if err != nil {
-    panic(err)
-}
-fmt.Println(entityFullInfo)
+fmt.Println(entity)
 ```
 
 ### Ruby
@@ -247,9 +224,6 @@ require_relative "ShodanEntitydb_sdk"
 
 client = ShodanEntitydbSDK.new
 
-# List all entitys (returns an Array; raises on error)
-entitys = client.Entity.list
-puts entitys
 
 # Load a specific entity (returns the ENTITY; call data_get for the record)
 entity = client.Entity.load({ "id" => 1 })
@@ -263,9 +237,6 @@ local sdk = require("shodan-entitydb_sdk")
 
 local client = sdk.new()
 
--- List all entitys
-local entitys, err = client:Entity():list()
-print(entitys)
 
 -- Load a specific entity
 local entity, err = client:Entity():load({ id = 1 })

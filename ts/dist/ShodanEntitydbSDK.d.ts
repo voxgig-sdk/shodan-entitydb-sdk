@@ -2,6 +2,7 @@ import { EntityEntity } from './entity/EntityEntity';
 import { EntityFullInfoEntity } from './entity/EntityFullInfoEntity';
 import { HealthCheckEntity } from './entity/HealthCheckEntity';
 import { LastUpdateEntity } from './entity/LastUpdateEntity';
+import { LightEntityEntity } from './entity/LightEntityEntity';
 export type * from './ShodanEntitydbTypes';
 import { inspect } from 'node:util';
 import type { Context, Feature } from './types';
@@ -51,6 +52,7 @@ declare class ShodanEntitydbSDK {
     EntityFullInfo(entopts?: Record<string, any>): EntityFullInfoEntity;
     HealthCheck(entopts?: Record<string, any>): HealthCheckEntity;
     LastUpdate(entopts?: Record<string, any>): LastUpdateEntity;
+    LightEntity(entopts?: Record<string, any>): LightEntityEntity;
     static test(testoptsarg?: any, sdkoptsarg?: any): ShodanEntitydbSDK;
     tester(testopts?: any, sdkopts?: any): ShodanEntitydbSDK;
     toJSON(): {

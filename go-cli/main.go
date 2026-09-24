@@ -20,7 +20,7 @@ import (
 const prompt = "shodan-entitydb"
 
 // entitiesHelp is the space-separated entity list shown by /help.
-const entitiesHelp = "entity entity_full_info health_check last_update"
+const entitiesHelp = "entity entity_full_info health_check last_update light_entity"
 
 func main() {
 	os.Exit(run(os.Args[1:], os.Stdin, os.Stdout, os.Stderr))

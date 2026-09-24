@@ -1,32 +1,19 @@
 // Typed models for the ShodanEntitydb SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 
 export interface Entity {
-  cik: number
   entity: Record<string, any>
-  entity_name: string
   executives: any[]
   finance_data: any[]
-  id: number
-  tickers: any[]
+  id?: string
 }
 
 export interface EntityLoadMatch {
   id: number
-}
-
-export interface EntityListMatch {
-  cik?: number
-  entity?: Record<string, any>
-  entity_name?: string
-  executives?: any[]
-  finance_data?: any[]
-  id?: number
-  tickers?: any[]
 }
 
 export interface EntityFullInfo {
@@ -51,5 +38,19 @@ export interface LastUpdate {
 
 export interface LastUpdateLoadMatch {
   last_updated?: string
+}
+
+export interface LightEntity {
+  cik: number
+  entity_name: string
+  id: number
+  tickers: any[]
+}
+
+export interface LightEntityListMatch {
+  cik?: number
+  entity_name?: string
+  id?: number
+  tickers?: any[]
 }
 

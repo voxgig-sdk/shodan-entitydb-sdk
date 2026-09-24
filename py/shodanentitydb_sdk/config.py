@@ -112,55 +112,34 @@ def make_config():
                 "entity_full_info": {},
                 "health_check": {},
                 "last_update": {},
+                "light_entity": {},
             },
         },
         "entity": {
       "entity": {
         "fields": [
           {
-            "name": "cik",
-            "req": True,
-            "type": "`$INTEGER`",
-          },
-          {
             "name": "entity",
-            "req": True,
+            "title": "Entity",
             "type": "`$OBJECT`",
-          },
-          {
-            "name": "entity_name",
             "req": True,
-            "type": "`$STRING`",
           },
           {
             "name": "executives",
-            "req": True,
+            "title": "Executives",
             "type": "`$ARRAY`",
-            "union": {
-              "branches": 2,
-              "count": 3,
-              "depth": 3,
-            },
+            "req": True,
           },
           {
             "name": "finance_data",
-            "req": True,
+            "title": "Finance Data",
             "type": "`$ARRAY`",
-            "union": {
-              "branches": 2,
-              "count": 13,
-              "depth": 3,
-            },
+            "req": True,
           },
           {
             "name": "id",
-            "req": True,
-            "type": "`$INTEGER`",
-          },
-          {
-            "name": "tickers",
-            "req": True,
-            "type": "`$ARRAY`",
+            "title": "Id",
+            "type": "`$STRING`",
           },
         ],
         "id": {
@@ -169,52 +148,11 @@ def make_config():
         },
         "name": "entity",
         "op": {
-          "list": {
-            "input": "data",
-            "name": "list",
-            "points": [
-              {
-                "args": {},
-                "kind": "http",
-                "method": "GET",
-                "orig": "/api/entities",
-                "segments": [
-                  {
-                    "lit": "api",
-                  },
-                  {
-                    "lit": "entities",
-                  },
-                ],
-                "select": {},
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body.entities`",
-                },
-                "parts": [
-                  "api",
-                  "entities",
-                ],
-              },
-            ],
-          },
           "load": {
             "input": "data",
             "name": "load",
             "points": [
               {
-                "args": {
-                  "params": [
-                    {
-                      "example": 3,
-                      "kind": "param",
-                      "name": "id",
-                      "orig": "id",
-                      "reqd": True,
-                      "type": "`$INTEGER`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "GET",
                 "orig": "/api/entities/{id}",
@@ -229,20 +167,33 @@ def make_config():
                     "var": "id",
                   },
                 ],
-                "select": {
-                  "exist": [
-                    "id",
-                  ],
-                },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body.entity`",
-                },
                 "parts": [
                   "api",
                   "entities",
                   "{id}",
                 ],
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body.entity`",
+                },
+                "args": {
+                  "params": [
+                    {
+                      "name": "id",
+                      "orig": "id",
+                      "type": "`$INTEGER`",
+                      "kind": "param",
+                      "reqd": True,
+                      "example": 3,
+                    },
+                  ],
+                },
+                "select": {
+                  "exist": [
+                    "id",
+                  ],
+                },
               },
             ],
           },
@@ -255,28 +206,21 @@ def make_config():
         "fields": [
           {
             "name": "entity",
-            "req": True,
+            "title": "Entity",
             "type": "`$OBJECT`",
+            "req": True,
           },
           {
             "name": "executives",
-            "req": True,
+            "title": "Executives",
             "type": "`$ARRAY`",
-            "union": {
-              "branches": 2,
-              "count": 3,
-              "depth": 3,
-            },
+            "req": True,
           },
           {
             "name": "finance_data",
-            "req": True,
+            "title": "Finance Data",
             "type": "`$ARRAY`",
-            "union": {
-              "branches": 2,
-              "count": 13,
-              "depth": 3,
-            },
+            "req": True,
           },
         ],
         "name": "entity_full_info",
@@ -286,18 +230,6 @@ def make_config():
             "name": "load",
             "points": [
               {
-                "args": {
-                  "params": [
-                    {
-                      "example": "GOOGL",
-                      "kind": "param",
-                      "name": "symbol",
-                      "orig": "symbol",
-                      "reqd": True,
-                      "type": "`$STRING`",
-                    },
-                  ],
-                },
                 "kind": "http",
                 "method": "GET",
                 "orig": "/api/entities/symbol/{symbol}",
@@ -315,31 +247,40 @@ def make_config():
                     "var": "symbol",
                   },
                 ],
-                "select": {
-                  "exist": [
-                    "symbol",
-                  ],
-                },
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
                 "parts": [
                   "api",
                   "entities",
                   "symbol",
                   "{symbol}",
                 ],
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {
+                  "params": [
+                    {
+                      "name": "symbol",
+                      "orig": "symbol",
+                      "type": "`$STRING`",
+                      "kind": "param",
+                      "reqd": True,
+                      "example": "GOOGL",
+                    },
+                  ],
+                },
+                "select": {
+                  "exist": [
+                    "symbol",
+                  ],
+                },
               },
             ],
           },
         },
         "relations": {
-          "ancestors": [
-            [
-              "symbol",
-            ],
-          ],
+          "ancestors": [],
         },
       },
       "health_check": {
@@ -351,7 +292,6 @@ def make_config():
             "name": "load",
             "points": [
               {
-                "args": {},
                 "kind": "http",
                 "method": "GET",
                 "orig": "/health_check",
@@ -360,14 +300,16 @@ def make_config():
                     "lit": "health_check",
                   },
                 ],
-                "select": {},
+                "parts": [
+                  "health_check",
+                ],
+                "rename": {},
                 "transform": {
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
-                "parts": [
-                  "health_check",
-                ],
+                "args": {},
+                "select": {},
               },
             ],
           },
@@ -380,8 +322,9 @@ def make_config():
         "fields": [
           {
             "name": "last_updated",
-            "req": True,
+            "title": "Last Updated",
             "type": "`$STRING`",
+            "req": True,
           },
         ],
         "name": "last_update",
@@ -391,7 +334,6 @@ def make_config():
             "name": "load",
             "points": [
               {
-                "args": {},
                 "kind": "http",
                 "method": "GET",
                 "orig": "/api/last_updated",
@@ -403,15 +345,85 @@ def make_config():
                     "lit": "last_updated",
                   },
                 ],
-                "select": {},
-                "transform": {
-                  "req": "`reqdata`",
-                  "res": "`body`",
-                },
                 "parts": [
                   "api",
                   "last_updated",
                 ],
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body`",
+                },
+                "args": {},
+                "select": {},
+              },
+            ],
+          },
+        },
+        "relations": {
+          "ancestors": [],
+        },
+      },
+      "light_entity": {
+        "fields": [
+          {
+            "name": "cik",
+            "title": "Cik",
+            "type": "`$INTEGER`",
+            "req": True,
+          },
+          {
+            "name": "entity_name",
+            "title": "Entity Name",
+            "type": "`$STRING`",
+            "req": True,
+          },
+          {
+            "name": "id",
+            "title": "Id",
+            "type": "`$INTEGER`",
+            "req": True,
+          },
+          {
+            "name": "tickers",
+            "title": "Tickers",
+            "type": "`$ARRAY`",
+            "req": True,
+          },
+        ],
+        "id": {
+          "field": "id",
+          "name": "id",
+        },
+        "name": "light_entity",
+        "op": {
+          "list": {
+            "input": "data",
+            "name": "list",
+            "points": [
+              {
+                "kind": "http",
+                "method": "GET",
+                "orig": "/api/entities",
+                "segments": [
+                  {
+                    "lit": "api",
+                  },
+                  {
+                    "lit": "entities",
+                  },
+                ],
+                "parts": [
+                  "api",
+                  "entities",
+                ],
+                "rename": {},
+                "transform": {
+                  "req": "`reqdata`",
+                  "res": "`body.entities`",
+                },
+                "args": {},
+                "select": {},
               },
             ],
           },

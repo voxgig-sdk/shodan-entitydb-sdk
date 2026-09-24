@@ -33,28 +33,12 @@ local sdk = require("shodan-entitydb_sdk")
 local client = sdk.new()
 ```
 
-### 2. List entity records
-
-Entity operations return `(value, err)`. For `list`, `value` is the
-array of records itself — iterate it directly (there is no wrapper).
+### 3. Load an entity
 
 ```lua
-local entitys, err = client:Entity():list()
+local entity, err = client:Entity():load({ id = 1 })
 if err then error(err) end
-
-for _, item in ipairs(entitys) do
-  print(item["id"], item["entity_name"])
-end
-```
-
-### 3. Load an entityfullinfo
-
-EntityFullInfo is nested under symbol, so provide the `symbol`.
-
-```lua
-local entityfullinfo, err = client:EntityFullInfo():load({ symbol = "example_symbol" })
-if err then error(err) end
-print(entityfullinfo)
+print(entity)
 ```
 
 
@@ -64,7 +48,7 @@ Entity operations return `(value, err)`. Check `err` before using
 the value:
 
 ```lua
-local lastupdate, err = client:LastUpdate():load()
+local entityfullinfo, err = client:EntityFullInfo():load({ symbol = "example" })
 if err then error(err) end
 ```
 
@@ -122,7 +106,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:LastUpdate():load()
+local result, err = client:EntityFullInfo():load({ symbol = "example" })
 -- result is the returned data; err is set on failure
 ```
 
@@ -205,6 +189,7 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `EntityFullInfo` | `(data) -> EntityFullInfoEntity` | Create an EntityFullInfo entity instance. |
 | `HealthCheck` | `(data) -> HealthCheckEntity` | Create a HealthCheck entity instance. |
 | `LastUpdate` | `(data) -> LastUpdateEntity` | Create a LastUpdate entity instance. |
+| `LightEntity` | `(data) -> LightEntityEntity` | Create a LightEntity entity instance. |
 
 ### Entity interface
 
@@ -246,17 +231,14 @@ Only `direct()` returns a response envelope — a `table` with `ok`,
 
 | Field | Description |
 | --- | --- |
-| `cik` |  |
 | `entity` |  |
-| `entity_name` |  |
 | `executives` |  |
 | `finance_data` |  |
 | `id` |  |
-| `tickers` |  |
 
-Operations: List, Load.
+Operations: Load.
 
-API path: `/api/entities`
+API path: `/api/entities/{id}`
 
 #### EntityFullInfo
 
@@ -289,6 +271,19 @@ Operations: Load.
 
 API path: `/api/last_updated`
 
+#### LightEntity
+
+| Field | Description |
+| --- | --- |
+| `cik` |  |
+| `entity_name` |  |
+| `id` |  |
+| `tickers` |  |
+
+Operations: List.
+
+API path: `/api/entities`
+
 
 
 ## Entities
@@ -302,31 +297,21 @@ Create an instance: `local entity = client:Entity(nil)`
 
 | Method | Description |
 | --- | --- |
-| `list(match)` | List entities matching the criteria. |
 | `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `cik` | `number` |  |
 | `entity` | `table` |  |
-| `entity_name` | `string` |  |
 | `executives` | `table` |  |
 | `finance_data` | `table` |  |
-| `id` | `number` |  |
-| `tickers` | `table` |  |
+| `id` | `string` |  |
 
 #### Example: Load
 
 ```lua
 local entity, err = client:Entity():load({ id = 1 })
-```
-
-#### Example: List
-
-```lua
-local entitys, err = client:Entity():list()
 ```
 
 
@@ -392,6 +377,32 @@ Create an instance: `local last_update = client:LastUpdate(nil)`
 
 ```lua
 local last_update, err = client:LastUpdate():load()
+```
+
+
+### LightEntity
+
+Create an instance: `local light_entity = client:LightEntity(nil)`
+
+#### Operations
+
+| Method | Description |
+| --- | --- |
+| `list(match)` | List entities matching the criteria. |
+
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `cik` | `number` |  |
+| `entity_name` | `string` |  |
+| `id` | `number` |  |
+| `tickers` | `table` |  |
+
+#### Example: List
+
+```lua
+local light_entitys, err = client:LightEntity():list()
 ```
 
 ## Features
@@ -556,11 +567,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local lastupdate = client:LastUpdate()
-lastupdate:load()
+local entityfullinfo = client:EntityFullInfo()
+entityfullinfo:load({ symbol = "example" })
 
--- lastupdate:data_get() now returns the lastupdate data from the last load
--- lastupdate:match_get() returns the last match criteria
+-- entityfullinfo:data_get() now returns the entityfullinfo data from the last load
+-- entityfullinfo:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

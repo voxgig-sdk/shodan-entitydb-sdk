@@ -19,17 +19,15 @@ make build
 export SHODAN_ENTITYDB_APIKEY=sk_live_xxx
 
 # 4. Each command line is ONE boru expression, run against the API:
-./shodan-entitydb-cli list entity
 ./shodan-entitydb-cli load 1 entity            # {id:1} shorthand
 ./shodan-entitydb-cli load '{id:1}' entity       # explicit match map
-./shodan-entitydb-cli list entity_full_info
 
 # 5. Override the API base URL for a single call
-SHODAN_ENTITYDB_BASE=https://api.example.com ./shodan-entitydb-cli list entity
+SHODAN_ENTITYDB_BASE=https://api.example.com ./shodan-entitydb-cli load 1 entity
 
 # 6. No arguments -> interactive REPL
 ./shodan-entitydb-cli
-shodan-entitydb> list entity
+shodan-entitydb> load 1 entity
 shodan-entitydb> /quit
 ```
 
@@ -55,7 +53,7 @@ shodan-entitydb> /quit
    arguments to open the REPL):
 
    ```sh
-   ./dist/*/shodan-entitydb-cli list entity
+   ./dist/*/shodan-entitydb-cli load 1 entity
    ```
 
 4. **Go interactive.** Run the binary with no arguments to open the REPL, then
@@ -64,15 +62,6 @@ shodan-entitydb> /quit
 That is the whole loop: *build → set key → evaluate boru expressions*.
 
 ## How-to guides
-
-### List the records of an entity
-
-```sh
-./shodan-entitydb-cli list entity
-```
-
-`list <entity>` returns the first page of records. `<entity>` is a bareword —
-it is auto-quoted as an boru atom, so no quotes are needed.
 
 ### Load a single record
 
@@ -91,7 +80,7 @@ Configuration is read from the environment — nothing is written to disk:
 ```sh
 export SHODAN_ENTITYDB_APIKEY=sk_live_xxx            # API key
 export SHODAN_ENTITYDB_BASE=https://api.example.com  # optional: override the API base URL
-./shodan-entitydb-cli list entity
+./shodan-entitydb-cli load 1 entity
 ```
 
 Both are injectable by a secrets vault, so the key never has to be typed inline.
@@ -103,7 +92,7 @@ evaluated as its own boru expression:
 
 ```text
 $ ./shodan-entitydb-cli
-shodan-entitydb> list entity
+shodan-entitydb> load 1 entity
 shodan-entitydb> /help
 shodan-entitydb> /quit
 ```
@@ -118,7 +107,7 @@ make build-all   # linux/darwin/windows x amd64/arm64, under dist/<os>-<arch>/
 ### Discover the available entities
 
 `/help` in the REPL prints the full entity list, or see [Entities](#entities)
-below — this SDK exposes 4 entities.
+below — this SDK exposes 5 entities.
 
 ## Reference
 
@@ -172,9 +161,9 @@ Meta-commands use the `/` prefix (everything else on a line is evaluated as boru
 
 ### Entities
 
-The 4 entities this SDK exposes (any is valid as `<entity>`):
+The 5 entities this SDK exposes (any is valid as `<entity>`):
 
-entity entity_full_info health_check last_update
+entity entity_full_info health_check last_update light_entity
 
 ## Explanation
 

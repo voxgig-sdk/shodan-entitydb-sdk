@@ -80,6 +80,7 @@ _ENTITIES = {
     "EntityFullInfo": "entity_full_info",
     "HealthCheck": "health_check",
     "LastUpdate": "last_update",
+    "LightEntity": "light_entity",
 }
 
 # The three documents held to the gate, tagged by human label.

@@ -1,7 +1,7 @@
 // Typed models for the ShodanEntitydb SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 package entity
@@ -14,13 +14,6 @@ import (
 
 // Entity is the typed data model for the entity entity.
 type Entity struct {
-	Cik int `json:"cik"`
-	Entity map[string]any `json:"entity"`
-	EntityName string `json:"entity_name"`
-	Executives []any `json:"executives"`
-	FinanceData []any `json:"finance_data"`
-	Id int `json:"id"`
-	Tickers []any `json:"tickers"`
 }
 
 // EntityLoadMatch is the typed request payload for Entity.LoadTyped.
@@ -28,22 +21,8 @@ type EntityLoadMatch struct {
 	Id int `json:"id"`
 }
 
-// EntityListMatch is the typed request payload for Entity.ListTyped.
-type EntityListMatch struct {
-	Cik *int `json:"cik,omitempty"`
-	Entity *map[string]any `json:"entity,omitempty"`
-	EntityName *string `json:"entity_name,omitempty"`
-	Executives *[]any `json:"executives,omitempty"`
-	FinanceData *[]any `json:"finance_data,omitempty"`
-	Id *int `json:"id,omitempty"`
-	Tickers *[]any `json:"tickers,omitempty"`
-}
-
 // EntityFullInfo is the typed data model for the entity_full_info entity.
 type EntityFullInfo struct {
-	Entity map[string]any `json:"entity"`
-	Executives []any `json:"executives"`
-	FinanceData []any `json:"finance_data"`
 }
 
 // EntityFullInfoLoadMatch is the typed request payload for EntityFullInfo.LoadTyped.
@@ -61,12 +40,23 @@ type HealthCheckLoadMatch struct {
 
 // LastUpdate is the typed data model for the last_update entity.
 type LastUpdate struct {
-	LastUpdated string `json:"last_updated"`
 }
 
 // LastUpdateLoadMatch is the typed request payload for LastUpdate.LoadTyped.
 type LastUpdateLoadMatch struct {
 	LastUpdated *string `json:"last_updated,omitempty"`
+}
+
+// LightEntity is the typed data model for the light_entity entity.
+type LightEntity struct {
+}
+
+// LightEntityListMatch is the typed request payload for LightEntity.ListTyped.
+type LightEntityListMatch struct {
+	Cik *int `json:"cik,omitempty"`
+	EntityName *string `json:"entity_name,omitempty"`
+	Id *int `json:"id,omitempty"`
+	Tickers *[]any `json:"tickers,omitempty"`
 }
 
 // asMap turns a typed request/data struct into the map[string]any the

@@ -53,6 +53,9 @@ func init() {
 	core.NewLastUpdateEntityFunc = func(client *core.ShodanEntitydbSDK, entopts map[string]any) core.ShodanEntitydbEntity {
 		return entity.NewLastUpdateEntity(client, entopts)
 	}
+	core.NewLightEntityEntityFunc = func(client *core.ShodanEntitydbSDK, entopts map[string]any) core.ShodanEntitydbEntity {
+		return entity.NewLightEntityEntity(client, entopts)
+	}
 }
 
 // Constructor re-exports.

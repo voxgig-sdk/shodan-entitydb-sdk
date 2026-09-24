@@ -87,55 +87,34 @@ func MakeConfig() map[string]any {
 				"entity_full_info": map[string]any{},
 				"health_check": map[string]any{},
 				"last_update": map[string]any{},
+				"light_entity": map[string]any{},
 			},
 		},
 		"entity": map[string]any{
 			"entity": map[string]any{
 				"fields": []any{
 					map[string]any{
-						"name": "cik",
-						"req": true,
-						"type": "`$INTEGER`",
-					},
-					map[string]any{
 						"name": "entity",
-						"req": true,
+						"title": "Entity",
 						"type": "`$OBJECT`",
-					},
-					map[string]any{
-						"name": "entity_name",
 						"req": true,
-						"type": "`$STRING`",
 					},
 					map[string]any{
 						"name": "executives",
-						"req": true,
+						"title": "Executives",
 						"type": "`$ARRAY`",
-						"union": map[string]any{
-							"branches": 2,
-							"count": 3,
-							"depth": 3,
-						},
+						"req": true,
 					},
 					map[string]any{
 						"name": "finance_data",
-						"req": true,
+						"title": "Finance Data",
 						"type": "`$ARRAY`",
-						"union": map[string]any{
-							"branches": 2,
-							"count": 13,
-							"depth": 3,
-						},
+						"req": true,
 					},
 					map[string]any{
 						"name": "id",
-						"req": true,
-						"type": "`$INTEGER`",
-					},
-					map[string]any{
-						"name": "tickers",
-						"req": true,
-						"type": "`$ARRAY`",
+						"title": "Id",
+						"type": "`$STRING`",
 					},
 				},
 				"id": map[string]any{
@@ -144,52 +123,11 @@ func MakeConfig() map[string]any {
 				},
 				"name": "entity",
 				"op": map[string]any{
-					"list": map[string]any{
-						"input": "data",
-						"name": "list",
-						"points": []any{
-							map[string]any{
-								"args": map[string]any{},
-								"kind": "http",
-								"method": "GET",
-								"orig": "/api/entities",
-								"segments": []any{
-									map[string]any{
-										"lit": "api",
-									},
-									map[string]any{
-										"lit": "entities",
-									},
-								},
-								"select": map[string]any{},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body.entities`",
-								},
-								"parts": []any{
-									"api",
-									"entities",
-								},
-							},
-						},
-					},
 					"load": map[string]any{
 						"input": "data",
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"example": 3,
-											"kind": "param",
-											"name": "id",
-											"orig": "id",
-											"reqd": true,
-											"type": "`$INTEGER`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/api/entities/{id}",
@@ -204,19 +142,32 @@ func MakeConfig() map[string]any {
 										"var": "id",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"id",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body.entity`",
-								},
 								"parts": []any{
 									"api",
 									"entities",
 									"{id}",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body.entity`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "id",
+											"orig": "id",
+											"type": "`$INTEGER`",
+											"kind": "param",
+											"reqd": true,
+											"example": 3,
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"id",
+									},
 								},
 							},
 						},
@@ -230,28 +181,21 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "entity",
-						"req": true,
+						"title": "Entity",
 						"type": "`$OBJECT`",
+						"req": true,
 					},
 					map[string]any{
 						"name": "executives",
-						"req": true,
+						"title": "Executives",
 						"type": "`$ARRAY`",
-						"union": map[string]any{
-							"branches": 2,
-							"count": 3,
-							"depth": 3,
-						},
+						"req": true,
 					},
 					map[string]any{
 						"name": "finance_data",
-						"req": true,
+						"title": "Finance Data",
 						"type": "`$ARRAY`",
-						"union": map[string]any{
-							"branches": 2,
-							"count": 13,
-							"depth": 3,
-						},
+						"req": true,
 					},
 				},
 				"name": "entity_full_info",
@@ -261,18 +205,6 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{
-									"params": []any{
-										map[string]any{
-											"example": "GOOGL",
-											"kind": "param",
-											"name": "symbol",
-											"orig": "symbol",
-											"reqd": true,
-											"type": "`$STRING`",
-										},
-									},
-								},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/api/entities/symbol/{symbol}",
@@ -290,31 +222,40 @@ func MakeConfig() map[string]any {
 										"var": "symbol",
 									},
 								},
-								"select": map[string]any{
-									"exist": []any{
-										"symbol",
-									},
-								},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"api",
 									"entities",
 									"symbol",
 									"{symbol}",
 								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{
+									"params": []any{
+										map[string]any{
+											"name": "symbol",
+											"orig": "symbol",
+											"type": "`$STRING`",
+											"kind": "param",
+											"reqd": true,
+											"example": "GOOGL",
+										},
+									},
+								},
+								"select": map[string]any{
+									"exist": []any{
+										"symbol",
+									},
+								},
 							},
 						},
 					},
 				},
 				"relations": map[string]any{
-					"ancestors": []any{
-						[]any{
-							"symbol",
-						},
-					},
+					"ancestors": []any{},
 				},
 			},
 			"health_check": map[string]any{
@@ -326,7 +267,6 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/health_check",
@@ -335,14 +275,16 @@ func MakeConfig() map[string]any {
 										"lit": "health_check",
 									},
 								},
-								"select": map[string]any{},
+								"parts": []any{
+									"health_check",
+								},
+								"rename": map[string]any{},
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
 								},
-								"parts": []any{
-									"health_check",
-								},
+								"args": map[string]any{},
+								"select": map[string]any{},
 							},
 						},
 					},
@@ -355,8 +297,9 @@ func MakeConfig() map[string]any {
 				"fields": []any{
 					map[string]any{
 						"name": "last_updated",
-						"req": true,
+						"title": "Last Updated",
 						"type": "`$STRING`",
+						"req": true,
 					},
 				},
 				"name": "last_update",
@@ -366,7 +309,6 @@ func MakeConfig() map[string]any {
 						"name": "load",
 						"points": []any{
 							map[string]any{
-								"args": map[string]any{},
 								"kind": "http",
 								"method": "GET",
 								"orig": "/api/last_updated",
@@ -378,15 +320,85 @@ func MakeConfig() map[string]any {
 										"lit": "last_updated",
 									},
 								},
-								"select": map[string]any{},
-								"transform": map[string]any{
-									"req": "`reqdata`",
-									"res": "`body`",
-								},
 								"parts": []any{
 									"api",
 									"last_updated",
 								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body`",
+								},
+								"args": map[string]any{},
+								"select": map[string]any{},
+							},
+						},
+					},
+				},
+				"relations": map[string]any{
+					"ancestors": []any{},
+				},
+			},
+			"light_entity": map[string]any{
+				"fields": []any{
+					map[string]any{
+						"name": "cik",
+						"title": "Cik",
+						"type": "`$INTEGER`",
+						"req": true,
+					},
+					map[string]any{
+						"name": "entity_name",
+						"title": "Entity Name",
+						"type": "`$STRING`",
+						"req": true,
+					},
+					map[string]any{
+						"name": "id",
+						"title": "Id",
+						"type": "`$INTEGER`",
+						"req": true,
+					},
+					map[string]any{
+						"name": "tickers",
+						"title": "Tickers",
+						"type": "`$ARRAY`",
+						"req": true,
+					},
+				},
+				"id": map[string]any{
+					"field": "id",
+					"name": "id",
+				},
+				"name": "light_entity",
+				"op": map[string]any{
+					"list": map[string]any{
+						"input": "data",
+						"name": "list",
+						"points": []any{
+							map[string]any{
+								"kind": "http",
+								"method": "GET",
+								"orig": "/api/entities",
+								"segments": []any{
+									map[string]any{
+										"lit": "api",
+									},
+									map[string]any{
+										"lit": "entities",
+									},
+								},
+								"parts": []any{
+									"api",
+									"entities",
+								},
+								"rename": map[string]any{},
+								"transform": map[string]any{
+									"req": "`reqdata`",
+									"res": "`body.entities`",
+								},
+								"args": map[string]any{},
+								"select": map[string]any{},
 							},
 						},
 					},

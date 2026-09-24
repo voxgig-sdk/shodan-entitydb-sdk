@@ -47,6 +47,7 @@ class ReadmeExamplesTest < Minitest::Test
     "EntityFullInfo" => "entity_full_info",
     "HealthCheck" => "health_check",
     "LastUpdate" => "last_update",
+    "LightEntity" => "light_entity",
   }
 
   # Documented SDK method names — used only to recognise the NARROW

@@ -30,29 +30,13 @@ require_relative "ShodanEntitydb_sdk"
 client = ShodanEntitydbSDK.new
 ```
 
-### 2. List entity records
+### 3. Load an entity
 
 ```ruby
 begin
-  # list returns an Array of Entity records — iterate directly.
-  entitys = client.Entity.list
-  entitys.each do |item|
-    puts "#{item["id"]} #{item["cik"]}"
-  end
-rescue => err
-  warn "list failed: #{err}"
-end
-```
-
-### 3. Load an entityfullinfo
-
-EntityFullInfo is nested under symbol, so provide the `symbol`.
-
-```ruby
-begin
-  # load returns the ENTITY — call data_get for the EntityFullInfo record (raises on error).
-  entityfullinfo = client.EntityFullInfo.load({ "symbol" => "example_symbol" })
-  puts entityfullinfo
+  # load returns the ENTITY — call data_get for the Entity record (raises on error).
+  entity = client.Entity.load({ "id" => 1 })
+  puts entity
 rescue => err
   warn "load failed: #{err}"
 end
@@ -65,7 +49,7 @@ Entity operations raise on failure, so rescue them:
 
 ```ruby
 begin
-  lastupdate = client.LastUpdate.load()
+  entityfullinfo = client.EntityFullInfo.load({ "symbol" => "example" })
 rescue => err
   warn "load failed: #{err}"
 end
@@ -135,8 +119,8 @@ client = ShodanEntitydbSDK.test
 
 # Entity ops return the ENTITY (raises on error);
 # call data_get for the mock record.
-lastupdate = client.LastUpdate.load()
-puts lastupdate
+entityfullinfo = client.EntityFullInfo.load({ "symbol" => "example" })
+puts entityfullinfo
 ```
 
 ### Use a custom fetch function
@@ -216,6 +200,7 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `EntityFullInfo` | `(data) -> EntityFullInfoEntity` | Create an EntityFullInfo entity instance. |
 | `HealthCheck` | `(data) -> HealthCheckEntity` | Create a HealthCheck entity instance. |
 | `LastUpdate` | `(data) -> LastUpdateEntity` | Create a LastUpdate entity instance. |
+| `LightEntity` | `(data) -> LightEntityEntity` | Create a LightEntity entity instance. |
 
 ### Entity interface
 
@@ -255,17 +240,14 @@ returns a result `Hash` with these keys:
 
 | Field | Description |
 | --- | --- |
-| `cik` |  |
 | `entity` |  |
-| `entity_name` |  |
 | `executives` |  |
 | `finance_data` |  |
 | `id` |  |
-| `tickers` |  |
 
-Operations: List, Load.
+Operations: Load.
 
-API path: `/api/entities`
+API path: `/api/entities/{id}`
 
 #### EntityFullInfo
 
@@ -298,6 +280,19 @@ Operations: Load.
 
 API path: `/api/last_updated`
 
+#### LightEntity
+
+| Field | Description |
+| --- | --- |
+| `cik` |  |
+| `entity_name` |  |
+| `id` |  |
+| `tickers` |  |
+
+Operations: List.
+
+API path: `/api/entities`
+
 
 
 ## Entities
@@ -311,33 +306,22 @@ Create an instance: `entity = client.Entity`
 
 | Method | Description |
 | --- | --- |
-| `list(match)` | List entities matching the criteria. |
 | `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `cik` | `Integer` |  |
 | `entity` | `Hash` |  |
-| `entity_name` | `String` |  |
 | `executives` | `Array` |  |
 | `finance_data` | `Array` |  |
-| `id` | `Integer` |  |
-| `tickers` | `Array` |  |
+| `id` | `String` |  |
 
 #### Example: Load
 
 ```ruby
 # load returns the ENTITY — call data_get for the Entity record (raises on error).
 entity = client.Entity.load({ "id" => 1 })
-```
-
-#### Example: List
-
-```ruby
-# list returns an Array of Entity records (raises on error).
-entitys = client.Entity.list
 ```
 
 
@@ -406,6 +390,33 @@ Create an instance: `last_update = client.LastUpdate`
 ```ruby
 # load returns the ENTITY — call data_get for the LastUpdate record (raises on error).
 last_update = client.LastUpdate.load()
+```
+
+
+### LightEntity
+
+Create an instance: `light_entity = client.LightEntity`
+
+#### Operations
+
+| Method | Description |
+| --- | --- |
+| `list(match)` | List entities matching the criteria. |
+
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `cik` | `Integer` |  |
+| `entity_name` | `String` |  |
+| `id` | `Integer` |  |
+| `tickers` | `Array` |  |
+
+#### Example: List
+
+```ruby
+# list returns an Array of LightEntity records (raises on error).
+light_entitys = client.LightEntity.list
 ```
 
 ## Features
@@ -570,11 +581,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-lastupdate = client.LastUpdate
-lastupdate.load()
+entityfullinfo = client.EntityFullInfo
+entityfullinfo.load({ "symbol" => "example" })
 
-# lastupdate.data_get now returns the lastupdate data from the last load
-# lastupdate.match_get returns the last match criteria
+# entityfullinfo.data_get now returns the entityfullinfo data from the last load
+# entityfullinfo.match_get returns the last match criteria
 ```
 
 Call `make` to create a fresh instance with the same configuration

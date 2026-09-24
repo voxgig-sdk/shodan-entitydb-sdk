@@ -25,10 +25,6 @@ import {
 } from '../../utility'
 
 
-// AFTER the imports on purpose: TypeScript hoists `import` above any
-// statement in the emitted CommonJS, so a loader placed above them would
-// run only after every imported module had already been evaluated - and
-// anything reading process.env at module scope would miss these values.
 loadEnvLocal(__dirname + '/../../../.env.local')
 
 
@@ -55,7 +51,7 @@ describe('HealthCheckEntity', async () => {
     
     const setup = basicSetup()
     if (setup.live) {
-      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":[],"name":"health_check","op":{"load":{"input":"data","name":"load","points":[{"active":true,"args":{},"contract":{"id":"GET /health_check","json":"{\"operationId\":\"health_check_health_check_get\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{}}},\"description\":\"Successful Response\"}},\"securitySource\":\"unspecified\"}","source":"openapi3","version":1},"kind":"http","method":"GET","orig":"/health_check","segments":[{"lit":"health_check"}],"select":{},"transform":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[]},"key$":"health_check","name__orig":"health_check","Name":"HealthCheck","name_":"health_check","name-":"health-check","NAME":"HEALTH_CHECK","index$":2}, {"active":true,"entity":"health_check","key$":"BasicHealthCheckFlow","kind":"basic","name":"BasicHealthCheckFlow","param":{},"step":[{"active":true,"data":{},"input":{"ref":"health_check_ref01","srcdatavar":"health_check_ref01_data","suffix":"_dt0"},"match":{},"op":"load","spec":[],"valid":[{"apply":"TextFieldMark","def":{"mark":"Mark01-health_check_ref01"}}],"index$":0}]}, 'HealthCheck')
+      return runLiveEntity(setup, {"active":true,"alias":{"field":{}},"fields":{},"name":"health_check","op":{"load":{"input":"data","name":"load","points":[{"a":true,"co":{"id":"GET /health_check","source":"openapi3","version":2},"g":{},"k":"http","m":"GET","o":"/health_check","q":{},"r":{},"s":[{"lit":"health_check"}],"t":{"req":"`reqdata`","res":"`body`"},"index$":0}],"key$":"load"}},"relations":{"ancestors":[]},"key$":"health_check","name__orig":"health_check","Name":"HealthCheck","name_":"health_check","name-":"health-check","NAME":"HEALTH_CHECK","index$":2}, {"active":true,"entity":"health_check","key$":"BasicHealthCheckFlow","kind":"basic","name":"BasicHealthCheckFlow","param":{},"step":[{"a":true,"d":{},"i":{"ref":"health_check_ref01","srcdatavar":"health_check_ref01_data","suffix":"_dt0"},"m":{},"o":"load","s":[],"v":[{"apply":"TextFieldMark","def":{"mark":"Mark01-health_check_ref01"}}],"index$":0}]}, 'HealthCheck', {"GET /health_check":{"protocol":"http","operationId":"health_check_health_check_get","responses":{"200":{"description":"Successful Response","content":{"application/json":{"schema":{}}}}},"parameters":[],"securitySource":"unspecified"}})
     }
     const client = setup.client
     const struct = setup.struct

@@ -57,6 +57,10 @@ Create a new `HealthCheckEntity` instance. Pass `null` for no initial data.
 
 Create a new `LastUpdateEntity` instance. Pass `null` for no initial data.
 
+#### `LightEntity($data = null)`
+
+Create a new `LightEntityEntity` instance. Pass `null` for no initial data.
+
 #### `options_map(): array`
 
 Return a deep copy of the current SDK options.
@@ -104,23 +108,12 @@ $entity = $client->Entity();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cik` | `int` | Yes |  |
 | `entity` | `array` | Yes |  |
-| `entity_name` | `string` | Yes |  |
 | `executives` | `array` | Yes |  |
 | `finance_data` | `array` | Yes |  |
-| `id` | `int` | Yes |  |
-| `tickers` | `array` | Yes |  |
+| `id` | `string` | No |  |
 
 ### Operations
-
-#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
-
-List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
-
-```php
-$results = $client->Entity()->list();
-```
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
@@ -303,6 +296,61 @@ Set the entity match criteria.
 #### `make(): LastUpdateEntity`
 
 Create a new `LastUpdateEntity` instance with the same client and
+options.
+
+#### `get_name(): string`
+
+Return the entity name.
+
+
+---
+
+## LightEntityEntity
+
+```php
+$light_entity = $client->LightEntity();
+```
+
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `cik` | `int` | Yes |  |
+| `entity_name` | `string` | Yes |  |
+| `id` | `int` | Yes |  |
+| `tickers` | `array` | Yes |  |
+
+### Operations
+
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
+
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
+
+```php
+$results = $client->LightEntity()->list();
+```
+
+### Common Methods
+
+#### `data_get(): array`
+
+Get the entity data. Returns a copy of the current data.
+
+#### `data_set($data): void`
+
+Set the entity data.
+
+#### `match_get(): array`
+
+Get the entity match criteria.
+
+#### `match_set($match): void`
+
+Set the entity match criteria.
+
+#### `make(): LightEntityEntity`
+
+Create a new `LightEntityEntity` instance with the same client and
 options.
 
 #### `get_name(): string`

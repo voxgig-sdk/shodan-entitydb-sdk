@@ -317,6 +317,13 @@ class ShodanEntitydbSDK
   end
 
 
+  # Canonical facade: client.LightEntity.list / client.LightEntity.load({ "id" => ... })
+  def LightEntity(data = nil)
+    require_relative 'entity/light_entity_entity'
+    LightEntityEntity.new(self, data)
+  end
+
+
 
   def self.test(testopts = nil, sdkopts = nil)
     sdkopts = sdkopts || {}

@@ -24,133 +24,158 @@
         "repr": "auto"
       },
       "contributor": {},
+      "doc": {
+        "active": true,
+        "assets": {
+          "path": ".sdk/doc/assets"
+        },
+        "brand": {
+          "label": "",
+          "notice": "",
+          "shortNotice": "",
+          "url": ""
+        },
+        "ci": {
+          "active": true,
+          "branch": "main"
+        },
+        "content": {
+          "path": ".sdk/doc/content"
+        },
+        "edition": {
+          "summary": {
+            "active": true,
+            "base": "node_modules/@voxgig/docgen/project/.sdk",
+            "brand": {},
+            "filter": {
+              "entities": [],
+              "features": [],
+              "targets": []
+            },
+            "kind": "summary",
+            "name": "summary",
+            "origname": "",
+            "output": {
+              "path": "SUMMARY.md"
+            },
+            "package": "@voxgig/docgen",
+            "published": false,
+            "site": {
+              "active": true
+            },
+            "style": {},
+            "title": ""
+          }
+        },
+        "qa": {
+          "vocabulary": []
+        },
+        "style": {
+          "color": {
+            "accent": "#00c6d8",
+            "background": "#f5f5f9",
+            "darkBackground": "#0f1117",
+            "darkText": "#e6edf3",
+            "primary": "#e70042",
+            "text": "#0a0a0a"
+          },
+          "font": "Nunito, system-ui, sans-serif",
+          "fontFile": "",
+          "headingFont": "Nunito, system-ui, sans-serif",
+          "headingFontFile": "",
+          "logo": "",
+          "mode": "light",
+          "mono": "ui-monospace, monospace",
+          "monoFile": ""
+        },
+        "target": {}
+      },
       "entity": {
         "entity": {
           "active": true,
           "alias": {
             "field": {}
           },
-          "fields": [
-            {
-              "active": true,
-              "name": "cik",
-              "req": true,
-              "type": "`$INTEGER`"
+          "fields": {
+            "entity": {
+              "a": true,
+              "h": "Entity",
+              "n": "entity",
+              "r": true,
+              "t": "`$OBJECT`"
             },
-            {
-              "active": true,
-              "name": "entity",
-              "req": true,
-              "type": "`$OBJECT`"
-            },
-            {
-              "active": true,
-              "name": "entity_name",
-              "req": true,
-              "type": "`$STRING`"
-            },
-            {
-              "active": true,
-              "name": "executives",
-              "req": true,
-              "type": "`$ARRAY`",
+            "executives": {
+              "a": true,
+              "h": "Executives",
+              "n": "executives",
+              "r": true,
+              "t": "`$ARRAY`",
               "union": {
                 "branches": 2,
                 "count": 3,
                 "depth": 3
               }
             },
-            {
-              "active": true,
-              "name": "finance_data",
-              "req": true,
-              "type": "`$ARRAY`",
+            "finance_data": {
+              "a": true,
+              "h": "Finance Data",
+              "n": "finance_data",
+              "r": true,
+              "t": "`$ARRAY`",
               "union": {
                 "branches": 2,
                 "count": 13,
                 "depth": 3
               }
             },
-            {
-              "active": true,
-              "name": "id",
-              "req": true,
-              "type": "`$INTEGER`"
-            },
-            {
-              "active": true,
-              "name": "tickers",
-              "req": true,
-              "type": "`$ARRAY`"
+            "id": {
+              "a": true,
+              "h": "Id",
+              "n": "id",
+              "r": false,
+              "t": "`$STRING`"
             }
-          ],
+          },
           "id": {
             "field": "id",
             "name": "id"
           },
           "name": "entity",
           "op": {
-            "list": {
-              "input": "data",
-              "name": "list",
-              "points": [
-                {
-                  "active": true,
-                  "args": {},
-                  "contract": {
-                    "id": "GET /api/entities",
-                    "json": "{\"operationId\":\"get_all_entities_api_entities_get\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"entities\":{\"items\":{\"properties\":{\"cik\":{\"title\":\"Cik\",\"type\":\"integer\"},\"entity_name\":{\"title\":\"Entity Name\",\"type\":\"string\"},\"id\":{\"title\":\"Id\",\"type\":\"integer\"},\"tickers\":{\"items\":{\"type\":\"string\"},\"title\":\"Tickers\",\"type\":\"array\"}},\"required\":[\"id\",\"cik\",\"tickers\",\"entity_name\"],\"title\":\"LightEntity\",\"type\":\"object\"},\"title\":\"Entities\",\"type\":\"array\"}},\"required\":[\"entities\"],\"title\":\"EntitiesResponse\",\"type\":\"object\"}}},\"description\":\"Successful Response\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
-                  },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/api/entities",
-                  "segments": [
-                    {
-                      "lit": "api"
-                    },
-                    {
-                      "lit": "entities"
-                    }
-                  ],
-                  "select": {},
-                  "transform": {
-                    "req": "`reqdata`",
-                    "res": "`body.entities`"
-                  }
-                }
-              ]
-            },
             "load": {
               "input": "data",
               "name": "load",
               "points": [
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /api/entities/{id}",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "params": [
                       {
-                        "active": true,
-                        "example": 3,
-                        "kind": "param",
-                        "name": "id",
-                        "orig": "id",
-                        "reqd": true,
-                        "type": "`$INTEGER`"
+                        "a": true,
+                        "ex": 3,
+                        "k": "param",
+                        "n": "id",
+                        "or": "id",
+                        "r": true,
+                        "t": "`$INTEGER`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /api/entities/{id}",
-                    "json": "{\"operationId\":\"Get_entity_information_in_JSON_format_api_entities__id__get\",\"parameters\":[{\"example\":3,\"in\":\"path\",\"name\":\"id\",\"required\":true,\"schema\":{\"title\":\"Id\",\"type\":\"integer\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"entity\":{\"properties\":{\"asn_list\":{\"default\":[],\"items\":{\"type\":\"integer\"},\"title\":\"Asn List\",\"type\":\"array\"},\"asns\":{\"default\":[],\"items\":{\"properties\":{\"as_name\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"As Name\"},\"asn\":{\"title\":\"Asn\",\"type\":\"integer\"},\"country\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Country\"},\"description\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Description\"},\"maintained_by\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Maintained By\"},\"notify\":{\"default\":[],\"items\":{\"type\":\"string\"},\"title\":\"Notify\",\"type\":\"array\"},\"organization\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Organization\"},\"route_views\":{\"default\":[],\"items\":{\"properties\":{\"as_set\":{\"default\":[],\"items\":{\"type\":\"integer\"},\"title\":\"As Set\",\"type\":\"array\"},\"asn\":{\"title\":\"Asn\",\"type\":\"integer\"},\"prefix\":{\"title\":\"Prefix\",\"type\":\"string\"}},\"required\":[\"asn\",\"prefix\"],\"title\":\"RouteView\",\"type\":\"object\"},\"title\":\"Route Views\",\"type\":\"array\"},\"source\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Source\"},\"status\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Status\"}},\"required\":[\"asn\"],\"title\":\"ASN\",\"type\":\"object\"},\"title\":\"Asns\",\"type\":\"array\"},\"business_address\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Business Address\"},\"cik\":{\"title\":\"Cik\",\"type\":\"integer\"},\"ein\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Ein\"},\"entity_name\":{\"title\":\"Entity Name\",\"type\":\"string\"},\"entity_type\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Entity Type\"},\"exchanges\":{\"items\":{\"type\":\"string\"},\"title\":\"Exchanges\",\"type\":\"array\"},\"extra_info\":{\"allOf\":[{\"properties\":{\"alias\":{\"default\":[],\"items\":{\"type\":\"string\"},\"title\":\"Alias\",\"type\":\"array\"},\"domain\":{\"default\":[],\"items\":{\"type\":\"string\"},\"title\":\"Domain\",\"type\":\"array\"}},\"title\":\"ExtraInfo\",\"type\":\"object\"}],\"default\":{\"alias\":[],\"domain\":[]}},\"fiscal_year_end\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Fiscal Year End\"},\"hostname\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Hostname\"},\"id\":{\"title\":\"Id\",\"type\":\"integer\"},\"mail_address\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Mail Address\"},\"phone\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Phone\"},\"sic\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Sic\"},\"sic_description\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Sic Description\"},\"tickers\":{\"items\":{\"type\":\"string\"},\"title\":\"Tickers\",\"type\":\"array\"},\"updated_at\":{\"title\":\"Updated At\",\"type\":\"string\"}},\"required\":[\"id\",\"cik\",\"tickers\",\"entity_name\",\"exchanges\",\"updated_at\"],\"title\":\"Entity\",\"type\":\"object\"},\"executives\":{\"items\":{\"properties\":{\"additional_data\":{\"default\":{},\"title\":\"Additional Data\",\"type\":\"object\"},\"cik\":{\"title\":\"Cik\",\"type\":\"integer\"},\"name\":{\"title\":\"Name\",\"type\":\"string\"},\"role\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Role\"},\"salary\":{\"anyOf\":[{\"type\":\"number\"},{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Salary\"},\"stock_awards\":{\"anyOf\":[{\"type\":\"number\"},{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Stock Awards\"},\"total\":{\"anyOf\":[{\"type\":\"number\"},{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Total\"},\"year\":{\"title\":\"Year\",\"type\":\"integer\"}},\"required\":[\"cik\",\"name\",\"year\"],\"title\":\"Executive\",\"type\":\"object\"},\"title\":\"Executives\",\"type\":\"array\"},\"finance_data\":{\"items\":{\"properties\":{\"basic_share_outstanding\":{\"anyOf\":[{\"type\":\"number\"},{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Basic Share Outstanding\"},\"cost_of_sale\":{\"anyOf\":[{\"type\":\"number\"},{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Cost Of Sale\"},\"depletion_and_amortization\":{\"anyOf\":[{\"type\":\"number\"},{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Depletion And Amortization\"},\"earning_per_share\":{\"anyOf\":[{\"type\":\"number\"},{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Earning Per Share\"},\"earning_per_share_diluted\":{\"anyOf\":[{\"type\":\"number\"},{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Earning Per Share Diluted\"},\"ebitda\":{\"anyOf\":[{\"type\":\"number\"},{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Ebitda\"},\"filing_url\":{\"title\":\"Filing Url\",\"type\":\"string\"},\"gross_profit\":{\"anyOf\":[{\"type\":\"number\"},{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Gross Profit\"},\"long_term_debt_current\":{\"anyOf\":[{\"type\":\"number\"},{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Long Term Debt Current\"},\"long_term_debt_non_current\":{\"anyOf\":[{\"type\":\"number\"},{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Long Term Debt Non Current\"},\"net_income\":{\"anyOf\":[{\"type\":\"number\"},{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Net Income\"},\"operation_income_loss\":{\"anyOf\":[{\"type\":\"number\"},{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Operation Income Loss\"},\"report_at\":{\"format\":\"date\",\"title\":\"Report At\",\"type\":\"string\"},\"report_year\":{\"title\":\"Report Year\",\"type\":\"integer\"},\"revenue\":{\"anyOf\":[{\"type\":\"number\"},{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Revenue\"},\"share_outstanding\":{\"anyOf\":[{\"type\":\"number\"},{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Share Outstanding\"}},\"required\":[\"report_year\",\"report_at\",\"filing_url\"],\"title\":\"Finance\",\"type\":\"object\"},\"title\":\"Finance Data\",\"type\":\"array\"}},\"required\":[\"finance_data\",\"entity\",\"executives\"],\"title\":\"EntityFullInfoResponse\",\"type\":\"object\"}}},\"description\":\"Successful Response\"},\"404\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"detail\":{\"title\":\"Detail\",\"type\":\"string\"}},\"required\":[\"detail\"],\"title\":\"HTTPError\",\"type\":\"object\"}}},\"description\":\"Not Found\"},\"422\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"detail\":{\"items\":{\"properties\":{\"loc\":{\"items\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"integer\"}]},\"title\":\"Location\",\"type\":\"array\"},\"msg\":{\"title\":\"Message\",\"type\":\"string\"},\"type\":{\"title\":\"Error Type\",\"type\":\"string\"}},\"required\":[\"loc\",\"msg\",\"type\"],\"title\":\"ValidationError\",\"type\":\"object\"},\"title\":\"Detail\",\"type\":\"array\"}},\"title\":\"HTTPValidationError\",\"type\":\"object\"}}},\"description\":\"Validation Error\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/api/entities/{id}",
+                  "q": {
+                    "exist": [
+                      "id"
+                    ]
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/api/entities/{id}",
-                  "segments": [
+                  "r": {},
+                  "s": [
                     {
                       "lit": "api"
                     },
@@ -161,12 +186,7 @@
                       "var": "id"
                     }
                   ],
-                  "select": {
-                    "exist": [
-                      "id"
-                    ]
-                  },
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body.entity`"
                   }
@@ -183,36 +203,39 @@
           "alias": {
             "field": {}
           },
-          "fields": [
-            {
-              "active": true,
-              "name": "entity",
-              "req": true,
-              "type": "`$OBJECT`"
+          "fields": {
+            "entity": {
+              "a": true,
+              "h": "Entity",
+              "n": "entity",
+              "r": true,
+              "t": "`$OBJECT`"
             },
-            {
-              "active": true,
-              "name": "executives",
-              "req": true,
-              "type": "`$ARRAY`",
+            "executives": {
+              "a": true,
+              "h": "Executives",
+              "n": "executives",
+              "r": true,
+              "t": "`$ARRAY`",
               "union": {
                 "branches": 2,
                 "count": 3,
                 "depth": 3
               }
             },
-            {
-              "active": true,
-              "name": "finance_data",
-              "req": true,
-              "type": "`$ARRAY`",
+            "finance_data": {
+              "a": true,
+              "h": "Finance Data",
+              "n": "finance_data",
+              "r": true,
+              "t": "`$ARRAY`",
               "union": {
                 "branches": 2,
                 "count": 13,
                 "depth": 3
               }
             }
-          ],
+          },
           "name": "entity_full_info",
           "op": {
             "load": {
@@ -220,30 +243,35 @@
               "name": "load",
               "points": [
                 {
-                  "active": true,
-                  "args": {
+                  "a": true,
+                  "co": {
+                    "id": "GET /api/entities/symbol/{symbol}",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {
                     "params": [
                       {
-                        "active": true,
-                        "example": "GOOGL",
-                        "kind": "param",
-                        "name": "symbol",
-                        "orig": "symbol",
-                        "reqd": true,
-                        "type": "`$STRING`"
+                        "a": true,
+                        "ex": "GOOGL",
+                        "k": "param",
+                        "n": "symbol",
+                        "or": "symbol",
+                        "r": true,
+                        "t": "`$STRING`"
                       }
                     ]
                   },
-                  "contract": {
-                    "id": "GET /api/entities/symbol/{symbol}",
-                    "json": "{\"operationId\":\"Get_entity_information_in_JSON_format_api_entities_symbol__symbol__get\",\"parameters\":[{\"example\":\"GOOGL\",\"in\":\"path\",\"name\":\"symbol\",\"required\":true,\"schema\":{\"title\":\"Symbol\",\"type\":\"string\"}}],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"entity\":{\"properties\":{\"asn_list\":{\"default\":[],\"items\":{\"type\":\"integer\"},\"title\":\"Asn List\",\"type\":\"array\"},\"asns\":{\"default\":[],\"items\":{\"properties\":{\"as_name\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"As Name\"},\"asn\":{\"title\":\"Asn\",\"type\":\"integer\"},\"country\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Country\"},\"description\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Description\"},\"maintained_by\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Maintained By\"},\"notify\":{\"default\":[],\"items\":{\"type\":\"string\"},\"title\":\"Notify\",\"type\":\"array\"},\"organization\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Organization\"},\"route_views\":{\"default\":[],\"items\":{\"properties\":{\"as_set\":{\"default\":[],\"items\":{\"type\":\"integer\"},\"title\":\"As Set\",\"type\":\"array\"},\"asn\":{\"title\":\"Asn\",\"type\":\"integer\"},\"prefix\":{\"title\":\"Prefix\",\"type\":\"string\"}},\"required\":[\"asn\",\"prefix\"],\"title\":\"RouteView\",\"type\":\"object\"},\"title\":\"Route Views\",\"type\":\"array\"},\"source\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Source\"},\"status\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Status\"}},\"required\":[\"asn\"],\"title\":\"ASN\",\"type\":\"object\"},\"title\":\"Asns\",\"type\":\"array\"},\"business_address\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Business Address\"},\"cik\":{\"title\":\"Cik\",\"type\":\"integer\"},\"ein\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Ein\"},\"entity_name\":{\"title\":\"Entity Name\",\"type\":\"string\"},\"entity_type\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Entity Type\"},\"exchanges\":{\"items\":{\"type\":\"string\"},\"title\":\"Exchanges\",\"type\":\"array\"},\"extra_info\":{\"allOf\":[{\"properties\":{\"alias\":{\"default\":[],\"items\":{\"type\":\"string\"},\"title\":\"Alias\",\"type\":\"array\"},\"domain\":{\"default\":[],\"items\":{\"type\":\"string\"},\"title\":\"Domain\",\"type\":\"array\"}},\"title\":\"ExtraInfo\",\"type\":\"object\"}],\"default\":{\"alias\":[],\"domain\":[]}},\"fiscal_year_end\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Fiscal Year End\"},\"hostname\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Hostname\"},\"id\":{\"title\":\"Id\",\"type\":\"integer\"},\"mail_address\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Mail Address\"},\"phone\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Phone\"},\"sic\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Sic\"},\"sic_description\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Sic Description\"},\"tickers\":{\"items\":{\"type\":\"string\"},\"title\":\"Tickers\",\"type\":\"array\"},\"updated_at\":{\"title\":\"Updated At\",\"type\":\"string\"}},\"required\":[\"id\",\"cik\",\"tickers\",\"entity_name\",\"exchanges\",\"updated_at\"],\"title\":\"Entity\",\"type\":\"object\"},\"executives\":{\"items\":{\"properties\":{\"additional_data\":{\"default\":{},\"title\":\"Additional Data\",\"type\":\"object\"},\"cik\":{\"title\":\"Cik\",\"type\":\"integer\"},\"name\":{\"title\":\"Name\",\"type\":\"string\"},\"role\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Role\"},\"salary\":{\"anyOf\":[{\"type\":\"number\"},{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Salary\"},\"stock_awards\":{\"anyOf\":[{\"type\":\"number\"},{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Stock Awards\"},\"total\":{\"anyOf\":[{\"type\":\"number\"},{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Total\"},\"year\":{\"title\":\"Year\",\"type\":\"integer\"}},\"required\":[\"cik\",\"name\",\"year\"],\"title\":\"Executive\",\"type\":\"object\"},\"title\":\"Executives\",\"type\":\"array\"},\"finance_data\":{\"items\":{\"properties\":{\"basic_share_outstanding\":{\"anyOf\":[{\"type\":\"number\"},{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Basic Share Outstanding\"},\"cost_of_sale\":{\"anyOf\":[{\"type\":\"number\"},{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Cost Of Sale\"},\"depletion_and_amortization\":{\"anyOf\":[{\"type\":\"number\"},{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Depletion And Amortization\"},\"earning_per_share\":{\"anyOf\":[{\"type\":\"number\"},{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Earning Per Share\"},\"earning_per_share_diluted\":{\"anyOf\":[{\"type\":\"number\"},{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Earning Per Share Diluted\"},\"ebitda\":{\"anyOf\":[{\"type\":\"number\"},{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Ebitda\"},\"filing_url\":{\"title\":\"Filing Url\",\"type\":\"string\"},\"gross_profit\":{\"anyOf\":[{\"type\":\"number\"},{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Gross Profit\"},\"long_term_debt_current\":{\"anyOf\":[{\"type\":\"number\"},{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Long Term Debt Current\"},\"long_term_debt_non_current\":{\"anyOf\":[{\"type\":\"number\"},{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Long Term Debt Non Current\"},\"net_income\":{\"anyOf\":[{\"type\":\"number\"},{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Net Income\"},\"operation_income_loss\":{\"anyOf\":[{\"type\":\"number\"},{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Operation Income Loss\"},\"report_at\":{\"format\":\"date\",\"title\":\"Report At\",\"type\":\"string\"},\"report_year\":{\"title\":\"Report Year\",\"type\":\"integer\"},\"revenue\":{\"anyOf\":[{\"type\":\"number\"},{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Revenue\"},\"share_outstanding\":{\"anyOf\":[{\"type\":\"number\"},{\"type\":\"string\"},{\"type\":\"null\"}],\"title\":\"Share Outstanding\"}},\"required\":[\"report_year\",\"report_at\",\"filing_url\"],\"title\":\"Finance\",\"type\":\"object\"},\"title\":\"Finance Data\",\"type\":\"array\"}},\"required\":[\"finance_data\",\"entity\",\"executives\"],\"title\":\"EntityFullInfoResponse\",\"type\":\"object\"}}},\"description\":\"Successful Response\"},\"404\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"detail\":{\"title\":\"Detail\",\"type\":\"string\"}},\"required\":[\"detail\"],\"title\":\"HTTPError\",\"type\":\"object\"}}},\"description\":\"Not Found\"},\"422\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"detail\":{\"items\":{\"properties\":{\"loc\":{\"items\":{\"anyOf\":[{\"type\":\"string\"},{\"type\":\"integer\"}]},\"title\":\"Location\",\"type\":\"array\"},\"msg\":{\"title\":\"Message\",\"type\":\"string\"},\"type\":{\"title\":\"Error Type\",\"type\":\"string\"}},\"required\":[\"loc\",\"msg\",\"type\"],\"title\":\"ValidationError\",\"type\":\"object\"},\"title\":\"Detail\",\"type\":\"array\"}},\"title\":\"HTTPValidationError\",\"type\":\"object\"}}},\"description\":\"Validation Error\"}},\"securitySource\":\"unspecified\"}",
-                    "source": "openapi3",
-                    "version": 1
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/api/entities/symbol/{symbol}",
+                  "q": {
+                    "exist": [
+                      "symbol"
+                    ]
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/api/entities/symbol/{symbol}",
-                  "segments": [
+                  "r": {},
+                  "s": [
                     {
                       "lit": "api"
                     },
@@ -257,12 +285,7 @@
                       "var": "symbol"
                     }
                   ],
-                  "select": {
-                    "exist": [
-                      "symbol"
-                    ]
-                  },
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
@@ -271,11 +294,7 @@
             }
           },
           "relations": {
-            "ancestors": [
-              [
-                "symbol"
-              ]
-            ]
+            "ancestors": []
           }
         },
         "health_check": {
@@ -283,7 +302,7 @@
           "alias": {
             "field": {}
           },
-          "fields": [],
+          "fields": {},
           "name": "health_check",
           "op": {
             "load": {
@@ -291,24 +310,24 @@
               "name": "load",
               "points": [
                 {
-                  "active": true,
-                  "args": {},
-                  "contract": {
+                  "a": true,
+                  "co": {
                     "id": "GET /health_check",
-                    "json": "{\"operationId\":\"health_check_health_check_get\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{}}},\"description\":\"Successful Response\"}},\"securitySource\":\"unspecified\"}",
                     "source": "openapi3",
-                    "version": 1
+                    "version": 2
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/health_check",
-                  "segments": [
+                  "g": {},
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/health_check",
+                  "q": {},
+                  "r": {},
+                  "s": [
                     {
                       "lit": "health_check"
                     }
                   ],
-                  "select": {},
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
                   }
@@ -325,14 +344,15 @@
           "alias": {
             "field": {}
           },
-          "fields": [
-            {
-              "active": true,
-              "name": "last_updated",
-              "req": true,
-              "type": "`$STRING`"
+          "fields": {
+            "last_updated": {
+              "a": true,
+              "h": "Last Updated",
+              "n": "last_updated",
+              "r": true,
+              "t": "`$STRING`"
             }
-          ],
+          },
           "name": "last_update",
           "op": {
             "load": {
@@ -340,18 +360,19 @@
               "name": "load",
               "points": [
                 {
-                  "active": true,
-                  "args": {},
-                  "contract": {
+                  "a": true,
+                  "co": {
                     "id": "GET /api/last_updated",
-                    "json": "{\"operationId\":\"get_latest_database_built_api_last_updated_get\",\"parameters\":[],\"protocol\":\"http\",\"responses\":{\"200\":{\"content\":{\"application/json\":{\"schema\":{\"properties\":{\"last_updated\":{\"title\":\"Last Updated\",\"type\":\"string\"}},\"required\":[\"last_updated\"],\"title\":\"LastUpdateResponse\",\"type\":\"object\"}}},\"description\":\"Successful Response\"}},\"securitySource\":\"unspecified\"}",
                     "source": "openapi3",
-                    "version": 1
+                    "version": 2
                   },
-                  "kind": "http",
-                  "method": "GET",
-                  "orig": "/api/last_updated",
-                  "segments": [
+                  "g": {},
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/api/last_updated",
+                  "q": {},
+                  "r": {},
+                  "s": [
                     {
                       "lit": "api"
                     },
@@ -359,10 +380,87 @@
                       "lit": "last_updated"
                     }
                   ],
-                  "select": {},
-                  "transform": {
+                  "t": {
                     "req": "`reqdata`",
                     "res": "`body`"
+                  }
+                }
+              ]
+            }
+          },
+          "relations": {
+            "ancestors": []
+          }
+        },
+        "light_entity": {
+          "active": true,
+          "alias": {
+            "field": {}
+          },
+          "fields": {
+            "cik": {
+              "a": true,
+              "h": "Cik",
+              "n": "cik",
+              "r": true,
+              "t": "`$INTEGER`"
+            },
+            "entity_name": {
+              "a": true,
+              "h": "Entity Name",
+              "n": "entity_name",
+              "r": true,
+              "t": "`$STRING`"
+            },
+            "id": {
+              "a": true,
+              "h": "Id",
+              "n": "id",
+              "r": true,
+              "t": "`$INTEGER`"
+            },
+            "tickers": {
+              "a": true,
+              "h": "Tickers",
+              "n": "tickers",
+              "r": true,
+              "t": "`$ARRAY`"
+            }
+          },
+          "id": {
+            "field": "id",
+            "name": "id"
+          },
+          "name": "light_entity",
+          "op": {
+            "list": {
+              "input": "data",
+              "name": "list",
+              "points": [
+                {
+                  "a": true,
+                  "co": {
+                    "id": "GET /api/entities",
+                    "source": "openapi3",
+                    "version": 2
+                  },
+                  "g": {},
+                  "k": "http",
+                  "m": "GET",
+                  "o": "/api/entities",
+                  "q": {},
+                  "r": {},
+                  "s": [
+                    {
+                      "lit": "api"
+                    },
+                    {
+                      "lit": "entities"
+                    }
+                  ],
+                  "t": {
+                    "req": "`reqdata`",
+                    "res": "`body.entities`"
                   }
                 }
               ]
@@ -789,35 +887,19 @@
           "param": {},
           "step": [
             {
-              "active": true,
-              "data": {},
-              "input": {},
-              "match": {},
-              "op": "list",
-              "spec": [],
-              "valid": [
-                {
-                  "apply": "ItemExists",
-                  "def": {
-                    "ref": "entity_ref01"
-                  }
-                }
-              ]
-            },
-            {
-              "active": true,
-              "data": {},
-              "input": {
+              "a": true,
+              "d": {},
+              "i": {
                 "ref": "entity_ref01",
                 "srcdatavar": "entity_ref01_data",
                 "suffix": "_dt0"
               },
-              "match": {
+              "m": {
                 "id": "entity01"
               },
-              "op": "load",
-              "spec": [],
-              "valid": [
+              "o": "load",
+              "s": [],
+              "v": [
                 {
                   "apply": "TextFieldMark",
                   "def": {
@@ -837,19 +919,19 @@
           "param": {},
           "step": [
             {
-              "active": true,
-              "data": {},
-              "input": {
+              "a": true,
+              "d": {},
+              "i": {
                 "ref": "entity_full_info_ref01",
                 "srcdatavar": "entity_full_info_ref01_data",
                 "suffix": "_dt0"
               },
-              "match": {
+              "m": {
                 "id": "entity_full_info01"
               },
-              "op": "load",
-              "spec": [],
-              "valid": [
+              "o": "load",
+              "s": [],
+              "v": [
                 {
                   "apply": "TextFieldMark",
                   "def": {
@@ -869,17 +951,17 @@
           "param": {},
           "step": [
             {
-              "active": true,
-              "data": {},
-              "input": {
+              "a": true,
+              "d": {},
+              "i": {
                 "ref": "health_check_ref01",
                 "srcdatavar": "health_check_ref01_data",
                 "suffix": "_dt0"
               },
-              "match": {},
-              "op": "load",
-              "spec": [],
-              "valid": [
+              "m": {},
+              "o": "load",
+              "s": [],
+              "v": [
                 {
                   "apply": "TextFieldMark",
                   "def": {
@@ -899,21 +981,47 @@
           "param": {},
           "step": [
             {
-              "active": true,
-              "data": {},
-              "input": {
+              "a": true,
+              "d": {},
+              "i": {
                 "ref": "last_update_ref01",
                 "srcdatavar": "last_update_ref01_data",
                 "suffix": "_dt0"
               },
-              "match": {},
-              "op": "load",
-              "spec": [],
-              "valid": [
+              "m": {},
+              "o": "load",
+              "s": [],
+              "v": [
                 {
                   "apply": "TextFieldMark",
                   "def": {
                     "mark": "Mark01-last_update_ref01"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "BasicLightEntityFlow": {
+          "active": true,
+          "entity": "light_entity",
+          "key$": "BasicLightEntityFlow",
+          "kind": "basic",
+          "name": "BasicLightEntityFlow",
+          "param": {},
+          "step": [
+            {
+              "a": true,
+              "d": {},
+              "i": {},
+              "m": {},
+              "o": "list",
+              "s": [],
+              "v": [
+                {
+                  "apply": "ItemExists",
+                  "def": {
+                    "ref": "light_entity_ref01"
                   }
                 }
               ]

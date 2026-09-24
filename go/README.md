@@ -50,15 +50,6 @@ import (
 func main() {
     client := sdk.New()
 
-    // List entity records — the value is the array of records itself.
-    entitys, err := client.Entity(nil).List(nil, nil)
-    if err != nil {
-        panic(err)
-    }
-    for _, item := range entitys.([]any) {
-        fmt.Println(item)
-    }
-
     // Load a single entity — the value is the loaded record.
     entity, err := client.Entity(nil).Load(map[string]any{"id": 1}, nil)
     if err != nil {
@@ -75,12 +66,12 @@ Every entity operation returns `(value, error)`. Check `err` before
 using the value — there is no exception to catch:
 
 ```go
-lastupdate, err := client.LastUpdate(nil).Load(nil, nil)
+entityfullinfo, err := client.EntityFullInfo(nil).Load(map[string]any{"symbol": "example"}, nil)
 if err != nil {
     // handle err
     return
 }
-_ = lastupdate
+_ = entityfullinfo
 ```
 
 `Direct` follows the same `(value, error)` convention:
@@ -144,13 +135,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-lastUpdate, err := client.LastUpdate(nil).Load(
-    nil, nil,
+entityFullInfo, err := client.EntityFullInfo(nil).Load(
+    map[string]any{"symbol": "example"}, nil,
 )
 if err != nil {
     panic(err)
 }
-fmt.Println(lastUpdate) // the returned mock data
+fmt.Println(entityFullInfo) // the returned mock data
 ```
 
 ### Use a custom fetch function
@@ -231,6 +222,7 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | `EntityFullInfo` | `(data map[string]any) ShodanEntitydbEntity` | Create an EntityFullInfo entity instance. |
 | `HealthCheck` | `(data map[string]any) ShodanEntitydbEntity` | Create a HealthCheck entity instance. |
 | `LastUpdate` | `(data map[string]any) ShodanEntitydbEntity` | Create a LastUpdate entity instance. |
+| `LightEntity` | `(data map[string]any) ShodanEntitydbEntity` | Create a LightEntity entity instance. |
 
 ### Entity interface (ShodanEntitydbEntity)
 
@@ -259,7 +251,7 @@ Check `err` first, then use the value directly (or the typed
 `...Typed` variants, which return the entity's model struct and a typed
 slice):
 
-    entity, err := client.Entity(nil).List(map[string]any{/* fields */}, nil)
+    entity, err := client.Entity(nil).Load(map[string]any{"id": "example_id"}, nil)
     if err != nil { /* handle */ }
     // entity is the returned record
 
@@ -272,17 +264,14 @@ Only `Direct()` returns a response envelope — a `map[string]any` with
 
 | Field | Description |
 | --- | --- |
-| `"cik"` |  |
 | `"entity"` |  |
-| `"entity_name"` |  |
 | `"executives"` |  |
 | `"finance_data"` |  |
 | `"id"` |  |
-| `"tickers"` |  |
 
-Operations: List, Load.
+Operations: Load.
 
-API path: `/api/entities`
+API path: `/api/entities/{id}`
 
 #### EntityFullInfo
 
@@ -315,6 +304,19 @@ Operations: Load.
 
 API path: `/api/last_updated`
 
+#### LightEntity
+
+| Field | Description |
+| --- | --- |
+| `"cik"` |  |
+| `"entity_name"` |  |
+| `"id"` |  |
+| `"tickers"` |  |
+
+Operations: List.
+
+API path: `/api/entities`
+
 
 
 ## Entities
@@ -328,20 +330,16 @@ Create an instance: `entity := client.Entity(nil)`
 
 | Method | Description |
 | --- | --- |
-| `List(match, ctrl)` | List entities matching the criteria. |
 | `Load(match, ctrl)` | Load a single entity by match criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `cik` | `int` |  |
 | `entity` | `map[string]any` |  |
-| `entity_name` | `string` |  |
 | `executives` | `[]any` |  |
 | `finance_data` | `[]any` |  |
-| `id` | `int` |  |
-| `tickers` | `[]any` |  |
+| `id` | `string` |  |
 
 #### Example: Load
 
@@ -351,16 +349,6 @@ if err != nil {
     panic(err)
 }
 fmt.Println(entity) // the loaded record
-```
-
-#### Example: List
-
-```go
-entitys, err := client.Entity(nil).List(nil, nil)
-if err != nil {
-    panic(err)
-}
-fmt.Println(entitys) // the array of records
 ```
 
 
@@ -438,6 +426,36 @@ if err != nil {
     panic(err)
 }
 fmt.Println(lastUpdate) // the loaded record
+```
+
+
+### LightEntity
+
+Create an instance: `lightEntity := client.LightEntity(nil)`
+
+#### Operations
+
+| Method | Description |
+| --- | --- |
+| `List(match, ctrl)` | List entities matching the criteria. |
+
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `cik` | `int` |  |
+| `entity_name` | `string` |  |
+| `id` | `int` |  |
+| `tickers` | `[]any` |  |
+
+#### Example: List
+
+```go
+lightEntitys, err := client.LightEntity(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(lightEntitys) // the array of records
 ```
 
 ## Features
@@ -598,11 +616,11 @@ Entity instances are stateful. After a successful `Load`, the entity
 stores the returned data and match criteria internally.
 
 ```go
-lastupdate := client.LastUpdate(nil)
-lastupdate.Load(nil, nil)
+entityfullinfo := client.EntityFullInfo(nil)
+entityfullinfo.Load(map[string]any{"symbol": "example"}, nil)
 
-// lastupdate.Data() now returns the lastupdate data from the last load
-// lastupdate.Match() returns the last match criteria
+// entityfullinfo.Data() now returns the entityfullinfo data from the last load
+// entityfullinfo.Match() returns the last match criteria
 ```
 
 Call `Make()` to create a fresh instance with the same configuration

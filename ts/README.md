@@ -33,31 +33,14 @@ import { ShodanEntitydbSDK } from '@voxgig-sdk/shodan-entitydb-sdk'
 const client = new ShodanEntitydbSDK()
 ```
 
-### 2. List entity records
+### 3. Load an entity
 
-`list()` resolves to an array of Entity ENTITIES — every operation
-resolves to entities, not raw records. Iterate them directly, and call
-`.data()` on one for the record it holds:
-
-```ts
-const entitys = await client.Entity().list()
-
-for (const entity of entitys) {
-  console.log(entity)
-}
-```
-
-### 3. Load an entityfullinfo
-
-EntityFullInfo is nested under symbol, so provide the `symbol`.
 `load()` returns the entity directly and throws on failure:
 
 ```ts
 try {
-  const entityfullinfo = await client.EntityFullInfo().load({
-    symbol: 'example_symbol',
-  })
-  console.log(entityfullinfo)
+  const entity = await client.Entity().load({ id: 1 })
+  console.log(entity)
 } catch (err) {
   console.error('load failed:', err)
 }
@@ -70,8 +53,8 @@ Entity operations reject on failure, so wrap them in `try` / `catch`:
 
 ```ts
 try {
-  const lastupdate = await client.LastUpdate().load()
-  console.log(lastupdate)
+  const entityfullinfo = await client.EntityFullInfo().load({ symbol: "example" })
+  console.log(entityfullinfo)
 } catch (err) {
   console.error('load failed:', err)
 }
@@ -137,10 +120,10 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = ShodanEntitydbSDK.test()
 
-const lastupdate = await client.LastUpdate().load()
-// lastupdate is the entity, populated with mock response data
-// — call lastupdate.data() for the record itself
-console.log(lastupdate)
+const entityfullinfo = await client.EntityFullInfo().load({ symbol: 'example_symbol' })
+// entityfullinfo is the entity, populated with mock response data
+// — call entityfullinfo.data() for the record itself
+console.log(entityfullinfo)
 ```
 
 You can also use the instance method:
@@ -155,10 +138,10 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.LastUpdate()
+const entity = client.EntityFullInfo()
 
 // First call runs the operation and stores its result
-await entity.load()
+await entity.load({ symbol: 'example_symbol' })
 
 // Subsequent calls reuse the stored state
 const data = entity.data()
@@ -242,6 +225,7 @@ new ShodanEntitydbSDK(options?: {
 | `EntityFullInfo(data?)` | `EntityFullInfoEntity` | Create an EntityFullInfo entity instance. |
 | `HealthCheck(data?)` | `HealthCheckEntity` | Create a HealthCheck entity instance. |
 | `LastUpdate(data?)` | `LastUpdateEntity` | Create a LastUpdate entity instance. |
+| `LightEntity(data?)` | `LightEntityEntity` | Create a LightEntity entity instance. |
 | `tester(testopts?, sdkopts?)` | `ShodanEntitydbSDK` | Create a test-mode client instance. |
 
 #### Static methods
@@ -313,17 +297,14 @@ The `prepare()` method returns:
 
 | Field | Description |
 | --- | --- |
-| `cik` |  |
 | `entity` |  |
-| `entity_name` |  |
 | `executives` |  |
 | `finance_data` |  |
 | `id` |  |
-| `tickers` |  |
 
-Operations: list, load.
+Operations: load.
 
-API path: `/api/entities`
+API path: `/api/entities/{id}`
 
 #### EntityFullInfo
 
@@ -356,6 +337,19 @@ Operations: load.
 
 API path: `/api/last_updated`
 
+#### LightEntity
+
+| Field | Description |
+| --- | --- |
+| `cik` |  |
+| `entity_name` |  |
+| `id` |  |
+| `tickers` |  |
+
+Operations: list.
+
+API path: `/api/entities`
+
 
 
 ## Entities
@@ -369,31 +363,21 @@ Create an instance: `const entity = client.Entity()`
 
 | Method | Description |
 | --- | --- |
-| `list(match)` | List entities matching the criteria. |
 | `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `cik` | `number` |  |
 | `entity` | `Record<string, any>` |  |
-| `entity_name` | `string` |  |
 | `executives` | `any[]` |  |
 | `finance_data` | `any[]` |  |
-| `id` | `number` |  |
-| `tickers` | `any[]` |  |
+| `id` | `string` |  |
 
 #### Example: Load
 
 ```ts
 const entity = await client.Entity().load({ id: 1 })
-```
-
-#### Example: List
-
-```ts
-const entitys = await client.Entity().list()
 ```
 
 
@@ -459,6 +443,32 @@ Create an instance: `const last_update = client.LastUpdate()`
 
 ```ts
 const last_update = await client.LastUpdate().load()
+```
+
+
+### LightEntity
+
+Create an instance: `const light_entity = client.LightEntity()`
+
+#### Operations
+
+| Method | Description |
+| --- | --- |
+| `list(match)` | List entities matching the criteria. |
+
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `cik` | `number` |  |
+| `entity_name` | `string` |  |
+| `id` | `number` |  |
+| `tickers` | `any[]` |  |
+
+#### Example: List
+
+```ts
+const light_entitys = await client.LightEntity().list()
 ```
 
 ## Features
@@ -615,11 +625,11 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const lastupdate = client.LastUpdate()
-await lastupdate.load()
+const entityfullinfo = client.EntityFullInfo()
+await entityfullinfo.load({ symbol: "example" })
 
-// lastupdate.data() now returns the lastupdate data from the last `load`
-// lastupdate.match() returns the last match criteria
+// entityfullinfo.data() now returns the entityfullinfo data from the last `load`
+// entityfullinfo.match() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 // Typed models for the ShodanEntitydb SDK.
 //
-// GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-// params (op.<name>.points[].args.params[]). Field/param types come from the
+// GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+// params (op.<name>.points[].g.params[]). Field/param types come from the
 // canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 // @voxgig/apidef VALID_CANON). Do not edit by hand.
 //
@@ -15,31 +15,16 @@ declare(strict_types=1);
 /** Entity entity data model. */
 class Entity
 {
-    public int $cik;
     public array $entity;
-    public string $entity_name;
     public array $executives;
     public array $finance_data;
-    public int $id;
-    public array $tickers;
+    public ?string $id = null;
 }
 
 /** Request payload for Entity#load. */
 class EntityLoadMatch
 {
     public int $id;
-}
-
-/** Request payload for Entity#list. */
-class EntityListMatch
-{
-    public ?int $cik = null;
-    public ?array $entity = null;
-    public ?string $entity_name = null;
-    public ?array $executives = null;
-    public ?array $finance_data = null;
-    public ?int $id = null;
-    public ?array $tickers = null;
 }
 
 /** EntityFullInfo entity data model. */
@@ -76,5 +61,23 @@ class LastUpdate
 class LastUpdateLoadMatch
 {
     public ?string $last_updated = null;
+}
+
+/** LightEntity entity data model. */
+class LightEntity
+{
+    public int $cik;
+    public string $entity_name;
+    public int $id;
+    public array $tickers;
+}
+
+/** Request payload for LightEntity#list. */
+class LightEntityListMatch
+{
+    public ?int $cik = null;
+    public ?string $entity_name = null;
+    public ?int $id = null;
+    public ?array $tickers = null;
 }
 

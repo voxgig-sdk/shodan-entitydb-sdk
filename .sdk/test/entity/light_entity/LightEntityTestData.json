@@ -1,0 +1,40 @@
+{
+  "existing": {
+    "light_entity": {
+      "LIGHT_ENTITY00": {
+        "cik": 40,
+        "entity_name": "s29",
+        "id": "LIGHT_ENTITY00",
+        "tickers": []
+      },
+      "LIGHT_ENTITY01": {
+        "cik": 80,
+        "entity_name": "s51",
+        "id": "LIGHT_ENTITY01",
+        "tickers": []
+      },
+      "LIGHT_ENTITY02": {
+        "cik": 120,
+        "entity_name": "s79",
+        "id": "LIGHT_ENTITY02",
+        "tickers": []
+      }
+    }
+  },
+  "new": {
+    "light_entity": {
+      "light_entity_ref01": {
+        "cik": 160,
+        "entity_name": "sa1",
+        "tickers": []
+      }
+    }
+  },
+  "requests": {
+    "GET /api/entities": {
+      "provenance": "operation-contract",
+      "version": 2,
+      "source": "openapi3"
+    }
+  }
+}

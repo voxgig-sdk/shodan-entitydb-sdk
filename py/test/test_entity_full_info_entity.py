@@ -70,7 +70,7 @@ def _entity_full_info_basic_setup(extra):
 
     # Generate idmap via transform.
     idmap = vs.transform(
-        ["entity_full_info01", "entity_full_info02", "entity_full_info03", "symbol01", "symbol02", "symbol03"],
+        ["entity_full_info01", "entity_full_info02", "entity_full_info03"],
         {
             "`$PACK`": ["", {
                 "`$KEY`": "`$COPY`",

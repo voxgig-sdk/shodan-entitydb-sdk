@@ -16,12 +16,6 @@ const FEATURE_CLASS: Record<string, typeof BaseFeature> = {
 }
 
 
-// Per-feature plugin DEFINITIONS (voxgig/plugin `Definition` values), from
-// the model's active plugin groups. A feature that takes a `plugins` option
-// (secrets over sekreto) reads its own entry; a feature with no plugins has
-// none. Named imports above make each definition statically reachable, so
-// an SDK carries exactly the plugin modules its model selects — the same
-// leanness the old side-effect registry imports bought, without a registry.
 const FEATURE_PLUGINS: Record<string, any[]> = {
   
 }
@@ -32,7 +26,6 @@ class Config {
   makeFeature(this: any, fn: string) {
     const fc = FEATURE_CLASS[fn]
     const fi = new fc()
-    // TODO: errors etc
     return fi
   }
 
@@ -139,6 +132,9 @@ class Config {
         last_update: {
         },
   
+        light_entity: {
+        },
+  
     }
   }
 
@@ -147,49 +143,27 @@ class Config {
     "entity": {
       "fields": [
         {
-          "name": "cik",
-          "req": true,
-          "type": "`$INTEGER`"
-        },
-        {
           "name": "entity",
-          "req": true,
-          "type": "`$OBJECT`"
-        },
-        {
-          "name": "entity_name",
-          "req": true,
-          "type": "`$STRING`"
+          "title": "Entity",
+          "type": "`$OBJECT`",
+          "req": true
         },
         {
           "name": "executives",
-          "req": true,
+          "title": "Executives",
           "type": "`$ARRAY`",
-          "union": {
-            "branches": 2,
-            "count": 3,
-            "depth": 3
-          }
+          "req": true
         },
         {
           "name": "finance_data",
-          "req": true,
+          "title": "Finance Data",
           "type": "`$ARRAY`",
-          "union": {
-            "branches": 2,
-            "count": 13,
-            "depth": 3
-          }
+          "req": true
         },
         {
           "name": "id",
-          "req": true,
-          "type": "`$INTEGER`"
-        },
-        {
-          "name": "tickers",
-          "req": true,
-          "type": "`$ARRAY`"
+          "title": "Id",
+          "type": "`$STRING`"
         }
       ],
       "id": {
@@ -198,52 +172,11 @@ class Config {
       },
       "name": "entity",
       "op": {
-        "list": {
-          "input": "data",
-          "name": "list",
-          "points": [
-            {
-              "args": {},
-              "kind": "http",
-              "method": "GET",
-              "orig": "/api/entities",
-              "segments": [
-                {
-                  "lit": "api"
-                },
-                {
-                  "lit": "entities"
-                }
-              ],
-              "select": {},
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body.entities`"
-              },
-              "parts": [
-                "api",
-                "entities"
-              ]
-            }
-          ]
-        },
         "load": {
           "input": "data",
           "name": "load",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "example": 3,
-                    "kind": "param",
-                    "name": "id",
-                    "orig": "id",
-                    "reqd": true,
-                    "type": "`$INTEGER`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "GET",
               "orig": "/api/entities/{id}",
@@ -258,20 +191,33 @@ class Config {
                   "var": "id"
                 }
               ],
-              "select": {
-                "exist": [
-                  "id"
-                ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body.entity`"
-              },
               "parts": [
                 "api",
                 "entities",
                 "{id}"
-              ]
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body.entity`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "id",
+                    "orig": "id",
+                    "type": "`$INTEGER`",
+                    "kind": "param",
+                    "reqd": true,
+                    "example": 3
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "id"
+                ]
+              }
             }
           ]
         }
@@ -284,28 +230,21 @@ class Config {
       "fields": [
         {
           "name": "entity",
-          "req": true,
-          "type": "`$OBJECT`"
+          "title": "Entity",
+          "type": "`$OBJECT`",
+          "req": true
         },
         {
           "name": "executives",
-          "req": true,
+          "title": "Executives",
           "type": "`$ARRAY`",
-          "union": {
-            "branches": 2,
-            "count": 3,
-            "depth": 3
-          }
+          "req": true
         },
         {
           "name": "finance_data",
-          "req": true,
+          "title": "Finance Data",
           "type": "`$ARRAY`",
-          "union": {
-            "branches": 2,
-            "count": 13,
-            "depth": 3
-          }
+          "req": true
         }
       ],
       "name": "entity_full_info",
@@ -315,18 +254,6 @@ class Config {
           "name": "load",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "example": "GOOGL",
-                    "kind": "param",
-                    "name": "symbol",
-                    "orig": "symbol",
-                    "reqd": true,
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "GET",
               "orig": "/api/entities/symbol/{symbol}",
@@ -344,31 +271,40 @@ class Config {
                   "var": "symbol"
                 }
               ],
-              "select": {
-                "exist": [
-                  "symbol"
-                ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
               "parts": [
                 "api",
                 "entities",
                 "symbol",
                 "{symbol}"
-              ]
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "params": [
+                  {
+                    "name": "symbol",
+                    "orig": "symbol",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true,
+                    "example": "GOOGL"
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "symbol"
+                ]
+              }
             }
           ]
         }
       },
       "relations": {
-        "ancestors": [
-          [
-            "symbol"
-          ]
-        ]
+        "ancestors": []
       }
     },
     "health_check": {
@@ -380,7 +316,6 @@ class Config {
           "name": "load",
           "points": [
             {
-              "args": {},
               "kind": "http",
               "method": "GET",
               "orig": "/health_check",
@@ -389,14 +324,16 @@ class Config {
                   "lit": "health_check"
                 }
               ],
-              "select": {},
+              "parts": [
+                "health_check"
+              ],
+              "rename": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
               },
-              "parts": [
-                "health_check"
-              ]
+              "args": {},
+              "select": {}
             }
           ]
         }
@@ -409,8 +346,9 @@ class Config {
       "fields": [
         {
           "name": "last_updated",
-          "req": true,
-          "type": "`$STRING`"
+          "title": "Last Updated",
+          "type": "`$STRING`",
+          "req": true
         }
       ],
       "name": "last_update",
@@ -420,7 +358,6 @@ class Config {
           "name": "load",
           "points": [
             {
-              "args": {},
               "kind": "http",
               "method": "GET",
               "orig": "/api/last_updated",
@@ -432,15 +369,85 @@ class Config {
                   "lit": "last_updated"
                 }
               ],
-              "select": {},
+              "parts": [
+                "api",
+                "last_updated"
+              ],
+              "rename": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
               },
+              "args": {},
+              "select": {}
+            }
+          ]
+        }
+      },
+      "relations": {
+        "ancestors": []
+      }
+    },
+    "light_entity": {
+      "fields": [
+        {
+          "name": "cik",
+          "title": "Cik",
+          "type": "`$INTEGER`",
+          "req": true
+        },
+        {
+          "name": "entity_name",
+          "title": "Entity Name",
+          "type": "`$STRING`",
+          "req": true
+        },
+        {
+          "name": "id",
+          "title": "Id",
+          "type": "`$INTEGER`",
+          "req": true
+        },
+        {
+          "name": "tickers",
+          "title": "Tickers",
+          "type": "`$ARRAY`",
+          "req": true
+        }
+      ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
+      "name": "light_entity",
+      "op": {
+        "list": {
+          "input": "data",
+          "name": "list",
+          "points": [
+            {
+              "kind": "http",
+              "method": "GET",
+              "orig": "/api/entities",
+              "segments": [
+                {
+                  "lit": "api"
+                },
+                {
+                  "lit": "entities"
+                }
+              ],
               "parts": [
                 "api",
-                "last_updated"
-              ]
+                "entities"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body.entities`"
+              },
+              "args": {},
+              "select": {}
             }
           ]
         }

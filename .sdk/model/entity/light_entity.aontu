@@ -1,0 +1,71 @@
+# Entity: light_entity
+
+main: kit: entity: light_entity: {
+
+  alias: field: {}
+
+  fields: {
+    cik: {
+      h: "Cik"
+      n: "cik"
+      r: true
+      t: "`$INTEGER`"
+    }
+    entity_name: {
+      h: "Entity Name"
+      n: "entity_name"
+      r: true
+      t: "`$STRING`"
+    }
+    id: {
+      h: "Id"
+      n: "id"
+      r: true
+      t: "`$INTEGER`"
+    }
+    tickers: {
+      h: "Tickers"
+      n: "tickers"
+      r: true
+      t: "`$ARRAY`"
+    }
+  }
+
+  id: {
+    field: "id"
+    name: "id"
+  }
+
+  name: "light_entity"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          co: {
+            id: "GET /api/entities"
+            source: "openapi3"
+            version: 2
+          }
+          m: "GET"
+          o: "/api/entities"
+          s: [
+            {
+              lit: "api"
+            }
+            {
+              lit: "entities"
+            }
+          ]
+          t: {
+            req: "`reqdata`"
+            res: "`body.entities`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

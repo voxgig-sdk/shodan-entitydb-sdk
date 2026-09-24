@@ -70,7 +70,7 @@ function entity_full_info_basic_setup($extra)
 
     // Generate idmap.
     $idmap = [];
-    foreach (["entity_full_info01", "entity_full_info02", "entity_full_info03", "symbol01", "symbol02", "symbol03"] as $k) {
+    foreach (["entity_full_info01", "entity_full_info02", "entity_full_info03"] as $k) {
         $idmap[$k] = strtoupper($k);
     }
 

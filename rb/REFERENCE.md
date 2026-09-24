@@ -57,6 +57,10 @@ Create a new `HealthCheck` entity instance. Pass `nil` for no initial data.
 
 Create a new `LastUpdate` entity instance. Pass `nil` for no initial data.
 
+#### `LightEntity(data = nil)`
+
+Create a new `LightEntity` entity instance. Pass `nil` for no initial data.
+
 #### `options_map -> Hash`
 
 Return a deep copy of the current SDK options.
@@ -105,23 +109,12 @@ entity = client.Entity
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `cik` | `Integer` | Yes |  |
 | `entity` | `Hash` | Yes |  |
-| `entity_name` | `String` | Yes |  |
 | `executives` | `Array` | Yes |  |
 | `finance_data` | `Array` | Yes |  |
-| `id` | `Integer` | Yes |  |
-| `tickers` | `Array` | Yes |  |
+| `id` | `String` | No |  |
 
 ### Operations
-
-#### `list(reqmatch = nil, ctrl = nil) -> Array`
-
-List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
-
-```ruby
-results = client.Entity.list
-```
 
 #### `load(reqmatch, ctrl = nil) -> result`
 
@@ -304,6 +297,61 @@ Set the entity match criteria.
 #### `make -> Entity`
 
 Create a new `LastUpdateEntity` instance with the same client and
+options.
+
+#### `get_name -> String`
+
+Return the entity name.
+
+
+---
+
+## LightEntityEntity
+
+```ruby
+light_entity = client.LightEntity
+```
+
+### Fields
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `cik` | `Integer` | Yes |  |
+| `entity_name` | `String` | Yes |  |
+| `id` | `Integer` | Yes |  |
+| `tickers` | `Array` | Yes |  |
+
+### Operations
+
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
+
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
+
+```ruby
+results = client.LightEntity.list
+```
+
+### Common Methods
+
+#### `data_get -> Hash`
+
+Get the entity data. Returns a copy of the current data.
+
+#### `data_set(data)`
+
+Set the entity data.
+
+#### `match_get -> Hash`
+
+Get the entity match criteria.
+
+#### `match_set(match)`
+
+Set the entity match criteria.
+
+#### `make -> Entity`
+
+Create a new `LightEntityEntity` instance with the same client and
 options.
 
 #### `get_name -> String`

@@ -36,29 +36,14 @@ from shodanentitydb_sdk import ShodanEntitydbSDK
 client = ShodanEntitydbSDK()
 ```
 
-### 2. List entity records
+### 3. Load an entity
 
-`list()` returns a `list` of records (each a `dict`) and raises on
-error — iterate it directly.
-
-```python
-try:
-    entitys = client.Entity().list()
-    for entity in entitys:
-        print(entity)
-except Exception as err:
-    print(f"list failed: {err}")
-```
-
-### 3. Load an entityfullinfo
-
-EntityFullInfo is nested under symbol, so provide the `symbol`.
 `load()` returns the ENTITY — call data_get() for the record — and raises on error.
 
 ```python
 try:
-    entityfullinfo = client.EntityFullInfo().load({"symbol": "example_symbol"})
-    print(entityfullinfo)
+    entity = client.Entity().load({"id": 1})
+    print(entity)
 except Exception as err:
     print(f"load failed: {err}")
 ```
@@ -70,8 +55,8 @@ Entity operations raise on failure, so wrap them in `try` / `except`:
 
 ```python
 try:
-    lastupdate = client.LastUpdate().load()
-    print(lastupdate)
+    entityfullinfo = client.EntityFullInfo().load({"symbol": "example"})
+    print(entityfullinfo)
 except Exception as err:
     print(f"load failed: {err}")
 ```
@@ -139,8 +124,8 @@ client = ShodanEntitydbSDK.test()
 
 # Entity ops return the ENTITY and raises on error;
 # call data_get() for the record.
-lastupdate = client.LastUpdate().load()
-# lastupdate contains the mock response record
+entityfullinfo = client.EntityFullInfo().load({"symbol": "example"})
+# entityfullinfo contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -220,6 +205,7 @@ Creates a test-mode client with mock transport. Both arguments may be `None`.
 | `EntityFullInfo` | `(data) -> EntityFullInfoEntity` | Create an EntityFullInfo entity instance. |
 | `HealthCheck` | `(data) -> HealthCheckEntity` | Create a HealthCheck entity instance. |
 | `LastUpdate` | `(data) -> LastUpdateEntity` | Create a LastUpdate entity instance. |
+| `LightEntity` | `(data) -> LightEntityEntity` | Create a LightEntity entity instance. |
 
 ### Entity interface
 
@@ -260,17 +246,14 @@ On error, `ok` is `False` and `err` contains the error value.
 
 | Field | Description |
 | --- | --- |
-| `cik` |  |
 | `entity` |  |
-| `entity_name` |  |
 | `executives` |  |
 | `finance_data` |  |
 | `id` |  |
-| `tickers` |  |
 
-Operations: List, Load.
+Operations: Load.
 
-API path: `/api/entities`
+API path: `/api/entities/{id}`
 
 #### EntityFullInfo
 
@@ -303,6 +286,19 @@ Operations: Load.
 
 API path: `/api/last_updated`
 
+#### LightEntity
+
+| Field | Description |
+| --- | --- |
+| `cik` |  |
+| `entity_name` |  |
+| `id` |  |
+| `tickers` |  |
+
+Operations: List.
+
+API path: `/api/entities`
+
 
 
 ## Entities
@@ -316,31 +312,21 @@ Create an instance: `entity = client.Entity()`
 
 | Method | Description |
 | --- | --- |
-| `list()` | List entities, optionally matching the given criteria. |
 | `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `cik` | `int` |  |
 | `entity` | `dict` |  |
-| `entity_name` | `str` |  |
 | `executives` | `list` |  |
 | `finance_data` | `list` |  |
-| `id` | `int` |  |
-| `tickers` | `list` |  |
+| `id` | `str` |  |
 
 #### Example: Load
 
 ```python
 entity = client.Entity().load({"id": 1})
-```
-
-#### Example: List
-
-```python
-entitys = client.Entity().list()
 ```
 
 
@@ -406,6 +392,32 @@ Create an instance: `last_update = client.LastUpdate()`
 
 ```python
 last_update = client.LastUpdate().load()
+```
+
+
+### LightEntity
+
+Create an instance: `light_entity = client.LightEntity()`
+
+#### Operations
+
+| Method | Description |
+| --- | --- |
+| `list()` | List entities, optionally matching the given criteria. |
+
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `cik` | `int` |  |
+| `entity_name` | `str` |  |
+| `id` | `int` |  |
+| `tickers` | `list` |  |
+
+#### Example: List
+
+```python
+light_entitys = client.LightEntity().list()
 ```
 
 ## Features
@@ -569,11 +581,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-lastupdate = client.LastUpdate()
-lastupdate.load()
+entityfullinfo = client.EntityFullInfo()
+entityfullinfo.load({"symbol": "example"})
 
-# lastupdate.data_get() now returns the lastupdate data from the last load
-# lastupdate.match_get() returns the last match criteria
+# entityfullinfo.data_get() now returns the entityfullinfo data from the last load
+# entityfullinfo.match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

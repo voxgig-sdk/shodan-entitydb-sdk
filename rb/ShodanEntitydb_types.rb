@@ -2,22 +2,16 @@
 
 # Typed models for the ShodanEntitydb SDK.
 #
-# GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-# params (op.<name>.points[].args.params[]). Member types come from the
+# GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+# params (op.<name>.points[].g.params[]). Member types come from the
 # canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 # @voxgig/apidef VALID_CANON). Ruby types are unenforced; these YARD
 # annotations document the shapes. Do not edit by hand.
 
 # Entity entity data model.
 #
-# @!attribute [rw] cik
-#   @return [Integer]
-#
 # @!attribute [rw] entity
 #   @return [Hash]
-#
-# @!attribute [rw] entity_name
-#   @return [String]
 #
 # @!attribute [rw] executives
 #   @return [Array]
@@ -26,18 +20,12 @@
 #   @return [Array]
 #
 # @!attribute [rw] id
-#   @return [Integer]
-#
-# @!attribute [rw] tickers
-#   @return [Array]
+#   @return [String, nil]
 Entity = Struct.new(
-  :cik,
   :entity,
-  :entity_name,
   :executives,
   :finance_data,
   :id,
-  :tickers,
   keyword_init: true
 )
 
@@ -47,39 +35,6 @@ Entity = Struct.new(
 #   @return [Integer]
 EntityLoadMatch = Struct.new(
   :id,
-  keyword_init: true
-)
-
-# Request payload for Entity#list.
-#
-# @!attribute [rw] cik
-#   @return [Integer, nil]
-#
-# @!attribute [rw] entity
-#   @return [Hash, nil]
-#
-# @!attribute [rw] entity_name
-#   @return [String, nil]
-#
-# @!attribute [rw] executives
-#   @return [Array, nil]
-#
-# @!attribute [rw] finance_data
-#   @return [Array, nil]
-#
-# @!attribute [rw] id
-#   @return [Integer, nil]
-#
-# @!attribute [rw] tickers
-#   @return [Array, nil]
-EntityListMatch = Struct.new(
-  :cik,
-  :entity,
-  :entity_name,
-  :executives,
-  :finance_data,
-  :id,
-  :tickers,
   keyword_init: true
 )
 
@@ -132,6 +87,48 @@ LastUpdate = Struct.new(
 #   @return [String, nil]
 LastUpdateLoadMatch = Struct.new(
   :last_updated,
+  keyword_init: true
+)
+
+# LightEntity entity data model.
+#
+# @!attribute [rw] cik
+#   @return [Integer]
+#
+# @!attribute [rw] entity_name
+#   @return [String]
+#
+# @!attribute [rw] id
+#   @return [Integer]
+#
+# @!attribute [rw] tickers
+#   @return [Array]
+LightEntity = Struct.new(
+  :cik,
+  :entity_name,
+  :id,
+  :tickers,
+  keyword_init: true
+)
+
+# Request payload for LightEntity#list.
+#
+# @!attribute [rw] cik
+#   @return [Integer, nil]
+#
+# @!attribute [rw] entity_name
+#   @return [String, nil]
+#
+# @!attribute [rw] id
+#   @return [Integer, nil]
+#
+# @!attribute [rw] tickers
+#   @return [Array, nil]
+LightEntityListMatch = Struct.new(
+  :cik,
+  :entity_name,
+  :id,
+  :tickers,
   keyword_init: true
 )
 

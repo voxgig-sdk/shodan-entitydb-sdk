@@ -1,7 +1,7 @@
 # Typed models for the ShodanEntitydb SDK.
 #
-# GENERATED from the API model: main.kit.entity.<e>.fields[] and per-op
-# params (op.<name>.points[].args.params[]). Field/param types come from the
+# GENERATED from the API model: main.kit.entity.<e>.fields{} and per-op
+# params (op.<name>.points[].g.params[]). Field/param types come from the
 # canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 # @voxgig/apidef VALID_CANON). Do not edit by hand.
 #
@@ -16,28 +16,18 @@ from __future__ import annotations
 from typing import TypedDict, Any
 
 
-class Entity(TypedDict):
-    cik: int
+class EntityRequired(TypedDict):
     entity: dict
-    entity_name: str
     executives: list
     finance_data: list
-    id: int
-    tickers: list
+
+
+class Entity(EntityRequired, total=False):
+    id: str
 
 
 class EntityLoadMatch(TypedDict):
     id: int
-
-
-class EntityListMatch(TypedDict, total=False):
-    cik: int
-    entity: dict
-    entity_name: str
-    executives: list
-    finance_data: list
-    id: int
-    tickers: list
 
 
 class EntityFullInfo(TypedDict):
@@ -64,3 +54,17 @@ class LastUpdate(TypedDict):
 
 class LastUpdateLoadMatch(TypedDict, total=False):
     last_updated: str
+
+
+class LightEntity(TypedDict):
+    cik: int
+    entity_name: str
+    id: int
+    tickers: list
+
+
+class LightEntityListMatch(TypedDict, total=False):
+    cik: int
+    entity_name: str
+    id: int
+    tickers: list

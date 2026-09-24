@@ -98,7 +98,7 @@ func entity_full_infoBasicSetup(extra map[string]any) *entityTestSetup {
 
 	// Generate idmap via transform, matching TS pattern.
 	idmap, _ := vs.Transform(
-		[]any{"entity_full_info01", "entity_full_info02", "entity_full_info03", "symbol01", "symbol02", "symbol03"},
+		[]any{"entity_full_info01", "entity_full_info02", "entity_full_info03"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
 				"`$KEY`": "`$COPY`",
